@@ -1,0 +1,42 @@
+.main-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+.chats {
+  height: 450px;
+  margin-top: 50px;
+  width: 70%;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    &__header {
+      padding: 10px;
+      padding: 10px;
+      width: 200px;
+    }
+    &__list {
+      width: 200px;
+      height: 80%;
+    }
+    &__prfl {
+      color: #9BA3C0;
+      margin-left: 120px;
+      margin-bottom: -30px;
+    }
+    &__span {
+      width: 2px;
+      height: 450px;
+      background-color: #c9c9c9;
+      display: flex;
+      margin-left: 30px;
+    }
+    &__form {
+      width: 300px;
+      height: 100px;
+      background-color: #c9c9c9;
+    }
+}

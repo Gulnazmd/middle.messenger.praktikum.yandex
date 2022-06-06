@@ -20,10 +20,14 @@
     margin-bottom: 8px;
     padding: 5px;
   }
+  &__error {
+    font-size: 9px;
+    color: red;
+    margin-bottom: 8px;
+}
 }
 
 .input:focus-visible {
-
   color: #212529;
   background-color: #fff;
   border-color: #bdbdbd;

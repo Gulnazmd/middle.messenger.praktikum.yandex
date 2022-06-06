@@ -3,11 +3,10 @@ import input from '../../components/input/input';
 import '../../pages/main.css'
 
 const content = `
-
         <form action="" method="post" class="form">
             <div class="title form__title">Sign In</div>
-                ${input({label: 'Login', name: 'login', value: '{{login}}', maxlength: '90', type: 'text'})}
-                ${input({ label: 'Password', name: 'password', value: '{{password}}', maxlength: '90', type: 'password' })}
+                ${new input({label: 'Login', name: 'login', value: '{{login}}', type: 'text', placeholder: 'placeholder', error: '{{error}}'})}
+                ${new input({label: 'Password', name: 'password', value: '{{password}}', type: 'password', placeholder: 'placeholder', error: '{{error}}' })}
                     <div>
                         ${button('Sign In')}
                     </div>
