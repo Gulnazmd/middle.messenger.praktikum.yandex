@@ -2,8 +2,11 @@
   "name": "messenger",
   "source": "index.html",
   "scripts": {
-    "start": "parcel index.html -p 3000",
-    "build": "parcel build index.html"
+    "start": "parcel src/index.html -p 3000",
+    "build": "parcel src/index.html"
+  },
+  "alias": {
+    "core": "./src/core"
   },
   "devDependencies": {
     "@types/uuid": "^8.3.4",
@@ -39,6 +42,7 @@
     "dotenv": "^10.0.0",
     "esm": "^3.2.25",
     "handlebars": "^4.7.7",
+    "module-alias": "^2.2.2",
     "parcel": "^2.5.0",
     "uuid": "^8.3.2"
   }

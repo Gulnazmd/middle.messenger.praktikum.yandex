@@ -1,9 +1,8 @@
-import Handlebars from 'handlebars';
-import tmpl from './input.tmpl';
 import Block from '../../core/block';
-
+import './input.css';
 
 type InputProps = {
+    onChange?: () => void;
     type: 'text' | 'password' | 'email' | 'number';
     placeholder: string;
     value: string;
@@ -12,15 +11,17 @@ type InputProps = {
     name: string;
 }
 
-export default class Input extends Block {
-    constructor({ type = 'text', error, label, name, placeholder, value }: InputProps) {
-        super({ type, placeholder, label, value, name, error });
+export class Input extends Block  {
+    constructor({ onChange = () => { }, type = 'text', error, label, name, placeholder, value }: InputProps) {
+        super({ type, placeholder, label, value, name, error, events: {input: onChange}});
     }
 
     protected render(): string {
-        const { error } = this.props;
-        const context = this.props.context as InputProps;
-        return Handlebars.compile(tmpl, {noEscape: true})({...context, value: this.props.value, error, thisError: Boolean(error)});
-     }
-
+        return `
+        <div>
+            <label for={{id}} class="input__label">{{label}}</label>
+            <input class="input input__error-{{thisError}}" id={{id}} type={{type}} name={{name}} value={{value}}  placeholder={{placeholder}}>
+            <span class="input__error">{{error}}</span>
+        </div>`
+      }
 }

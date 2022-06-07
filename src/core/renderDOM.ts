@@ -1,6 +1,6 @@
 import Block from './block';
 
-export default function renderDOM(block: Block) {
+export default function RenderDOM(block: Block) {
   const root = document.querySelector('#content');
 
   root!.innerHTML = '';
