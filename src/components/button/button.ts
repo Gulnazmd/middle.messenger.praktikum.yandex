@@ -1,4 +1,4 @@
-import Block from '../../core/block';
+import Block from 'core/block';
 
 import './button.css';
 
@@ -8,12 +8,11 @@ interface ButtonProps {
 }
 
 export class Button extends Block {
-  constructor({text, onClick}: ButtonProps) {
-    super({text, events: {click: onClick}});
+  constructor({ text, onClick }: ButtonProps) {
+    super({ text, events: { click: onClick } });
   }
 
   protected render(): string {
-    // language=hbs
     return `
         <button class="button" type="button">{{text}}</button>
     `;

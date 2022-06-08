@@ -3,15 +3,18 @@
   "source": "index.html",
   "scripts": {
     "start": "parcel src/index.html -p 3000",
-    "build": "parcel src/index.html"
+    "build": "parcel src/index.html",
+    "lint": "eslint . --fix --ext .js,.ts"
   },
   "alias": {
-    "core": "./src/core"
+    "core": "./src/core",
+    "pages": "./src/pages",
+    "components": "./src/components"
   },
   "devDependencies": {
     "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.27.0",
-    "@typescript-eslint/parser": "^5.27.0",
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/parser": "^5.27.1",
     "assert": "^2.0.0",
     "autoprefixer": "^10.4.7",
     "browserify-zlib": "^0.2.0",
@@ -43,6 +46,7 @@
     "esm": "^3.2.25",
     "handlebars": "^4.7.7",
     "module-alias": "^2.2.2",
+    "nanoid": "^4.0.0",
     "parcel": "^2.5.0",
     "uuid": "^8.3.2"
   }

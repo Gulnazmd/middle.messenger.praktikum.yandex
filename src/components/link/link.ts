@@ -1,4 +1,4 @@
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 import './link.css';
 
@@ -9,14 +9,14 @@ interface LinkProps {
 
 export class Link extends Block {
   constructor(props: LinkProps) {
-    const onClick = (e: MouseEvent) => {
-      console.log("link click");
-    }
+    const onClick = (_e: MouseEvent) => {
+      console.log('link click');
+    };
 
-    super({...props, events: { click: onClick }});
+    super({ ...props, events: { click: onClick } });
   }
 
   render() {
-    return `<a href="{{to}}">{{text}}</a>`;
+    return `<a class="link" href="{{to}}">{{text}}</a>`;
   }
 }

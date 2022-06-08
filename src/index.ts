@@ -1,11 +1,12 @@
-import LoginPage from './pages/login';
-import {RenderDOM, RegisterComponent} from './core';
+import LoginPage from 'pages/login';
+import RegPage from 'pages/registration';
+import { RenderDOM, RegisterComponent } from 'core';
 import './style.css';
 import {
   Button,
   Link,
-  Input
-} from './components';
+  Input,
+} from 'components';
 
 function registerComponents() {
   RegisterComponent(Button);
@@ -13,7 +14,18 @@ function registerComponents() {
   RegisterComponent(Input);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   registerComponents();
-  RenderDOM(new LoginPage({}));
-})
+
+  switch (window.location.pathname) {
+    case '':
+    case '/':
+      RenderDOM(new LoginPage({}));
+      break;
+    case '/registration':
+      RenderDOM(new RegPage({}));
+      break;
+    default:
+      console.log('nothing');
+  }
+});

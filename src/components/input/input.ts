@@ -9,19 +9,24 @@ type InputProps = {
     error: string;
     label: string;
     name: string;
+    email: string;
 }
 
-export class Input extends Block  {
-    constructor({ onChange = () => { }, type = 'text', error, label, name, placeholder, value }: InputProps) {
-        super({ type, placeholder, label, value, name, error, events: {input: onChange}});
-    }
+export class Input extends Block {
+  constructor({
+    onChange = () => { }, type = 'text', error, label, email, name, placeholder, value,
+  }: InputProps) {
+    super({
+      type, placeholder, label, email, value, name, error, events: { input: onChange },
+    });
+  }
 
-    protected render(): string {
-        return `
-        <div>
-            <label for={{id}} class="input__label">{{label}}</label>
-            <input class="input input__error-{{thisError}}" id={{id}} type={{type}} name={{name}} value={{value}}  placeholder={{placeholder}}>
+  protected render(): string {
+    return `
+        <div class="inputDiv">
+            <label class="label" for={{id}}>{{label}}</label>
+            <input class="input input__error-{{thisError}}" onChange() id={{id}} type={{type}} name={{name}} value={{value}}  placeholder={{placeholder}}>
             <span class="input__error">{{error}}</span>
-        </div>`
-      }
+        </div>`;
+  }
 }

@@ -1,9 +1,9 @@
-a.link {
-  color: var(--message-color);
+.link {
+  color: #F8A488;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 18px;
 }
 
-a.link:hover {
+.link:hover {
   opacity: 0.6;
 }

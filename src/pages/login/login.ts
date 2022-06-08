@@ -1,5 +1,5 @@
-import Block from '../../core/Block';
-import '../../pages/main.css'
+import Block from 'core/block';
+import 'pages/main.css';
 
 export class LoginPage extends Block {
   protected getStateFromProps() {
@@ -15,7 +15,7 @@ export class LoginPage extends Block {
       onLogin: () => {
         const loginData = {
           login: (this.refs.login.firstElementChild as HTMLInputElement).value,
-          password: (this.refs.password.firstElementChild as HTMLInputElement).value
+          password: (this.refs.password.firstElementChild as HTMLInputElement).value,
         };
 
         const nextState = {
@@ -31,52 +31,55 @@ export class LoginPage extends Block {
         } else if (loginData.login.length < 4) {
           nextState.errors.login = 'Login should contain more than 3 chars';
         }
-
         if (!loginData.password) {
           nextState.errors.password = 'Password is required';
         }
 
         this.setState(nextState);
 
-        console.log('action/login', loginData);
-      }
-    }
+        // console.log('action/login', loginData);
+      },
+
+    };
   }
 
   render() {
     const { errors, values } = this.state;
 
-    // language=hbs
     return `
-    <form action="" method="post" class="form">
-    <div class="title form__title">Sign In</div>
+    <div>
+        <form action="" method="post" class="form">
+        <div class="title form__title">Sign In</div>
 
-    {{{Input
-      value="${values.login}"
-      error="${errors.login}"
-      label='Login'
-      ref="login"
-      id="login"
-      type="text"
-      placeholder="Login"
-    }}}
-    {{{Input
-      value="${values.password}"
-      error="${errors.password}"
-      label='Password'
-      ref="password"
-      id="password"
-      type="password"
-      placeholder="Password"
-    }}}
+        {{{Input
+          value="${values.login}"
+          error="${errors.login}"
+          label='Login'
+          ref="login"
+          id="login"
+          type="text"
+          placeholder="Login"
+          onChange=onChange
+        }}}
+        {{{Input
+          value="${values.password}"
+          error="${errors.password}"
+          label='Password'
+          ref="password"
+          id="password"
+          type="password"
+          placeholder="Password"
+          onChange=onChange
+        }}}
 
-    {{{Button
-      text="Sign In"
-      onClick=onLogin
-    }}}
-    <small>You don't have an account?</small>
-    {{{Link text="Register" to="/registration"}}}
-</form>
-    `;
+        {{{Button
+          text="Sign In"
+          onClick=onLogin
+        }}} </br>
+        <small>You don't have an account?</small>
+        {{{Link text="Register" to="./registration"}}}
+    </form>
+    </div>
+        `;
   }
 }

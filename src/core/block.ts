@@ -1,6 +1,6 @@
-import EventBus from './eventBus';
-import {nanoid} from 'nanoid';
+import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
+import EventBus from './eventBus';
 
 interface BlockMeta<P = any> {
   props: P;
@@ -13,19 +13,23 @@ export default class Block<P = any> {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_RENDER: 'flow:render',
-    FLOW_CDU: 'flow:component-did-update'
+    FLOW_CDU: 'flow:component-did-update',
   } as const;
 
   public id = nanoid(6);
+
   private readonly _meta: BlockMeta;
 
   protected _element: Nullable<HTMLElement> = null;
+
   protected readonly props: P;
+
   protected children: {[id: string]: Block} = {};
 
   eventBus: () => EventBus<Events>;
 
   protected state: any = {};
+
   protected refs: {[key: string]: HTMLElement} = {};
 
   public constructor(props?: P) {
@@ -35,7 +39,7 @@ export default class Block<P = any> {
       props,
     };
 
-    this.getStateFromProps(props)
+    this.getStateFromProps(props);
 
     this.props = this._makePropsProxy(props || {} as P);
     this.state = this._makePropsProxy(this.state);
@@ -120,16 +124,16 @@ export default class Block<P = any> {
 
   protected render(): string {
     return '';
-  };
+  }
 
   getContent(): HTMLElement {
     // Хак, чтобы вызвать CDM только после добавления в DOM
     if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
       setTimeout(() => {
-        if (this.element?.parentNode?.nodeType !==  Node.DOCUMENT_FRAGMENT_NODE ) {
+        if (this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
           this.eventBus().emit(Block.EVENTS.FLOW_CDM);
         }
-      }, 100)
+      }, 100);
     }
 
     return this.element!;
@@ -150,7 +154,7 @@ export default class Block<P = any> {
 
         // Запускаем обновление компоненты
         // Плохой cloneDeep, в след итерации нужно заставлять добавлять cloneDeep им самим
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU, {...target}, target);
+        self.eventBus().emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
         return true;
       },
       deleteProperty() {
@@ -164,12 +168,11 @@ export default class Block<P = any> {
   }
 
   _removeEvents() {
-    const events: Record<string, () => void> = (this.props as any).events;
+    const { events } = this.props as any;
 
     if (!events || !this._element) {
       return;
     }
-
 
     Object.entries(events).forEach(([event, listener]) => {
       this._element!.removeEventListener(event, listener);
@@ -177,7 +180,7 @@ export default class Block<P = any> {
   }
 
   _addEvents() {
-    const events: Record<string, () => void> = (this.props as any).events;
+    const { events } = this.props as any;
 
     if (!events) {
       return;
@@ -195,7 +198,9 @@ export default class Block<P = any> {
      * Рендерим шаблон
      */
     const template = Handlebars.compile(this.render());
-    fragment.innerHTML = template({ ...this.state, ...this.props, children: this.children, refs: this.refs });
+    fragment.innerHTML = template({
+      ...this.state, ...this.props, children: this.children, refs: this.refs,
+    });
 
     /**
      * Заменяем заглушки на компоненты
@@ -233,7 +238,6 @@ export default class Block<P = any> {
      */
     return fragment.content;
   }
-
 
   show() {
     this.getContent().style.display = 'block';

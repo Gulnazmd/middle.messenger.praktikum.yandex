@@ -1,5 +1,5 @@
-import Block from './block';
 import Handlebars, { HelperOptions } from 'handlebars';
+import Block from './block';
 
 export interface BlockConstructable<Props = any> {
   new(props: Props): Block;
@@ -35,8 +35,8 @@ export default function RegisterComponent<Props extends any>(Component: BlockCon
       refs[ref] = component.getContent();
     }
 
-    const contents = fn ? fn(this): '';
+    const contents = fn ? fn(this) : '';
 
     return `<div data-id="${component.id}">${contents}</div>`;
-  })
+  });
 }

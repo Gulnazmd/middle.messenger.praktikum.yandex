@@ -1,9 +1,40 @@
 {
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
   "extends": "airbnb",
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
-  "rules": {
-    "max-len": [2, 100],
-    "@typescript-eslint/no-unused-vars": 2,
+  "parserOptions": {
+    "ecmaVersion": 13,
+    "sourceType": "module"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
     }
+  },
+  "rules": {
+    "semi": [2, "always"],
+    "no-unused-expressions": [2, { "allowTernary": true }],
+    "@typescript-eslint/no-unused-vars": 2,
+    "no-underscore-dangle": 0,
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": ["\\.svg"]
+      }
+    ],
+    "import/extensions": ["error", "ignorePackages", { "ts": "never" }],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
+    "no-use-before-define": "off",
+    "no-param-reassign": ["error", { "props": false }],
+    "class-methods-use-this": "off",
+    "no-undef": "off",
+    "global-require": "off"
+  }
 }

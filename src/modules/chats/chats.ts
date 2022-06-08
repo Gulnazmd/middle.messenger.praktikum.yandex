@@ -4,26 +4,26 @@ export class Chats extends Block {
   protected getStateFromProps() {
     this.state = {
       values: {
-        message: ''
+        message: '',
       },
       errors: {
-        message: ''
+        message: '',
       },
       onMessage: () => {
         const messageData = {
-          message: (this.refs.message.firstElementChild as HTMLInputElement).value
+          message: (this.refs.message.firstElementChild as HTMLInputElement).value,
         };
 
         const nextState = {
           errors: {
-            message: ''
+            message: '',
           },
           values: { ...messageData },
         };
 
         this.setState(nextState);
-      }
-    }
+      },
+    };
   }
 
   render() {
@@ -49,6 +49,6 @@ export class Chats extends Block {
               <div class="chats__form" id="{{ formId }}"></div>
             </div>
         </div>
-  `
+  `;
   }
 }

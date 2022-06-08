@@ -4,8 +4,11 @@
   --color-purple: #C9A2FA;
 }
 body {
-  margin: 0;
-  padding: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: 3%;
 }
 h1 {
   color: var(--color-purple);
