@@ -1,8 +1,24 @@
 import Block from 'core/block';
+import Validate from 'core/validation';
 import 'pages/main.css';
 
 export class LoginPage extends Block {
-  protected getStateFromProps() {
+  constructor() {
+    const defaults = {
+      values: {
+        login: '',
+        password: '',
+      },
+      errors: {
+        login: '',
+        password: '',
+      }
+    };
+    super({
+      ...defaults
+    });
+  }
+  protected getStateFromProps(props: any) {
     this.state = {
       values: {
         login: '',
@@ -12,35 +28,38 @@ export class LoginPage extends Block {
         login: '',
         password: '',
       },
-      onLogin: () => {
-        const loginData = {
-          login: (this.refs.login.firstElementChild as HTMLInputElement).value,
-          password: (this.refs.password.firstElementChild as HTMLInputElement).value,
-        };
-
+      handleErrors: (values: {[key: string]: number}, errors: {[key: string]: number}) => {
         const nextState = {
-          errors: {
-            login: '',
-            password: '',
-          },
-          values: { ...loginData },
+          errors: errors,
+          values: values
         };
-
-        if (!loginData.login) {
-          nextState.errors.login = 'Login is required';
-        } else if (loginData.login.length < 4) {
-          nextState.errors.login = 'Login should contain more than 3 chars';
-        }
-        if (!loginData.password) {
-          nextState.errors.password = 'Password is required';
-        }
-
         this.setState(nextState);
-
-        // console.log('action/login', loginData);
       },
+      onSubmit: this.onSubmit.bind(this)
+    }
+  }
 
-    };
+  onSubmit(e: Event) {
+    e.preventDefault();
+    if(this.formValid()) {
+        console.log('submit', this.state.values);
+    }
+  }
+
+  formValid() {
+    let isValid = true;
+    const newValues = { ...this.props.values };
+    const newErrors = { ...this.props.errors };
+    Object.keys(this.props.values).forEach(key => {
+      newValues[key] = (this.refs[key].querySelector('input') as HTMLInputElement).value;
+      const message = Validate(newValues[key], key);
+      if (message) {
+        isValid = false;
+        newErrors[key] = message;
+      }
+    });
+    this.state.handleErrors(newValues, newErrors);
+    return isValid;
   }
 
   render() {
@@ -74,7 +93,7 @@ export class LoginPage extends Block {
 
         {{{Button
           text="Sign In"
-          onClick=onLogin
+          onClick=onSubmit
         }}} </br>
         <small>You don't have an account?</small>
         {{{Link text="Register" to="./registration"}}}

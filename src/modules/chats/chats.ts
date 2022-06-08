@@ -1,4 +1,5 @@
-import Block from '../../core/block';
+import Block from 'core/block';
+import './chats.css'
 
 export class Chats extends Block {
   protected getStateFromProps() {
@@ -34,7 +35,7 @@ export class Chats extends Block {
               <p class="prfl chats__prfl">Profile > </p></br>
               {{{Input
                 value="${values.message}"
-                label: 'Login'
+                label = 'Login'
                 ref="login"
                 id="login"
                 type="text"

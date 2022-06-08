@@ -1,4 +1,4 @@
-export default function Validation(value: string, name: string): string {
+export default function Validate(value: string, name: string): string {
   const errors = [];
   switch (name) {
     case 'first_name':
