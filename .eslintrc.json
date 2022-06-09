@@ -5,20 +5,42 @@
     "es2021": true,
     "node": true
   },
-  "extends": "airbnb",
+  "plugins": [
+    "@typescript-eslint",
+    "prettier",
+    "import"
+  ],
+  "extends":  [
+    "airbnb",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
   "parserOptions": {
+    "project": [
+      "./tsconfig.json"
+    ],
     "ecmaVersion": 13,
     "sourceType": "module"
   },
   "settings": {
     "import/resolver": {
-      "typescript": {}
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
     }
   },
   "rules": {
+    "lines-between-class-members": [
+      "error",
+      "always",
+      {
+        "exceptAfterSingleLine": true
+      }
+    ],
     "semi": [2, "always"],
+    "no-restricted-exports": [
+      "error", {}
+    ],
     "no-unused-expressions": [2, { "allowTernary": true }],
     "@typescript-eslint/no-unused-vars": 2,
     "no-underscore-dangle": 0,

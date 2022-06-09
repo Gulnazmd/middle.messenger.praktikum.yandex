@@ -1,8 +1,35 @@
 import Block from 'core/block';
 import '../main.css';
+import Validate from 'core/validation';
 
 export class RegPage extends Block {
-  protected getStateFromProps() {
+  constructor() {
+    const defaultValues = {
+      values: {
+        first_name: '',
+        second_name: '',
+        login: '',
+        email: '',
+        password: '',
+        password2: '',
+        phone: '',
+      },
+      errors: {
+        first_name: '',
+        second_name: '',
+        login: '',
+        email: '',
+        password: '',
+        password2: '',
+        phone: '',
+      },
+    };
+    super({
+      ...defaultValues,
+    });
+  }
+
+  protected getStateFromProps(_props: any) {
     this.state = {
       values: {
         first_name: '',
@@ -22,46 +49,38 @@ export class RegPage extends Block {
         password2: '',
         phone: '',
       },
-
-      onRegister: () => {
-        const regData = {
-          first_name: (this.refs.first_name.firstElementChild as HTMLInputElement).value,
-          second_name: (this.refs.second_name.firstElementChild as HTMLInputElement).value,
-          login: (this.refs.login.firstElementChild as HTMLInputElement).value,
-          email: (this.refs.email.firstElementChild as HTMLInputElement).value,
-          password: (this.refs.password.firstElementChild as HTMLInputElement).value,
-          password2: (this.refs.password2.firstElementChild as HTMLInputElement).value,
-          phone: (this.refs.phone.firstElementChild as HTMLInputElement).value,
-        };
-
+      errorsHandle: (values: { [key: string]: number }, errors: { [key: string]: number }) => {
         const nextState = {
-          errors: {
-            first_name: '',
-            second_name: '',
-            login: '',
-            email: '',
-            password: '',
-            password2: '',
-            phone: '',
-          },
-          values: { ...regData },
+          errors,
+          values,
         };
-
-        if (!regData.login) {
-          nextState.errors.login = 'Login is required';
-        } else if (regData.login.length < 4) {
-          nextState.errors.login = 'Login should contain more than 3 chars';
-        }
-        if (!regData.password) {
-          nextState.errors.password = 'Password is required';
-        }
-        if (!regData.email) {
-          nextState.errors.email = 'Email is required';
-        }
-
         this.setState(nextState);
       },
+      submit: this.submit.bind(this),
     };
+  }
+
+  submit(e: Event) {
+    e.preventDefault();
+    if (this.validForm()) {
+      console.log('submit', this.state.values);
+    }
+  }
+
+  validForm() {
+    let isValid = true;
+    const newValues = { ...this.props.values };
+    const newErrors = { ...this.props.errors };
+    Object.keys(this.props.values).forEach((key) => {
+      newValues[key] = (this.refs[key].querySelector('input') as HTMLInputElement).value;
+      const message = Validate(newValues[key], key);
+      if (message) {
+        isValid = false;
+        newErrors[key] = message;
+      }
+    });
+    this.state.errorsHandle(newValues, newErrors);
+    return isValid;
   }
 
   render() {
@@ -79,6 +98,7 @@ export class RegPage extends Block {
             id="first_name"
             type="text"
             placeholder="firstname"
+            onChange=onChange
           }}}
           {{{Input
             label= 'Second name'
@@ -88,6 +108,7 @@ export class RegPage extends Block {
             id="second_name"
             type="text"
             placeholder="secondname"
+            onChange=onChange
           }}}
           {{{Input
             value="${values.login}"
@@ -97,6 +118,7 @@ export class RegPage extends Block {
             id="login"
             type="text"
             placeholder="Login"
+            onChange=onChange
           }}}
           {{{Input
             value="${values.email}"
@@ -106,6 +128,7 @@ export class RegPage extends Block {
             id="email"
             type="email"
             placeholder="email"
+            onChange=onChange
           }}}
           {{{Input
             value="${values.password}"
@@ -115,6 +138,7 @@ export class RegPage extends Block {
             id="password"
             type="password"
             placeholder="Password"
+            onChange=onChange
           }}}
           {{{Input
             value="${values.password2}"
@@ -124,6 +148,7 @@ export class RegPage extends Block {
             id="password2"
             type="password"
             placeholder="Password"
+            onChange=onChange
           }}}
           {{{Input
             value="${values.phone}"
@@ -133,10 +158,11 @@ export class RegPage extends Block {
             id="phone"
             type="number"
             placeholder="phone"
+            onChange=onChange
           }}}
           {{{Button
             text="Register"
-            onClick=onRegister
+            onClick=submit
           }}} </br>
           <small>You have an account?</small>
           {{{Link text="Sign In" to="/"}}}

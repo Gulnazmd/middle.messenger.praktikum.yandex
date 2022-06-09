@@ -12,13 +12,14 @@ export class LoginPage extends Block {
       errors: {
         login: '',
         password: '',
-      }
+      },
     };
     super({
-      ...defaults
+      ...defaults,
     });
   }
-  protected getStateFromProps(props: any) {
+
+  protected getStateFromProps(_props: any) {
     this.state = {
       values: {
         login: '',
@@ -30,19 +31,19 @@ export class LoginPage extends Block {
       },
       handleErrors: (values: {[key: string]: number}, errors: {[key: string]: number}) => {
         const nextState = {
-          errors: errors,
-          values: values
+          errors,
+          values,
         };
         this.setState(nextState);
       },
-      onSubmit: this.onSubmit.bind(this)
-    }
+      onSubmit: this.onSubmit.bind(this),
+    };
   }
 
   onSubmit(e: Event) {
     e.preventDefault();
-    if(this.formValid()) {
-        console.log('submit', this.state.values);
+    if (this.formValid()) {
+      console.log('submit', this.state.values);
     }
   }
 
@@ -50,7 +51,7 @@ export class LoginPage extends Block {
     let isValid = true;
     const newValues = { ...this.props.values };
     const newErrors = { ...this.props.errors };
-    Object.keys(this.props.values).forEach(key => {
+    Object.keys(this.props.values).forEach((key) => {
       newValues[key] = (this.refs[key].querySelector('input') as HTMLInputElement).value;
       const message = Validate(newValues[key], key);
       if (message) {
