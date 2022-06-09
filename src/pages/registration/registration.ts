@@ -29,7 +29,7 @@ export class RegPage extends Block {
     });
   }
 
-  protected getStateFromProps(_props: any) {
+  protected getStateFromProps() {
     this.state = {
       values: {
         first_name: '',

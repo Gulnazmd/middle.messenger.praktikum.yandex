@@ -1,10 +1,9 @@
-require('dotenv').config();
-const express = require('express');
+import dotenv from 'dotenv';
+import express, { $static } from 'express';
 
+dotenv.config();
 const app = express();
 
-app.use(express.static('./dist'));
+app.use($static('./dist'));
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`Example app listening on port ${process.env.PORT}!`);
-});
+app.listen(process.env.PORT || 3000);

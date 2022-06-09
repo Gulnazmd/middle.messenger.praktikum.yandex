@@ -1,6 +1,7 @@
 export type Listener<T extends unknown[] = any[]> = (...args: T) => void;
 
-export default class EventBus<E extends string = string, M extends { [K in E]: unknown[] } = Record<E, any[]>> {
+export default class EventBus<E extends string = string, M extends
+  { [K in E]: unknown[] } = Record<E, any[]>> {
   [x: string]: any;
 
   private listeners: { [key in E]?: Listener<M[E]>[] } = {};

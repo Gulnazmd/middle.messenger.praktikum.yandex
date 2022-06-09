@@ -19,7 +19,7 @@ export class LoginPage extends Block {
     });
   }
 
-  protected getStateFromProps(_props: any) {
+  protected getStateFromProps() {
     this.state = {
       values: {
         login: '',

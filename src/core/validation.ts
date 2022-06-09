@@ -47,6 +47,9 @@ export default function Validate(value: string, name: string): string {
       if (!value) {
         errors.push('field can\'t be empty');
       }
+      break;
+    default:
+      return '';
   }
   return errors.join(', ');
 }
