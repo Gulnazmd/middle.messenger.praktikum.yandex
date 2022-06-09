@@ -1,3 +1,4 @@
+/* eslint-disable */
 export type Listener<T extends unknown[] = any[]> = (...args: T) => void;
 
 export default class EventBus<E extends string = string, M extends
