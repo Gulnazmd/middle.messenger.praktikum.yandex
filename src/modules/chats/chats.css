@@ -4,9 +4,7 @@
   margin-top: 30px;
 }
 .chats {
-  height: 450px;
-  margin-top: 50px;
-  width: 70%;
+  height: 470px;
   padding: 20px;
   display: flex;
   flex-direction: row;
@@ -16,27 +14,64 @@
     &__header {
       padding: 10px;
       padding: 10px;
-      width: 200px;
+      width: 150px;
+    }
+    &__messages {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
     }
     &__list {
-      width: 200px;
-      height: 80%;
+      width: 180px;
+      height: 81%;
     }
     &__prfl {
       color: #9BA3C0;
-      margin-left: 120px;
+      margin-left: 80px;
       margin-bottom: -30px;
     }
     &__span {
       width: 2px;
-      height: 450px;
+      height: 470px;
       background-color: #c9c9c9;
       display: flex;
       margin-left: 30px;
+    }
+    &__span-2 {
+      width: 440px;
+      height: 2px;
+      background-color:  #ebebec;
+      display: flex;
+      margin: 5px;
     }
     &__form {
       width: 300px;
       height: 100px;
       background-color: #c9c9c9;
+    }
+    &__message-container {
+      background-color: #89E8EE;
+      width: 420px;
+      height: 68%;
+      padding: 10px;
+      margin-left: 5px;
+    }
+    &__profileSettings {
+      width: 420px;
+      height: 20px;
+      margin-left: 5px;
+      padding: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      justify-content: space-between;
+      align-items: center;
+    }
+    &__photo {
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      background-color: #dededf;
     }
 }

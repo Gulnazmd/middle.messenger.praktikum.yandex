@@ -39,14 +39,13 @@ export class LoginPage extends Block {
       onSubmit: this.onSubmit.bind(this),
     };
   }
-
   onSubmit(e: Event) {
     e.preventDefault();
     if (this.formValid()) {
       console.log('submit', this.state.values);
+      window.location.href = "/chats"
     }
   }
-
   formValid() {
     let isValid = true;
     const newValues = { ...this.props.values };
@@ -62,7 +61,6 @@ export class LoginPage extends Block {
     this.state.handleErrors(newValues, newErrors);
     return isValid;
   }
-
   render() {
     const { errors, values } = this.state;
 

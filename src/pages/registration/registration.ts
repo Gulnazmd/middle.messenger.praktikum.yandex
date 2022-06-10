@@ -156,7 +156,7 @@ export class RegPage extends Block {
             label= 'Phone'
             ref="phone"
             id="phone"
-            type="number"
+            type="text"
             placeholder="phone"
             onChange=onChange
           }}}
