@@ -4,5 +4,5 @@
 ### сборка npm run build
 
 ## [Макеты](https://www.figma.com/file/stvahlrJtohhz9TNIdejFj/Messenger)
-## [Ссылка на Netlify](https://6291e6240b696658b1578413--delicate-kataifi-c0df7f.netlify.app)
-## [Ссылка на pull request](https://github.com/Gulnazmd/middle.messenger.praktikum.yandex/pull/1)
+## [Ссылка на Netlify](https://62a6532e6ba27a2e4537f1aa--cute-selkie-6c98b2.netlify.app)
+## [Ссылка на pull request](https://github.com/Gulnazmd/middle.messenger.praktikum.yandex/pull/2)
