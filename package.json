@@ -2,8 +2,8 @@
   "name": "messenger",
   "source": "index.html",
   "scripts": {
-    "start": "parcel src/index.html -p 3000",
-    "build": "parcel build src/index.html --no-cache && node server.js",
+    "start": "parcel src/index.html -p 3000 && node server.js",
+    "build": "parcel build src/index.html --no-cache --public-url ./",
     "lint": "eslint . --fix --ext .js,.ts"
   },
   "alias": {
