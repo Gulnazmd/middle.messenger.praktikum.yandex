@@ -37,13 +37,23 @@ export class LoginPage extends Block {
         this.setState(nextState);
       },
       onSubmit: this.onSubmit.bind(this),
+      onFocus: this.onFocus.bind(this)
     };
+  }
+  onFocus(e: Event) {
+    if (e.target) {
+      const element = e.target as HTMLInputElement;
+      if (element.classList.contains('field__input__error')) {
+        element.classList.remove('field__input__error');
+      }
+    }
   }
   onSubmit(e: Event) {
     e.preventDefault();
     if (this.formValid()) {
       console.log('submit', this.state.values);
       window.location.href = "/chats"
+
     }
   }
   formValid() {
@@ -61,6 +71,7 @@ export class LoginPage extends Block {
     this.state.handleErrors(newValues, newErrors);
     return isValid;
   }
+
   render() {
     const { errors, values } = this.state;
 
@@ -77,7 +88,7 @@ export class LoginPage extends Block {
           id="login"
           type="text"
           placeholder="Login"
-          onChange=onChange
+
         }}}
         {{{Input
           value="${values.password}"
@@ -87,7 +98,7 @@ export class LoginPage extends Block {
           id="password"
           type="password"
           placeholder="Password"
-          onChange=onChange
+
         }}}
 
         {{{Button
