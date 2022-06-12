@@ -70,6 +70,7 @@ export class LoginPage extends Block {
       }
     }
   }
+
   formValid() {
     let isValid = true;
     const newValues = { ...this.props.values };
