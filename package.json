@@ -3,7 +3,7 @@
   "source": "index.html",
   "scripts": {
     "start": "parcel src/index.html -p 3000",
-    "build": "parcel src/index.html --no-cache",
+    "build": "parcel build src/index.html --no-cache",
     "lint": "eslint . --fix --ext .js,.ts"
   },
   "alias": {
