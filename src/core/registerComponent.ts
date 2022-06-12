@@ -20,15 +20,6 @@ export default function RegisterComponent<Props>(Component: BlockConstructable<P
 
       const { children, refs } = data.root;
 
-      /**
-     * Костыль для того, чтобы передавать переменные
-     * внутрь блоков вручную подменяя значение
-     */
-      (Object.keys(hash) as any).forEach((key: keyof Props) => {
-        if (this[key]) {
-          hash[key] = hash[key].replace(new RegExp(`{{${key}}}`, 'i'), this[key]);
-        }
-      });
 
       const component = new Component(hash);
 

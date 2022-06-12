@@ -2,6 +2,7 @@ import {
   Button,
   Link,
   Input,
+  Field,
 } from 'components';
 import LoginPage from 'pages/login';
 import RegPage from 'pages/registration';
@@ -13,6 +14,7 @@ function registerComponents() {
   RegisterComponent(Button);
   RegisterComponent(Link);
   RegisterComponent(Input);
+  RegisterComponent(Field);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

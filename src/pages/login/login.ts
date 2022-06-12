@@ -37,23 +37,37 @@ export class LoginPage extends Block {
         this.setState(nextState);
       },
       onSubmit: this.onSubmit.bind(this),
-      onFocus: this.onFocus.bind(this)
+      onFocus: this.onFocus.bind(this),
+      onBlur: this.onBlur.bind(this),
     };
   }
+
   onFocus(e: Event) {
     if (e.target) {
       const element = e.target as HTMLInputElement;
       if (element.classList.contains('field__input__error')) {
-        element.classList.remove('field__input__error');
+        const newValues = { ...this.state.values };
+        const newErrors = { ...this.state.errors };
+        newValues[element.id] = element.value;
+        newErrors[element.id] = '';
+        this.state.handleErrors(newValues, newErrors);
       }
     }
   }
-  onSubmit(e: Event) {
-    e.preventDefault();
-    if (this.formValid()) {
-      console.log('submit', this.state.values);
-      window.location.href = "/chats"
 
+  onBlur(e: Event) {
+    if (e.target) {
+      const element = e.target as HTMLInputElement;
+      if (!element.classList.contains('field__input__error')) {
+        const message = Validate(element.value, element.id);
+        const newValues = { ...this.state.values };
+        const newErrors = { ...this.state.errors };
+        newValues[element.id] = element.value;
+        if (message) {
+          newErrors[element.id] = message;
+        }
+        this.state.handleErrors(newValues, newErrors);
+      }
     }
   }
   formValid() {
@@ -72,6 +86,14 @@ export class LoginPage extends Block {
     return isValid;
   }
 
+  onSubmit(e: Event) {
+    e.preventDefault();
+    if (this.formValid()) {
+      console.log('submit', this.state.values);
+      window.location.href = '/chats';
+    }
+  }
+
   render() {
     const { errors, values } = this.state;
 
@@ -80,7 +102,7 @@ export class LoginPage extends Block {
         <form action="" method="post" class="form">
         <div class="title form__title">Sign In</div>
 
-        {{{Input
+        {{{Field
           value="${values.login}"
           error="${errors.login}"
           label='Login'
@@ -88,9 +110,10 @@ export class LoginPage extends Block {
           id="login"
           type="text"
           placeholder="Login"
-
+          onFocus=onFocus
+          onBlur=onBlur
         }}}
-        {{{Input
+        {{{Field
           value="${values.password}"
           error="${errors.password}"
           label='Password'
@@ -98,7 +121,8 @@ export class LoginPage extends Block {
           id="password"
           type="password"
           placeholder="Password"
-
+          onFocus=onFocus
+          onBlur=onBlur
         }}}
 
         {{{Button

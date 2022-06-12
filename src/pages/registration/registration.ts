@@ -49,25 +49,57 @@ export class RegPage extends Block {
         password2: '',
         phone: '',
       },
-      errorsHandle: (values: { [key: string]: number }, errors: { [key: string]: number }) => {
+      handleErrors: (values: { [key: string]: number }, errors: { [key: string]: number }) => {
         const nextState = {
           errors,
           values,
         };
         this.setState(nextState);
       },
-      submit: this.submit.bind(this),
+      onSubmit: this.onSubmit.bind(this),
+      onFocus: this.onFocus.bind(this),
+      onBlur: this.onBlur.bind(this),
     };
   }
 
-  submit(e: Event) {
-    e.preventDefault();
-    if (this.validForm()) {
-      console.log('submit', this.state.values);
+  onFocus(e: Event) {
+    if (e.target) {
+      const element = e.target as HTMLInputElement;
+      if (element.classList.contains('field__input__error')) {
+        const newValues = { ...this.state.values };
+        const newErrors = { ...this.state.errors };
+        newValues[element.id] = element.value;
+        newErrors[element.id] = '';
+        this.state.handleErrors(newValues, newErrors);
+      }
     }
   }
 
-  validForm() {
+  onBlur(e: Event) {
+    if (e.target) {
+      const element = e.target as HTMLInputElement;
+      if (!element.classList.contains('field__input__error')) {
+        const message = Validate(element.value, element.id);
+        const newValues = { ...this.state.values };
+        const newErrors = { ...this.state.errors };
+        newValues[element.id] = element.value;
+        if (message) {
+          newErrors[element.id] = message;
+        }
+        this.state.handleErrors(newValues, newErrors);
+      }
+    }
+  }
+
+  onSubmit(e: Event) {
+    e.preventDefault();
+    if (this.formValid()) {
+      console.log('submit', this.state.values);
+      window.location.href = '/chats';
+    }
+  }
+
+  formValid() {
     let isValid = true;
     const newValues = { ...this.props.values };
     const newErrors = { ...this.props.errors };
@@ -79,7 +111,7 @@ export class RegPage extends Block {
         newErrors[key] = message;
       }
     });
-    this.state.errorsHandle(newValues, newErrors);
+    this.state.handleErrors(newValues, newErrors);
     return isValid;
   }
 
@@ -90,7 +122,7 @@ export class RegPage extends Block {
       <div>
         <form action="" method="post" class="form">
           <div class="title form__title">Sign In</div>
-          {{{Input
+          {{{Field
             label= 'First name'
             value="${values.first_name}"
             error="${errors.first_name}"
@@ -98,9 +130,10 @@ export class RegPage extends Block {
             id="first_name"
             type="text"
             placeholder="firstname"
-            onChange=onChange
+            onFocus=onFocus
+            onBlur=onBlur
           }}}
-          {{{Input
+          {{{Field
             label= 'Second name'
             value="${values.second_name}"
             error="${errors.second_name}"
@@ -108,9 +141,10 @@ export class RegPage extends Block {
             id="second_name"
             type="text"
             placeholder="secondname"
-            onChange=onChange
+            onFocus=onFocus
+            onBlur=onBlur
           }}}
-          {{{Input
+          {{{Field
             value="${values.login}"
             error="${errors.login}"
             label= 'Login'
@@ -118,9 +152,10 @@ export class RegPage extends Block {
             id="login"
             type="text"
             placeholder="Login"
-            onChange=onChange
+            onFocus=onFocus
+            onBlur=onBlur
           }}}
-          {{{Input
+          {{{Field
             value="${values.email}"
             error="${errors.email}"
             label= 'Email'
@@ -128,9 +163,10 @@ export class RegPage extends Block {
             id="email"
             type="email"
             placeholder="email"
-            onChange=onChange
+            onFocus=onFocus
+            onBlur=onBlur
           }}}
-          {{{Input
+          {{{Field
             value="${values.password}"
             error="${errors.password}"
             label= 'Password'
@@ -138,9 +174,10 @@ export class RegPage extends Block {
             id="password"
             type="password"
             placeholder="Password"
-            onChange=onChange
+            onFocus=onFocus
+            onBlur=onBlur
           }}}
-          {{{Input
+          {{{Field
             value="${values.password2}"
             error="${errors.password2}"
             label= 'Repeat password'
@@ -148,9 +185,10 @@ export class RegPage extends Block {
             id="password2"
             type="password"
             placeholder="Password"
-            onChange=onChange
+            onFocus=onFocus
+            onBlur=onBlur
           }}}
-          {{{Input
+          {{{Field
             value="${values.phone}"
             error="${errors.phone}"
             label= 'Phone'
@@ -158,11 +196,12 @@ export class RegPage extends Block {
             id="phone"
             type="text"
             placeholder="phone"
-            onChange=onChange
+            onFocus=onFocus
+            onBlur=onBlur
           }}}
           {{{Button
             text="Register"
-            onClick=submit
+            onClick=onSubmit
           }}} </br>
           <small>You have an account?</small>
           {{{Link text="Sign In" to="/"}}}
