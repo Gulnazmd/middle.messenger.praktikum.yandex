@@ -1,9 +1,9 @@
 import Block from 'core/block';
 import './chats.css';
+import { RegisterComponent } from 'core';
 import Message from './components/message';
 import ChatList from './components/chatList';
 import ChatForm from './components/chatForm';
-import { RegisterComponent } from 'core';
 
 RegisterComponent(Message);
 RegisterComponent(ChatList);
@@ -11,7 +11,6 @@ RegisterComponent(ChatForm);
 
 export class Chats extends Block {
   render() {
-
     return `
   <div class="chats">
       {{{ChatList}}}

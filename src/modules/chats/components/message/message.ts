@@ -16,6 +16,7 @@ export class Message extends Block {
       ...defaults,
     });
   }
+
   protected getStateFromProps() {
     this.state = {
       values: {
@@ -33,14 +34,15 @@ export class Message extends Block {
       },
       onMessage: this.onMessage.bind(this),
     };
-
   }
+
   onMessage(e: Event) {
     e.preventDefault();
     if (this.formValid()) {
       console.log('submit', this.state.values);
     }
   }
+
   formValid() {
     let isValid = true;
     const newValues = { ...this.props.values };
@@ -61,7 +63,7 @@ export class Message extends Block {
     const { values, errors } = this.state;
     return `
         <div class="messages chats__messages">
-            {{{Input
+            {{{Field
               value="${values.message}"
               error="${errors.message}"
               ref="message"
