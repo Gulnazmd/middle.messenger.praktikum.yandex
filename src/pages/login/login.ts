@@ -83,8 +83,10 @@ export class LoginPage extends Block {
         newErrors[key] = message;
       }
     });
-    this.state.handleErrors(newValues, newErrors);
-    return isValid;
+    if (!isValid) {
+      this.state.handleErrors(newValues, newErrors);
+    }
+    return isValid ;
   }
 
   onSubmit(e: Event) {
