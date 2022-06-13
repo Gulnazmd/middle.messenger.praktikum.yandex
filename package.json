@@ -10,8 +10,7 @@
   "alias": {
     "core": "./src/core",
     "pages": "./src/pages",
-    "components": "./src/components",
-    "modules": "./src/modules"
+    "components": "./src/components"
   },
   "devDependencies": {
     "@types/uuid": "^8.3.4",
