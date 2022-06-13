@@ -11,10 +11,10 @@ import Chats from './modules/chats';
 import './style.css';
 
 function registerComponents() {
-  RegisterComponent(Button);
-  RegisterComponent(Link);
-  RegisterComponent(Input);
-  RegisterComponent(Field);
+  RegisterComponent(Button, "Button");
+  RegisterComponent(Link, "Link");
+  RegisterComponent(Input, "Input");
+  RegisterComponent(Field, "Field");
 }
 
 document.addEventListener('DOMContentLoaded', () => {

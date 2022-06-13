@@ -5,9 +5,9 @@ import Message from './components/message';
 import ChatList from './components/chatList';
 import ChatForm from './components/chatForm';
 
-RegisterComponent(Message);
-RegisterComponent(ChatList);
-RegisterComponent(ChatForm);
+RegisterComponent(Message, "Message");
+RegisterComponent(ChatList, "ChatList");
+RegisterComponent(ChatForm, "ChatForm");
 
 export class Chats extends Block {
   render() {
