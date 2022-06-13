@@ -1,18 +1,9 @@
-import Block from '../../core/block';
+import Block from 'core/block';
 import './input.css';
-
-interface InputProps {
-  id: string;
-  type: string;
-  error: string;
-  label: string;
-  placeholder: string;
-  onFocus: () => void;
-  onBlur: () => void;
-}
+import IInputProps from './types/inputProps'
 
 export class Input extends Block {
-  constructor(props: InputProps) {
+  constructor(props: IInputProps) {
     super({ ...props, events: { focus: props.onFocus, blur: props.onBlur } });
   }
 
