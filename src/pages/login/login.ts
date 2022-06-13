@@ -86,7 +86,7 @@ export class LoginPage extends Block {
     if (!isValid) {
       this.state.handleErrors(newValues, newErrors);
     }
-    return isValid ;
+    return isValid;
   }
 
   onSubmit(e: Event) {
