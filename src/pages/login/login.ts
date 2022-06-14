@@ -89,8 +89,7 @@ export class LoginPage extends Block {
     return isValid;
   }
 
-  onSubmit(e: Event) {
-    e.preventDefault();
+  onSubmit() {
     if (this.formValid()) {
       console.log('submit', this.state.values);
       window.location.href = '/chats';

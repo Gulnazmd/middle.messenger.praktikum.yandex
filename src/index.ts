@@ -9,6 +9,7 @@ import RegPage from 'pages/registration';
 import { RenderDOM, RegisterComponent } from 'core';
 import Chats from './modules/chats';
 import './style.css';
+import userProfile from 'pages/userProfile';
 
 function registerComponents() {
   RegisterComponent(Button, "Button");
@@ -31,6 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
     case '/chats':
       RenderDOM(new Chats());
       break;
+    case '/userProfile':
+        RenderDOM(new userProfile());
+        break;
     default:
       console.log('nothing');
   }

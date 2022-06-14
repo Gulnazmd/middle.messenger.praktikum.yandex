@@ -29,7 +29,7 @@
     &__prfl {
       color: #9BA3C0;
       margin-left: 80px;
-      margin-bottom: -30px;
+      margin-bottom: -10px;
     }
     &__span {
       width: 2px;
@@ -73,5 +73,18 @@
       width: 50px;
       height: 50px;
       background-color: #dededf;
+      margin-bottom: 5px;
+    }
+    &__name {
+      margin-left: 70px;
+      position: absolute;
+      color: #9ba3c0;
+    }
+    &__settingButton {
+      color: #9ba3c0;
+      cursor: pointer;
+      border: none;
+      padding: 7px;
+      border-radius: 5px;
     }
 }
