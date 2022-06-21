@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+  "baseUrl": "src",
+  "outDir": "dist",
+  "target": "es2016",
+  "declaration": false,
+  "module": "commonjs",
+  "strictNullChecks": true,
+  "sourceMap": true,
+  "noImplicitAny": true,
+  "noUnusedLocals": true,
+  "noUnusedParameters": true,
+  "esModuleInterop": true,
+  "forceConsistentCasingInFileNames": false
+ }
+}

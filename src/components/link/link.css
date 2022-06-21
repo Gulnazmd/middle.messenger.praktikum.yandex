@@ -1,0 +1,10 @@
+@import "../../style.css";
+
+.link {
+  color: var(--color-orange);
+  text-decoration: none;
+  font-size: 18px;
+}
+.link:hover {
+  opacity: 0.6;
+}
