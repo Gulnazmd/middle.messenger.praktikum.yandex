@@ -1,14 +1,9 @@
 import Block from 'core/block';
-
+import { IButtonProps } from './types';
 import './button.css';
 
-interface ButtonProps {
-  text: string;
-  onClick: () => void;
-}
-
 export class Button extends Block {
-  constructor({ text, onClick }: ButtonProps) {
+  constructor({ text, onClick }: IButtonProps) {
     super({ text, events: { click: onClick } });
   }
 

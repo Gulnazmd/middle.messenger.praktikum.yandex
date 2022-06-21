@@ -1,3 +1,4 @@
+@import "../../style.css";
 
 .field {
   margin-bottom: 10px;
@@ -9,34 +10,32 @@
     font-family: inherit;
     font-size: 1rem;
     line-height: 1.5;
-    color: #212529;
+    color: var(--color-dark-grey);
     background-clip: padding-box;
-    border: 1px solid #bdbdbd;
+    border: 1px solid var(--color-grey);
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     &__error {
-      border-color: red;
+      border-color: var(--color-red);
     }
     &:focus-visible {
-      color: #212529;
-      background-color: #fff;
-      border-color: #bdbdbd;
+      color: var(--color-dark-grey);
+      background-color: var(--color-white);
+      border-color: var(--color-grey);
       outline: 0;
       box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
     }
-
   }
-
   &__span__error {
     font-size: 9px;
-    color: red;
+    color: var(--color-red);
     margin-bottom: 8px;
     margin-left: 7px;
-}
-&__label {
-  font-size: 17px;
-  color: #009DAE;
-  padding: 5px;
-  left: 10px;
-}
+  }
+  &__label {
+    font-size: 17px;
+    color: var(--color-light-blue);
+    padding: 5px;
+    left: 10px;
+  }
 }

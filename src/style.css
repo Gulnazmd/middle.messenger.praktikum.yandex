@@ -2,6 +2,13 @@
   --color-light-blue: #009DAE;
   --color-orange: #F8A488;
   --color-purple: #C9A2FA;
+  --color-dark-purple: #a368eb;
+  --color-lilac: #9BA3C0;
+  --color-white: #fff;
+  --color-grey: #c9c9c9;
+  --color-dark-grey: #212529;
+  --color-turquoise: #89E8EE;
+  --color-red: #D82148;
 }
 body {
   flex-direction: column;
@@ -16,17 +23,17 @@ h1 {
   z-index: 1;
 }
 h3 {
-  color: #9BA3C0;
+  color: var(--color-lilac);
   margin-top: -50px;
   margin-bottom: 80px;
 }
 .main {
-  background-color: #89E8EE;
+  background-color: var(--color-turquoise);
   height: 100vh;
   justify-content: center;
   display: flex;
     &__form {
-      background-color: white;
+      background-color: var(--color-white);
       border-radius: 5px;
       width: 550px;
       margin-top: 50px;
@@ -43,21 +50,21 @@ h3 {
       width: 50%;
       padding: 10px;
       font-weight: bold;
-      border: 1px solid #C9A2FA;
+      border: 1px solid var(--color-purple);
       text-decoration: none;
-      color: white;
+      color: var(--color-white);
       font-size: 22px;
       display: flex;
       justify-content: space-around;
       &:hover {
-        background-color:  #a368eb;
+        background-color:  var(--color-dark-purple);
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
       }
     }
 
 }
 .circle {
-  background-color: #89E8EE;
+  background-color: var(--color-turquoise);
   width: 180px;
   height: 180px;
   border-radius: 50%;

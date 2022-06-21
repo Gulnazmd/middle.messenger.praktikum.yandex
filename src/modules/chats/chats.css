@@ -1,3 +1,5 @@
+@import "../../style.css";
+
 .main-div {
   display: flex;
   justify-content: center;
@@ -8,7 +10,7 @@
   padding: 20px;
   display: flex;
   flex-direction: row;
-  background-color: white;
+  background-color: var(--color-white);
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     &__header {
@@ -27,31 +29,32 @@
       height: 81%;
     }
     &__prfl {
-      color: #9BA3C0;
+      color: var(--color-lilac);
       margin-left: 80px;
       margin-bottom: -10px;
+      margin-top: 2px;
     }
     &__span {
       width: 2px;
       height: 470px;
-      background-color: #c9c9c9;
+      background-color: var(--color-grey);
       display: flex;
       margin-left: 30px;
     }
     &__span-2 {
       width: 440px;
       height: 2px;
-      background-color:  #ebebec;
+      background-color: var(--color-grey);
       display: flex;
       margin: 5px;
     }
     &__form {
       width: 300px;
       height: 100px;
-      background-color: #c9c9c9;
+      background-color: var(--color-grey);
     }
     &__message-container {
-      background-color: #89E8EE;
+      background-color: var(--color-turquoise);
       width: 420px;
       height: 68%;
       padding: 10px;
@@ -72,16 +75,16 @@
       border-radius: 50%;
       width: 50px;
       height: 50px;
-      background-color: #dededf;
+      background-color: var(--color-grey);
       margin-bottom: 5px;
     }
     &__name {
       margin-left: 70px;
       position: absolute;
-      color: #9ba3c0;
+      color: var(--color-lilac);
     }
     &__settingButton {
-      color: #9ba3c0;
+      color: var(--color-lilac);
       cursor: pointer;
       border: none;
       padding: 7px;

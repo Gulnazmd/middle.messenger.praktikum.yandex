@@ -1,5 +1,4 @@
 import Block from '../../core/block';
-import './input.css';
 import { IInputProps } from './types';
 
 

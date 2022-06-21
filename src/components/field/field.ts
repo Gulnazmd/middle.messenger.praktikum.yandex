@@ -1,7 +1,12 @@
 import Block from 'core/block';
 import './field.css';
+import { IfieldProps } from './types';
+
 
 export class Field extends Block {
+  constructor(props: IfieldProps) {
+    super({ ...props, events: { focus: props.onFocus, blur: props.onBlur } });
+  }
   protected render(): string {
     return `
         <div class="field">

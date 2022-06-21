@@ -1,18 +1,13 @@
 import Block from 'core/block';
-
+import { ILinkProps } from './types';
 import './link.css';
 
-interface LinkProps {
-  text: string;
-  to: string;
-}
 
 export class Link extends Block {
-  constructor(props: LinkProps) {
+  constructor(props: ILinkProps) {
     const onClick = (_e: MouseEvent) => {
       console.log('link click', _e);
     };
-
     super({ ...props, events: { click: onClick } });
   }
 

@@ -1,16 +1,18 @@
+@import "../../style.css";
+
 .button {
   margin: 25px 0;
   width: 90%;
   padding: 10px;
   font: inherit;
-  border: 1px solid #F8A488;
+  border: 1px solid var(--color-orange);
   background-color: transparent;
-  color: #F8A488;
+  color: var(--color-orange);
   cursor: pointer;
   outline: none;
   border-radius: 7px;
     &:hover {
-      color: white;
+      color: var(--color-white);
       background-color: var(--color-orange);
     }
 }
