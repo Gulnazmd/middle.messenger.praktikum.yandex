@@ -1,9 +1,9 @@
 import Block from './block';
 
-export default function RenderDOM(block: Block) {
-  const root = document.querySelector('#content');
-  if (root) {
-    root.innerHTML = '';
-    root.appendChild(block.getContent());
-  }
+export default function RenderPage(block: Block<{}>, selector = '#content') {
+  const root = document.querySelector(selector);
+
+  root!.innerHTML = '';
+
+  root!.appendChild(block.getContent());
 }

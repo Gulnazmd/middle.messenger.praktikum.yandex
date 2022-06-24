@@ -7,6 +7,10 @@ interface BlockMeta<P = any> {
   props: P;
 }
 
+export interface BlockConstructable<Props extends {}> {
+  new(props: any): Block<Props>;
+}
+
 type Events = Values<typeof Block.EVENTS>;
 
 export default class Block<P = any> {
