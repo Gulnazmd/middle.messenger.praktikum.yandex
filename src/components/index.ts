@@ -1,4 +1,4 @@
-export { default as Link } from './link';
-export { default as Button } from './button';
-export { default as Input } from './input';
-export { default as Field } from './field';
+export { Link } from './link';
+export { Button } from './button';
+export { Input } from './input';
+export { Field } from './field';

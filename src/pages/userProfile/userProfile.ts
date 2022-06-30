@@ -1,31 +1,43 @@
-import Block from "core/block";
-import "./userProfile.css";
-import "../main.css";
+import Block from 'core/block';
+import './userProfile.css';
+import '../main.css';
 import Validate from 'core/validation';
+import { Dispatch, Store } from 'core/store';
+import Router from 'core/router';
+import { withRouter, withStore } from '../../utils';
+import Views from './types/views';
+import { getUser } from '../../services/profile';
 
-export class userProfile extends Block {
-  constructor() {
-    const defaultValues = {
-      values: {
-        first_name: '',
-        second_name: '',
-        login: '',
-        email: '',
-        phone: '',
-      },
-      errors: {
-        first_name: '',
-        second_name: '',
-        login: '',
-        email: '',
-        phone: '',
-      },
-    };
+interface IProfilePageProps {
+  values: any;
+  errors: any;
+  router: Router;
+  view?: Views,
+  user: Nullable<User>,
+  store: Store<AppState>;
+  onLogout?: () => void;
+  userLogin?: () => string | undefined;
+  userName?: () => string | undefined;
+  screenTitle?: () => string | undefined;
+  dispatch: Dispatch<AppState>
+};
+
+class userProfile extends Block<IProfilePageProps> {
+  constructor(props: IProfilePageProps) {
     super({
-      ...defaultValues,
+      ...props,
+      view: Views.READ_ONLY,
     });
   }
-  protected getStateFromProps() {
+  componentDidMount(): void {
+    const { user } = this.props;
+
+    if (!user) {
+      this.props.dispatch(getUser);
+    }
+  }
+
+  protected getStateFromProps(_props: IProfilePageProps) {
     this.state = {
       values: {
         first_name: '',
@@ -53,6 +65,7 @@ export class userProfile extends Block {
       onBlur: this.onBlur.bind(this),
     };
   }
+
   onFocus(e: Event) {
     if (e.target) {
       const element = e.target as HTMLInputElement;
@@ -103,7 +116,8 @@ export class userProfile extends Block {
     });
     this.state.handleErrors(newValues, newErrors);
     return isValid;
-  }
+}
+
   render() {
     const { errors, values } = this.state;
 
@@ -175,6 +189,19 @@ export class userProfile extends Block {
     </div>
         `;
   }
-
-
 }
+
+function mapStateToProps(state: AppState) {
+  return {
+    user: state.user,
+  };
+}
+
+export default withRouter<IProfilePageProps>(
+  withStore<IProfilePageProps>(
+    userProfile,
+    mapStateToProps,
+  ),
+);
+
+

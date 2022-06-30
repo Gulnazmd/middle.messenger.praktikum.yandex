@@ -1,5 +1,5 @@
 import Block from 'core/Block';
-import Route from './route';
+import Route from './Route';
 
 interface BlockConstructable<Props extends {}> {
   new(props: any): Block<Props>;

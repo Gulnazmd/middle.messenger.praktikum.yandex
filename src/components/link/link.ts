@@ -2,18 +2,32 @@ import Block from 'core/block';
 import { ILinkProps } from './types';
 import './link.css';
 
+export interface ILinkPropsWithEvents extends Omit<ILinkProps, 'onClick'> {
+  events: {
+    click: (e: Event) => {},
+  }
+}
 
-export class Link extends Block {
+class Link extends Block<ILinkPropsWithEvents> {
   constructor(props: ILinkProps) {
-    const onClick = (_e: MouseEvent) => {
-      console.log('link click', _e);
+    const { onClick, ...rest } = props;
+    const defaultProps = {
+      danger: false,
     };
-    super({ ...props, events: { click: onClick } });
+
+    super({
+      ...defaultProps,
+      ...rest,
+      events: {
+        click: onClick,
+      },
+    });
   }
 
   render() {
     return `
-      <a class='link' href='{{to}}'>{{text}}</a>
+      <a class="link" href="{{to}}">{{text}}</a>
     `;
   }
 }
+export default Link;

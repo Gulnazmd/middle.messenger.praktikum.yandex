@@ -1,6 +1,6 @@
-import { BlockConstructable, router } from '../core';
+import { BlockConstructable, Router } from 'core';
 
-type WithRouterProps = { router: router };
+type WithRouterProps = { router: Router };
 
 export function withRouter<T extends WithRouterProps>(Component: BlockConstructable<T>) {
   return class WithRouter extends Component {

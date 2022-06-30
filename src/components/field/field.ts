@@ -2,11 +2,17 @@ import Block from 'core/block';
 import './field.css';
 import { IfieldProps } from './types';
 
-
-export class Field extends Block {
+class Field extends Block<IfieldProps> {
   constructor(props: IfieldProps) {
-    super({ ...props, events: { focus: props.onFocus, blur: props.onBlur } });
+    const defaultProps = {
+      readonly: false,
+    };
+    super({
+      ...defaultProps,
+      ...props,
+    });
   }
+
   protected render(): string {
     return `
         <div class="field">
@@ -17,3 +23,5 @@ export class Field extends Block {
         </div>`;
   }
 }
+
+export default Field;

@@ -1,41 +1,48 @@
+import { Button } from 'components/button';
 import {
-  Button,
   Link,
   Input,
   Field,
 } from 'components';
-import LoginPage from 'pages/login';
-import RegPage from 'pages/registration';
-import { RenderDOM, RegisterComponent } from 'core';
-import Chats from './modules/chats';
+import { registerComponent, Store, Router  } from 'core';
 import './style.css';
-import userProfile from 'pages/userProfile';
+import { Screens } from 'core/screens';
+import { initApp } from './services/initApp';
+import { defaultState } from './store';
+import { LoginPage } from 'pages/login';
+import { RegPage } from 'pages/registration';
+import { userProfile } from 'pages/userProfile';
+import { ChatsPage } from './modules/chats';
+import Error  from 'pages/errors/error'
+
 
 function registerComponents() {
-  RegisterComponent(Button, "Button");
-  RegisterComponent(Link, "Link");
-  RegisterComponent(Input, "Input");
-  RegisterComponent(Field, "Field");
+  registerComponent(Button, 'Button');
+  registerComponent(Link, 'Link');
+  registerComponent(Input, 'Input');
+  registerComponent(Field, 'Field');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   registerComponents();
 
-  switch (window.location.pathname) {
-    case '':
-    case '/':
-      RenderDOM(new LoginPage());
-      break;
-    case '/registration':
-      RenderDOM(new RegPage());
-      break;
-    case '/chats':
-      RenderDOM(new Chats());
-      break;
-    case '/userProfile':
-        RenderDOM(new userProfile());
-        break;
-    default:
-      console.log('nothing');
-  }
+  const store = new Store<AppState>(defaultState);
+  const router = new Router('#content');
+  window.router = router;
+  window.store = store;
+
+  store.dispatch(initApp);
+
+  router
+    .use(Screens.Login, LoginPage)
+    .use(Screens.RegPage, RegPage)
+    .use(Screens.ProfilePage, userProfile)
+    .use(Screens.ChatsPage, ChatsPage)
+    .use(Screens.Error, Error)
+
+    store.on('changed', (prevState, nextState) => {
+      if (!prevState.appIsInited && nextState.appIsInited) {
+        router.start();
+      }
+    });
 });

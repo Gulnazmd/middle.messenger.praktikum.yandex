@@ -1,32 +1,24 @@
 import Block from 'core/block';
 import '../main.css';
 import Validate from 'core/validation';
+import { Dispatch, Router } from 'core';
+import { Screens } from 'core/screens';
+import { signup } from '../../services/auth';
+import { withRouter, withStore } from '../../utils';
 
-export class RegPage extends Block {
-  constructor() {
-    const defaultValues = {
-      values: {
-        first_name: '',
-        second_name: '',
-        login: '',
-        email: '',
-        password: '',
-        password2: '',
-        phone: '',
-      },
-      errors: {
-        first_name: '',
-        second_name: '',
-        login: '',
-        email: '',
-        password: '',
-        password2: '',
-        phone: '',
-      },
-    };
-    super({
-      ...defaultValues,
-    });
+interface IRegPageProps {
+  values: any;
+  errors: any;
+  router: Router,
+  isLoading: boolean,
+  signupFormError: string,
+  formError?: () => string | null,
+  dispatch: Dispatch<AppState>
+}
+
+class RegPage extends Block<IRegPageProps> {
+  constructor(props: IRegPageProps) {
+    super(props);
   }
 
   protected getStateFromProps() {
@@ -56,7 +48,19 @@ export class RegPage extends Block {
         };
         this.setState(nextState);
       },
-      onSubmit: this.onSubmit.bind(this),
+
+      goToSignIn: {
+        onClick: () => this.props.router.go(Screens.Login)
+      },
+
+      onSubmit: () => {
+        if (this.formValid()) {
+          console.log('submit', this.state.values);
+          const loginData = this.state.values;
+          this.props.dispatch(signup, loginData);
+        }
+      },
+
       onFocus: this.onFocus.bind(this),
       onBlur: this.onBlur.bind(this),
     };
@@ -88,14 +92,6 @@ export class RegPage extends Block {
         }
         this.state.handleErrors(newValues, newErrors);
       }
-    }
-  }
-
-  onSubmit(e: Event) {
-    e.preventDefault();
-    if (this.formValid()) {
-      console.log('submit', this.state.values);
-      window.location.href = '/chats';
     }
   }
 
@@ -204,9 +200,22 @@ export class RegPage extends Block {
             onClick=onSubmit
           }}} </br>
           <small>You have an account?</small>
-          {{{Link text="Sign In" to="/"}}}
+          {{{Link text="Sign In" to="goToSignIn"}}}
       </form>
     </div>
         `;
   }
 }
+function mapStateToProps(state: AppState) {
+  return {
+    isLoading: state.isLoading,
+    signupFormError: state.signupFormError,
+  };
+}
+
+export default withRouter<IRegPageProps>(
+  withStore<IRegPageProps>(
+    RegPage,
+    mapStateToProps,
+  ),
+);

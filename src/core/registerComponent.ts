@@ -1,15 +1,12 @@
-/* eslint-disable */
-import Handlebars, { HelperOptions } from 'handlebars';
-import Block from './block';
+import * as Handlebars from 'handlebars';
+import { BlockConstructable } from './Block';
 
-export interface BlockConstructable<Props = any> {
-  new(props: Props): Block;
-}
-
-export default function RegisterComponent<Props>(Component: BlockConstructable<Props>, Name: string) {
-  Handlebars.registerHelper(
-    Name,
-    function (this: Props, { hash: { ref, ...hash }, data, fn }: HelperOptions) {
+export default function registerComponent<Props extends {}>(
+  Component: BlockConstructable<Props>,
+  name: string,
+) {
+  Handlebars
+    .registerHelper(name, ({ hash: { ref, ...hash }, data }: Handlebars.HelperOptions) => {
       if (!data.root.children) {
         data.root.children = {};
       }
@@ -20,7 +17,6 @@ export default function RegisterComponent<Props>(Component: BlockConstructable<P
 
       const { children, refs } = data.root;
 
-
       const component = new Component(hash);
 
       children[component.id] = component;
@@ -29,9 +25,6 @@ export default function RegisterComponent<Props>(Component: BlockConstructable<P
         refs[ref] = component.getContent();
       }
 
-      const contents = fn ? fn(this) : '';
-
-      return `<div data-id="${component.id}">${contents}</div>`;
-    },
-  );
+      return `<div data-id="${component.id}"></div>`;
+    });
 }

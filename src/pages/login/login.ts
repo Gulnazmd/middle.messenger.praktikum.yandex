@@ -1,24 +1,20 @@
-import Block from 'core/block';
+import { Block } from 'core';
 import Validate from 'core/validation';
 import 'pages/main.css';
+import { Router, Dispatch} from 'core';
+import { Screens } from 'core/screens';
+import { withStore, withRouter } from '../../utils';
+import { loginService } from '../../services/auth';
 
-export class LoginPage extends Block {
-  constructor() {
-    const defaults = {
-      values: {
-        login: '',
-        password: '',
-      },
-      errors: {
-        login: '',
-        password: '',
-      },
-    };
-    super({
-      ...defaults,
-    });
-  }
+interface ILoginProps {
+  router: Router;
+  dispatch: Dispatch<AppState>,
+  loginFormError: string;
+  formError?: () => string | null;
+}
 
+
+class LoginPage extends Block<ILoginProps>{
   protected getStateFromProps() {
     this.state = {
       values: {
@@ -29,14 +25,31 @@ export class LoginPage extends Block {
         login: '',
         password: '',
       },
-      handleErrors: (values: {[key: string]: number}, errors: {[key: string]: number}) => {
+
+      goSignUp: {
+        onClick: () => this.props.router.go(Screens.RegPage)
+      },
+
+      onSubmit: () => {
+        if (this.formValid()) {
+          console.log('submit', this.state.values);
+          const loginData = this.state.values;
+          this.props.dispatch(loginService, loginData);
+        }
+      },
+
+      handleErrors: (values: { [key: string]: number }, errors: { [key: string]: number }) => {
+
         const nextState = {
-          errors,
-          values,
+          ...this.state,
         };
+
+        nextState.errors = errors;
+        nextState.values = values;
+
         this.setState(nextState);
       },
-      onSubmit: this.onSubmit.bind(this),
+
       onFocus: this.onFocus.bind(this),
       onBlur: this.onBlur.bind(this),
     };
@@ -73,9 +86,9 @@ export class LoginPage extends Block {
 
   formValid() {
     let isValid = true;
-    const newValues = { ...this.props.values };
-    const newErrors = { ...this.props.errors };
-    Object.keys(this.props.values).forEach((key) => {
+    const newValues = { ...this.state.values };
+    const newErrors = { ...this.state.errors };
+    Object.keys(this.state.values).forEach((key) => {
       newValues[key] = (this.refs[key].querySelector('input') as HTMLInputElement).value;
       const message = Validate(newValues[key], key);
       if (message) {
@@ -89,12 +102,6 @@ export class LoginPage extends Block {
     return isValid;
   }
 
-  onSubmit() {
-    if (this.formValid()) {
-      console.log('submit', this.state.values);
-      window.location.href = '/chats';
-    }
-  }
 
   render() {
     const { errors, values } = this.state;
@@ -132,9 +139,23 @@ export class LoginPage extends Block {
           onClick=onSubmit
         }}} </br>
         <small>You don't have an account?</small>
-        {{{Link text="Register" to="./registration"}}}
+        {{{Link text="Register" to=goSignUp}}}
     </form>
     </div>
         `;
   }
 }
+
+function mapStateToProps(state: AppState) {
+  return {
+    isLoading: state?.isLoading,
+    loginFormError: state.loginFormError,
+  };
+}
+
+export default withRouter<ILoginProps>(
+  withStore<ILoginProps>(
+    LoginPage,
+    mapStateToProps,
+  ),
+);

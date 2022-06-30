@@ -1,5 +1,8 @@
 interface ILinkProps {
-  text: string;
-  to: string;
+  text: string,
+  onClick: (e: Event) => {};
+  to: string,
+  label: string,
+  className?: string,
 }
 export default ILinkProps;

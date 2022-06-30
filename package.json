@@ -2,7 +2,7 @@
   "name": "messenger",
   "source": "src/index.html",
   "scripts": {
-    "start": "parcel src/index.html --no-source-maps  -p 3000 && node server.js",
+    "start": "parcel src/index.html -p 3000 && node server.js",
     "build": "parcel build src/index.html --no-optimize ",
     "lint": "eslint . --fix --ext .js,.ts",
     "clear": "rm -r node_modules",
