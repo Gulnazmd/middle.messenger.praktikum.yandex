@@ -26,8 +26,8 @@ class LoginPage extends Block<ILoginProps>{
         password: '',
       },
 
-      goSignUp: {
-        onClick: () => this.props.router.go(Screens.RegPage)
+      goSignUp: () => {
+        this.props.router.go(Screens.RegPage)
       },
 
       onSubmit: () => {
@@ -53,6 +53,12 @@ class LoginPage extends Block<ILoginProps>{
       onFocus: this.onFocus.bind(this),
       onBlur: this.onBlur.bind(this),
     };
+  }
+
+  componentDidMount() {
+    if (window.store.getState().user) {
+      this.props.router.go('/chats');
+    }
   }
 
   onFocus(e: Event) {
@@ -139,7 +145,7 @@ class LoginPage extends Block<ILoginProps>{
           onClick=onSubmit
         }}} </br>
         <small>You don't have an account?</small>
-        {{{Link text="Register" to=goSignUp}}}
+        {{{Link text="Register" onClick=goSignUp}}}
     </form>
     </div>
         `;
@@ -150,6 +156,7 @@ function mapStateToProps(state: AppState) {
   return {
     isLoading: state?.isLoading,
     loginFormError: state.loginFormError,
+    user: state.user
   };
 }
 

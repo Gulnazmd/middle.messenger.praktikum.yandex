@@ -5,14 +5,12 @@ import Validate from 'core/validation';
 import { Dispatch, Store } from 'core/store';
 import Router from 'core/router';
 import { withRouter, withStore } from '../../utils';
-import Views from './types/views';
-import { getUser } from '../../services/profile';
+import { getUser, changeUserProfile} from '../../services/profile';
+import { logout } from '../../services/auth';
+import { Screens } from 'core/screens';
 
 interface IProfilePageProps {
-  values: any;
-  errors: any;
   router: Router;
-  view?: Views,
   user: Nullable<User>,
   store: Store<AppState>;
   onLogout?: () => void;
@@ -23,12 +21,7 @@ interface IProfilePageProps {
 };
 
 class userProfile extends Block<IProfilePageProps> {
-  constructor(props: IProfilePageProps) {
-    super({
-      ...props,
-      view: Views.READ_ONLY,
-    });
-  }
+
   componentDidMount(): void {
     const { user } = this.props;
 
@@ -40,24 +33,45 @@ class userProfile extends Block<IProfilePageProps> {
   protected getStateFromProps(_props: IProfilePageProps) {
     this.state = {
       values: {
-        first_name: '',
-        second_name: '',
-        login: '',
-        email: '',
-        phone: '',
+        firstName: _props.user?.firstName,
+        secondName: _props.user?.secondName,
+        displayName:  _props.user?.displayName,
+        login:  _props.user?.login,
+        email:  _props.user?.email,
+        phone:  _props.user?.phone,
       },
       errors: {
-        first_name: '',
-        second_name: '',
+        firstName: '',
+        secondName: '',
+        displayName: '',
         login: '',
         email: '',
         phone: '',
       },
+      onSubmit: () => {
+        if (this.formValid()) {
+          console.log('submit', this.state.values);
+          const profileData = this.state.values;
+          this.props.dispatch(changeUserProfile, profileData);
+        }
+      },
+      onExit: (e: MouseEvent) => {
+        this.props.dispatch(logout);
+        e.preventDefault();
+      },
+
+      onChangePassword: () => {
+       this.props.router.go(Screens.Password)
+      },
+
       handleErrors: (values: {[key: string]: number}, errors: {[key: string]: number}) => {
         const nextState = {
-          errors,
-          values,
+          ...this.state,
         };
+
+        nextState.errors = errors;
+        nextState.values = values;
+
         this.setState(nextState);
       },
       onChange: this.onChange.bind(this),
@@ -104,9 +118,9 @@ class userProfile extends Block<IProfilePageProps> {
 
   formValid() {
     let isValid = true;
-    const newValues = { ...this.props.values };
-    const newErrors = { ...this.props.errors };
-    Object.keys(this.props.values).forEach((key) => {
+    const newValues = { ...this.state.values };
+    const newErrors = { ...this.state.errors };
+    Object.keys(this.state.values).forEach((key) => {
       newValues[key] = (this.refs[key].querySelector('input') as HTMLInputElement).value;
       const message = Validate(newValues[key], key);
       if (message) {
@@ -120,17 +134,17 @@ class userProfile extends Block<IProfilePageProps> {
 
   render() {
     const { errors, values } = this.state;
-
     return `
       <div>
         <form action="" method="post" class="form">
           <div class="title form__title">Profile settings</div>
+          {{{Avatar}}}
           {{{Field
             label= 'First name'
-            value="${values.first_name}"
-            error="${errors.first_name}"
-            ref="first_name"
-            id="first_name"
+            value="${values.firstName}"
+            error="${errors.firstName}"
+            ref="firstName"
+            id="firstName"
             type="text"
             placeholder="firstname"
             onFocus=onFocus
@@ -138,12 +152,23 @@ class userProfile extends Block<IProfilePageProps> {
           }}}
           {{{Field
             label= 'Second name'
-            value="${values.second_name}"
-            error="${errors.second_name}"
-            ref="second_name"
-            id="second_name"
+            value="${values.secondName}"
+            error="${errors.secondName}"
+            ref="secondName"
+            id="secondName"
             type="text"
             placeholder="secondname"
+            onFocus=onFocus
+            onBlur=onBlur
+          }}}
+          {{{Field
+            label= 'Display name'
+            value="${values.displayName}"
+            error="${errors.displayName}"
+            ref="displayName"
+            id="displayName"
+            type="text"
+            placeholder="displayName"
             onFocus=onFocus
             onBlur=onBlur
           }}}
@@ -182,9 +207,10 @@ class userProfile extends Block<IProfilePageProps> {
           }}}
           {{{Button
             text="Save"
-            onClick=onChange
+            onClick=onSubmit
           }}} </br>
-          {{{Link text="Change password" to="/"}}}
+          {{{Link text="Change password" onClick=onChangePassword}}}
+          {{{Link text="Exit" onClick=onExit}}}
       </form>
     </div>
         `;

@@ -31,7 +31,7 @@ export const loginService = async (
 
   dispatch({ user: transformUser(responseUser) });
 
-  window.router.go(Screens.ProfilePage);
+  window.router.go(Screens.ChatsPage);
 };
 
 export const signup = async (
@@ -80,7 +80,7 @@ export const signup = async (
   window.router.go(Screens.ProfilePage);
 };
 
-export const logout = async () => {
+export const logout = async (  dispatch: Dispatch<AppState>) => {
   await authAPI.logout();
 
   const currentRoute = window.router.getRoute(window.location.pathname);
@@ -88,6 +88,6 @@ export const logout = async () => {
   if (currentRoute?.match(Screens.Login) || currentRoute?.match(Screens.RegPage)) {
     return;
   }
-
+  dispatch({ user: null });
   window.router.go(Screens.Login);
 };

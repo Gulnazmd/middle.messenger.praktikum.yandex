@@ -26,7 +26,7 @@ class AuthAPI {
   }
 
   logout() {
-    return authAPIInstance.post('/logout')
+    return authAPIInstance.post('/logout', {})
       .then(({ response }) => response);
   }
 }

@@ -17,10 +17,6 @@ interface IRegPageProps {
 }
 
 class RegPage extends Block<IRegPageProps> {
-  constructor(props: IRegPageProps) {
-    super(props);
-  }
-
   protected getStateFromProps() {
     this.state = {
       values: {
@@ -41,24 +37,28 @@ class RegPage extends Block<IRegPageProps> {
         password2: '',
         phone: '',
       },
-      handleErrors: (values: { [key: string]: number }, errors: { [key: string]: number }) => {
-        const nextState = {
-          errors,
-          values,
-        };
-        this.setState(nextState);
-      },
 
-      goToSignIn: {
-        onClick: () => this.props.router.go(Screens.Login)
+
+     onSignIn: () => {
+        this.props.router.go(Screens.Login)
       },
 
       onSubmit: () => {
         if (this.formValid()) {
           console.log('submit', this.state.values);
-          const loginData = this.state.values;
-          this.props.dispatch(signup, loginData);
+          const regData = this.state.values;
+          this.props.dispatch(signup, regData);
         }
+      },
+      handleErrors: (values: { [key: string]: number }, errors: { [key: string]: number }) => {
+        const nextState = {
+          ...this.state,
+        };
+
+        nextState.errors = errors;
+        nextState.values = values;
+
+        this.setState(nextState);
       },
 
       onFocus: this.onFocus.bind(this),
@@ -117,7 +117,7 @@ class RegPage extends Block<IRegPageProps> {
     return `
       <div>
         <form action="" method="post" class="form">
-          <div class="title form__title">Sign In</div>
+          <div class="title form__title">Registration</div>
           {{{Field
             label= 'First name'
             value="${values.first_name}"
@@ -200,7 +200,7 @@ class RegPage extends Block<IRegPageProps> {
             onClick=onSubmit
           }}} </br>
           <small>You have an account?</small>
-          {{{Link text="Sign In" to="goToSignIn"}}}
+          {{{Link text="Sign In" onClick=onSignIn}}}
       </form>
     </div>
         `;
@@ -210,6 +210,7 @@ function mapStateToProps(state: AppState) {
   return {
     isLoading: state.isLoading,
     signupFormError: state.signupFormError,
+    user: state.user
   };
 }
 

@@ -30,7 +30,7 @@
     }
     &__prfl {
       color: var(--color-lilac);
-      margin-left: 80px;
+      margin-left: 5px;
       margin-bottom: -10px;
       margin-top: 2px;
     }
@@ -89,5 +89,21 @@
       border: none;
       padding: 7px;
       border-radius: 5px;
+    }
+    &__empty {
+      width: 450px;
+    }
+    &__empty-title {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 200px;
+    }
+    &__names {
+      list-style-type: none;
+      display: inline;
+    }
+    &__list-item {
+      color: var(--color-grey);
+      cursor: pointer;
     }
 }

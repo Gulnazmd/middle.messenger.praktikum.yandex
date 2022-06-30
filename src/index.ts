@@ -14,6 +14,7 @@ import { RegPage } from 'pages/registration';
 import { userProfile } from 'pages/userProfile';
 import { ChatsPage } from './modules/chats';
 import Error  from 'pages/errors/error'
+import Avatar from 'components/avatar/avatar';
 
 
 function registerComponents() {
@@ -21,6 +22,7 @@ function registerComponents() {
   registerComponent(Link, 'Link');
   registerComponent(Input, 'Input');
   registerComponent(Field, 'Field');
+  registerComponent(Avatar, 'Avatar');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
