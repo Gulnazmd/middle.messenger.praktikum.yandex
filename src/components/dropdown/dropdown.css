@@ -1,0 +1,21 @@
+@import "../../style.css";
+.dropdown {
+  position: relative;
+}
+.dropdownMenu  {
+      position: absolute;
+      top: 32px;
+      right: 0;
+      width: 200px;
+      padding: 16px;
+      background-color: var(--color-white);
+      box-shadow: 0 8px 48px -16px rgba(grey);
+      list-style-type: none;
+}
+.dropdownItem {
+      padding: 0;
+      padding: 16px 0;
+      font-size: 12px;
+      font-weight: normal;
+      cursor: pointer;
+}

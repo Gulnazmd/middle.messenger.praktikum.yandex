@@ -1,13 +1,17 @@
 import Block from 'core/block';
 import './chats.css';
 import { Dispatch, registerComponent, Router } from 'core';
-import Message from './components/message';
-import ChatList from './components/chatList';
-import ChatForm from './components/chatForm';
-import { getChats } from '../../services/chats';
-import { withRouter, withStore } from '../../utils';
+import {
+  addUserToChat, deleteChat, deleteUserFromChat, getChats, getChatUsers,
+} from 'services/chats';
+import { createConnection } from 'services/sockets';
+import { withRouter, withStore } from 'utils';
+import { IDropdownItem } from 'components/dropdown/components/dropdownItem';
+import { ChatForm } from './components/chatForm';
+import { ChatList } from './components/chatList';
+import { MessageEditor } from './components/message';
 
-registerComponent(Message, 'Message');
+registerComponent(MessageEditor, 'MessageEditor');
 registerComponent(ChatList, 'ChatList');
 registerComponent(ChatForm, 'ChatForm');
 
@@ -18,6 +22,7 @@ interface IChatsProps {
   router: Router,
   messages: Message[],
   user: Nullable<User>,
+  chatMenu: IDropdownItem[],
 }
 
 class ChatsPage extends Block<IChatsProps> {
@@ -29,15 +34,15 @@ class ChatsPage extends Block<IChatsProps> {
     const chatMenu = [
       {
         title: 'Add user',
-        onClick: () => this.toggleAddUserWindow(true),
+        onClick: () => this.onAddUser(true),
       },
       {
         title: 'Delete user',
-        onClick: () => this.toggleDeleteUserWindow(true),
+        onClick: () => this.onDeleteUser(true),
       },
       {
         title: 'Delete chat',
-        onClick: () => this.handleDeleteChat(),
+        onClick: () => this.onDeleteChat(),
       },
     ];
 
@@ -55,11 +60,11 @@ class ChatsPage extends Block<IChatsProps> {
     const currentChat = this.props.chats
       .find((chat: Chat) => chat.id === chatId) as Chat;
 
-    //this.props.dispatch(createConnection, { chatId });
+    this.props.dispatch(createConnection, { chatId });
 
-    //this.props.dispatch(getChatUsers, {
-    //  chatId,
-    //});
+    this.props.dispatch(getChatUsers, {
+      chatId,
+    });
 
     const newState = {
       ...this.state,
@@ -68,31 +73,83 @@ class ChatsPage extends Block<IChatsProps> {
 
     this.setState(newState);
   }
+
   protected getStateFromProps() {
     this.state = {
       activeChat: null,
-      onChatClick: this.handleChatClick.bind(this)
-    }
+      onChatClick: this.handleChatClick.bind(this),
+      onAddUser: this.onAddUser.bind(true, false),
+      onDeleteUser: this.onDeleteUser.bind(true, false),
+      addUser: this.handleAddUser.bind(this),
+      deleteUser: this.handleDeleteUser.bind(this),
+    };
+  }
+
+  handleAddUser(id: number) {
+    this.props.dispatch(addUserToChat, {
+      users: [id],
+      chatId: this.state.activeChat.id,
+    });
+    this.onAddUser(false);
+  }
+
+  onAddUser(isOpen: boolean) {
+    this.setState({
+      ...this.state,
+      showAddUserWindow: isOpen,
+    });
+    this.props.dispatch({
+      searchResult: [],
+    });
+  }
+
+  onDeleteUser(isOpen: boolean) {
+    this.setState({
+      ...this.state,
+      showDeleteUserWindow: isOpen,
+    });
+  }
+
+  onDeleteChat() {
+    this.props.dispatch(deleteChat, { chatId: this.state.activeChat.id });
+    this.setState({
+      ...this.state,
+      activeChat: null,
+    });
+  }
+
+  handleDeleteUser(userId: number) {
+    this.props.dispatch(deleteUserFromChat, {
+      users: [
+        userId,
+      ],
+      chatId: this.state.activeChat.id,
+    });
+
+    this.setState({
+      ...this.state,
+      showDeleteUserWindow: false,
+    });
   }
 
   render() {
     const { activeChat } = this.state;
-      return `
+    return `
   <div class="chats">
       {{{ChatList chats=chats onChatClick=onChatClick activeChat=activeChat}}}
     <span class="span chats__span"></span>
-    <div>
+    <div class="emptyDiv chats__emptyDiv">
     {{#if activeChat}}
       <div class="profileSettings chats__profileSettings">
         <img src="${activeChat?.avatar}" class="photo chats__photo"></img>
         <p class="name chats__name">${activeChat?.title}</p>
-        <button class="chats__settingButton">⋮</button>
+        {{{ Dropdown items=chatMenu }}}
       </div>
       <span class="span-2 chats__span-2"></span>
-      {{{ChatForm}}}
+      {{{ChatForm messages=messages}}}
       <div>
         <span class="span-2 chats__span-2"></span>
-        {{{Message}}}
+        {{{MessageEditor}}}
       </div>
       {{else}}
       <div class="empty chats__empty">
@@ -102,7 +159,7 @@ class ChatsPage extends Block<IChatsProps> {
     </div>
   </div>
   `;
-    }
+  }
 }
 function mapStateToProps(state: AppState) {
   return {
@@ -117,6 +174,6 @@ function mapStateToProps(state: AppState) {
 export default withRouter<IChatsProps>(
   withStore<IChatsProps>(
     ChatsPage,
-    mapStateToProps
+    mapStateToProps,
   ),
 );

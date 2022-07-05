@@ -23,4 +23,9 @@
         font-weight: bold;
         font-size: 20px;
     }
+    &__name {
+        text-align: center;
+        font-size: 20px;
+        color: var(--color-dark-purple);
+    }
 }

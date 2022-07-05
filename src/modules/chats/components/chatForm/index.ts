@@ -1,1 +1,1 @@
-export { ChatForm as default } from './chatForm';
+export { default as ChatForm } from './chatForm';

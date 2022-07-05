@@ -1,11 +1,11 @@
-import { UserDTO, APIError  } from './types';
+import { UserDTO, APIError } from './types';
 
 export type SigninRequestData = {
   login: string,
   password: string
 }
 
-export type SigninResponseData = {} | APIError;
+export type SigninResponseData = APIError;
 
 export type SignupRequestData = {
   first_name: string,

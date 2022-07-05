@@ -1,4 +1,4 @@
-import Block from '../../core/block';
+import Block from 'core/block';
 import { IInputProps } from './types';
 
 interface IInputPropsWithEvents extends Omit<IInputProps, 'onBlur' | 'onFocus' | 'onChange'> {
@@ -30,8 +30,7 @@ class Input extends Block<IInputPropsWithEvents> {
 
   protected render(): string {
     return `
-      <input class="field__input {{#if error}}field__input__error{{/if}}" id={{id}} type={{type}} placeholder={{placeholder}}
-      value={{value}} >
+      <input class="field__input {{#if error}}field__input__error{{/if}}" id={{id}} type={{type}} placeholder={{placeholder}} value={{value}}>
     `;
   }
 }

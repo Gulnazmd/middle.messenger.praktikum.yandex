@@ -20,7 +20,7 @@ export type ChangeUserPasswordRequest = {
   newPassword: string
 }
 
-export type ChangeUserPasswordResponse = {} | APIError;
+export type ChangeUserPasswordResponse = APIError;
 
 export type FindUserRequest = {
   login: string,

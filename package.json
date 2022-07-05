@@ -3,7 +3,7 @@
   "source": "src/index.html",
   "scripts": {
     "start": "parcel src/index.html -p 3000 && node server.js",
-    "build": "parcel build src/index.html --no-optimize ",
+    "build": "parcel build src/index.html --no-source-maps --no-cache --public-url ./",
     "lint": "eslint . --fix --ext .js,.ts",
     "clear": "rm -r node_modules",
     "test": "./node_modules/.bin/mocha"
@@ -11,7 +11,12 @@
   "alias": {
     "core": "./src/core",
     "pages": "./src/pages",
-    "components": "./src/components"
+    "components": "./src/components",
+    "services": "./src/services",
+    "store": "./src/store",
+    "utils": "./src/utils",
+    "api": "./src/api",
+    "modules": "./src/modules"
   },
   "devDependencies": {
     "@types/chai": "^4.3.1",

@@ -1,13 +1,12 @@
 import Block from 'core/block';
-import './userProfile.css';
 import '../main.css';
 import Validate from 'core/validation';
 import { Dispatch, Store } from 'core/store';
 import Router from 'core/router';
-import { withRouter, withStore } from '../../utils';
-import { getUser, changeUserProfile} from '../../services/profile';
-import { logout } from '../../services/auth';
 import { Screens } from 'core/screens';
+import { withRouter, withStore } from '../../utils';
+import { getUser, changeUserProfile, changeAvatar } from '../../services/profile';
+import { logout } from '../../services/auth';
 
 interface IProfilePageProps {
   router: Router;
@@ -18,10 +17,9 @@ interface IProfilePageProps {
   userName?: () => string | undefined;
   screenTitle?: () => string | undefined;
   dispatch: Dispatch<AppState>
-};
+}
 
 class userProfile extends Block<IProfilePageProps> {
-
   componentDidMount(): void {
     const { user } = this.props;
 
@@ -35,10 +33,10 @@ class userProfile extends Block<IProfilePageProps> {
       values: {
         firstName: _props.user?.firstName,
         secondName: _props.user?.secondName,
-        displayName:  _props.user?.displayName,
-        login:  _props.user?.login,
-        email:  _props.user?.email,
-        phone:  _props.user?.phone,
+        displayName: _props.user?.displayName,
+        login: _props.user?.login,
+        email: _props.user?.email,
+        phone: _props.user?.phone,
       },
       errors: {
         firstName: '',
@@ -61,7 +59,7 @@ class userProfile extends Block<IProfilePageProps> {
       },
 
       onChangePassword: () => {
-       this.props.router.go(Screens.Password)
+        this.props.router.go(Screens.Password);
       },
 
       handleErrors: (values: {[key: string]: number}, errors: {[key: string]: number}) => {
@@ -77,6 +75,7 @@ class userProfile extends Block<IProfilePageProps> {
       onChange: this.onChange.bind(this),
       onFocus: this.onFocus.bind(this),
       onBlur: this.onBlur.bind(this),
+      onAvatarChange: this.handleAvatarChange.bind(this),
     };
   }
 
@@ -116,6 +115,11 @@ class userProfile extends Block<IProfilePageProps> {
     }
   }
 
+  handleAvatarChange() {
+    const formData = new FormData(document.querySelector('#avatar__file-upload') as HTMLFormElement);
+    this.props.dispatch(changeAvatar, formData);
+  }
+
   formValid() {
     let isValid = true;
     const newValues = { ...this.state.values };
@@ -130,15 +134,17 @@ class userProfile extends Block<IProfilePageProps> {
     });
     this.state.handleErrors(newValues, newErrors);
     return isValid;
-}
+  }
 
   render() {
     const { errors, values } = this.state;
+    const avatarImg = this.props.user?.avatar ?? '';
     return `
       <div>
         <form action="" method="post" class="form">
           <div class="title form__title">Profile settings</div>
-          {{{Avatar}}}
+          {{{Avatar imageUrl="${avatarImg}" onChange=onAvatarChange}}}
+          <p class="name form__name">${values.firstName}</p>
           {{{Field
             label= 'First name'
             value="${values.firstName}"
@@ -209,8 +215,10 @@ class userProfile extends Block<IProfilePageProps> {
             text="Save"
             onClick=onSubmit
           }}} </br>
-          {{{Link text="Change password" onClick=onChangePassword}}}
-          {{{Link text="Exit" onClick=onExit}}}
+          <div>
+            {{{Link text="Change password" onClick=onChangePassword}}}</br>
+            {{{Link text="Exit" onClick=onExit}}}
+          </div>
       </form>
     </div>
         `;
@@ -229,5 +237,3 @@ export default withRouter<IProfilePageProps>(
     mapStateToProps,
   ),
 );
-
-

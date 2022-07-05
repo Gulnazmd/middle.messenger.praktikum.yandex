@@ -1,5 +1,4 @@
-
- export class HashRouter {
+export class HashRouter {
   routes: Record<string, Function> = {};
 
   constructor() {

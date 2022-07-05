@@ -4,6 +4,7 @@
   color: var(--color-orange);
   text-decoration: none;
   font-size: 18px;
+  padding: 5px;
 }
 .link:hover {
   opacity: 0.6;

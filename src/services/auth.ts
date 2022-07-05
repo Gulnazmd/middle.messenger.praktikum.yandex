@@ -1,9 +1,9 @@
-import authAPI from '../api/auth';
-import  Screens from 'core/screens/screens';
+import Screens from 'core/screens/screens';
 import type { Dispatch } from 'core';
-import { apiError } from '../utils/apiError';
-import { transformUser } from '../utils/apiTransformers';
 import { SignupFormData } from 'components/authForm/types/formData';
+import { apiError } from 'utils/apiError';
+import { transformUser } from 'utils/apiTransformers';
+import authAPI from '../api/auth';
 import { LoginPayload, SignupPayload } from './types/auth';
 
 export const loginService = async (
@@ -80,7 +80,7 @@ export const signup = async (
   window.router.go(Screens.ProfilePage);
 };
 
-export const logout = async (  dispatch: Dispatch<AppState>) => {
+export const logout = async (dispatch: Dispatch<AppState>) => {
   await authAPI.logout();
 
   const currentRoute = window.router.getRoute(window.location.pathname);

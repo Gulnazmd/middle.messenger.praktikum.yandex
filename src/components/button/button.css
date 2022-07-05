@@ -1,9 +1,9 @@
 @import "../../style.css";
 
 .button {
-  margin: 25px 0;
+  margin: 20px 0;
   width: 90%;
-  padding: 10px;
+  padding: 7px;
   font: inherit;
   border: 1px solid var(--color-orange);
   background-color: transparent;
@@ -14,5 +14,6 @@
     &:hover {
       color: var(--color-white);
       background-color: var(--color-orange);
+      cursor: pointer;
     }
 }

@@ -3,12 +3,10 @@ import '../main.css';
 import Validate from 'core/validation';
 import { Dispatch, Router } from 'core';
 import { Screens } from 'core/screens';
-import { signup } from '../../services/auth';
-import { withRouter, withStore } from '../../utils';
+import { signup } from 'services/auth';
+import { withRouter, withStore } from 'utils';
 
 interface IRegPageProps {
-  values: any;
-  errors: any;
   router: Router,
   isLoading: boolean,
   signupFormError: string,
@@ -20,8 +18,8 @@ class RegPage extends Block<IRegPageProps> {
   protected getStateFromProps() {
     this.state = {
       values: {
-        first_name: '',
-        second_name: '',
+        firstName: '',
+        secondName: '',
         login: '',
         email: '',
         password: '',
@@ -29,8 +27,8 @@ class RegPage extends Block<IRegPageProps> {
         phone: '',
       },
       errors: {
-        first_name: '',
-        second_name: '',
+        firstName: '',
+        secondName: '',
         login: '',
         email: '',
         password: '',
@@ -38,9 +36,8 @@ class RegPage extends Block<IRegPageProps> {
         phone: '',
       },
 
-
-     onSignIn: () => {
-        this.props.router.go(Screens.Login)
+      onSignIn: () => {
+        this.props.router.go(Screens.Login);
       },
 
       onSubmit: () => {
@@ -97,9 +94,9 @@ class RegPage extends Block<IRegPageProps> {
 
   formValid() {
     let isValid = true;
-    const newValues = { ...this.props.values };
-    const newErrors = { ...this.props.errors };
-    Object.keys(this.props.values).forEach((key) => {
+    const newValues = { ...this.state.values };
+    const newErrors = { ...this.state.errors };
+    Object.keys(this.state.values).forEach((key) => {
       newValues[key] = (this.refs[key].querySelector('input') as HTMLInputElement).value;
       const message = Validate(newValues[key], key);
       if (message) {
@@ -120,10 +117,10 @@ class RegPage extends Block<IRegPageProps> {
           <div class="title form__title">Registration</div>
           {{{Field
             label= 'First name'
-            value="${values.first_name}"
-            error="${errors.first_name}"
-            ref="first_name"
-            id="first_name"
+            value="${values.firstName}"
+            error="${errors.firstName}"
+            ref="firstName"
+            id="firstName"
             type="text"
             placeholder="firstname"
             onFocus=onFocus
@@ -131,10 +128,10 @@ class RegPage extends Block<IRegPageProps> {
           }}}
           {{{Field
             label= 'Second name'
-            value="${values.second_name}"
-            error="${errors.second_name}"
-            ref="second_name"
-            id="second_name"
+            value="${values.secondName}"
+            error="${errors.secondName}"
+            ref="secondName"
+            id="secondName"
             type="text"
             placeholder="secondname"
             onFocus=onFocus
@@ -210,7 +207,7 @@ function mapStateToProps(state: AppState) {
   return {
     isLoading: state.isLoading,
     signupFormError: state.signupFormError,
-    user: state.user
+    user: state.user,
   };
 }
 

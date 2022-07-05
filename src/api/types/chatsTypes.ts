@@ -4,16 +4,13 @@ import { UserDTO } from './userTypes';
 export type CreateChatRequest = {
   title: string
 }
-
 export type CreateChatResponseData = {
   id: string,
 }
-
 export type DeleteChatRequest = {
   chatId: number,
 }
-
-export type DeleteChatResponseData = {} | APIError;
+export type DeleteChatResponseData = APIError;
 
 export type GetChatUsersRequest = {
   id: number,
@@ -55,5 +52,5 @@ export type GetTokenResponseData = {
   token: string,
 }
 
-export type AddUsersToChatResponseData = {} | APIError;
-export type DeleteUserFromChatResponseData = {} | APIError;
+export type AddUsersToChatResponseData = APIError;
+export type DeleteUserFromChatResponseData = APIError;

@@ -9,6 +9,7 @@
   --color-dark-grey: #212529;
   --color-turquoise: #89E8EE;
   --color-red: #D82148;
+  --color-blue: aliceblue;
 }
 body {
   flex-direction: column;

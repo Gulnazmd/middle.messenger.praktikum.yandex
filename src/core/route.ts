@@ -1,7 +1,7 @@
 import renderDOM from 'core/renderDOM';
-import Block from 'core/Block';
+import Block from 'core/block';
 
-interface BlockConstructable<Props extends {}> {
+interface BlockConstructable<Props> {
   new(props: any): Block<Props>;
 }
 

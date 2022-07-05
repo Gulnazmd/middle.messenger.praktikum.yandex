@@ -1,5 +1,5 @@
 import 'pages/main.css';
-import Block from 'core/Block';
+import Block from 'core/block';
 
 class Error extends Block<{}> {
   render() {

@@ -19,11 +19,12 @@ class Avatar extends Block<IAvatarProps> {
         <label for='avatar__file-upload' class='avatar__label'></label>
         {{{ Input
             type="file"
-            alt="Выберите аватарку"
+            alt="Select photo"
+            placeholder="SelectPhoto"
+            name="avatar"
             id="avatar__file-upload"
             className="avatar__file-upload"
             accept="image/*"
-            name="avatar"
             onChange=onChange
         }}}
         <div class='avatar__image-wrap'>

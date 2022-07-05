@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import * as Handlebars from 'handlebars';
-import EventBus from './EventBus';
+import EventBus from './eventBus';
 
 export interface BlockConstructable<Props extends {}> {
   new(props: any): Block<Props>;
@@ -47,7 +47,18 @@ class Block<Props extends {}> {
     eventBus.emit(Block.EVENTS.INIT, this.props);
   }
 
-  private _registerEvents(eventBus: EventBus<Events>) {
+  _checkInDom() {
+    const elementInDOM = document.body.contains(this._element);
+
+    if (elementInDOM) {
+      setTimeout(() => this._checkInDom(), 1000);
+      return;
+    }
+
+    this.eventBus().emit(Block.EVENTS.FLOW_CWU, this.props);
+  }
+
+  _registerEvents(eventBus: EventBus<Events>) {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -55,12 +66,11 @@ class Block<Props extends {}> {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  private _createResources() {
+  _createResources() {
     this._element = this._createDocumentElement('div');
   }
 
-  protected getStateFromProps(props?: Props): void {
-    console.log(props);
+  protected getStateFromProps(props: any): void {
     this.state = {};
   }
 
@@ -69,15 +79,16 @@ class Block<Props extends {}> {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER, this.props);
   }
 
-  private _componentDidMount(props: Props) {
+  _componentDidMount(props: Props) {
+    this._checkInDom();
     this.componentDidMount(props);
   }
 
-  componentDidMount(props: Props) {
-    console.log(props);
+  componentDidMount(props: any) {
+
   }
 
-  private _componentDidUpdate(oldProps: Props, newProps: Props) {
+  _componentDidUpdate(oldProps: Props, newProps: Props) {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (!response) {
       return;
@@ -90,14 +101,13 @@ class Block<Props extends {}> {
     this.componentWillUnmount();
   }
 
-  componentWillUnmount() { }
+  componentWillUnmount() {}
 
   componentDidUpdate(oldProps: Props, newProps: Props) {
-    console.log(oldProps, newProps);
     return true;
   }
 
-  setProps = (nextProps: Props) => {
+  setProps = (nextProps: Partial<Props>) => {
     if (!nextProps) {
       return;
     }
@@ -117,7 +127,7 @@ class Block<Props extends {}> {
     return this._element;
   }
 
-  private _render() {
+  _render() {
     const fragment = this._compile();
 
     this._removeEvents();
@@ -148,7 +158,7 @@ class Block<Props extends {}> {
     return this.element!;
   }
 
-  private _makePropsProxy(props: Props): Props {
+  _makePropsProxy(props: any): any {
     // Можно и так передать this
     // Такой способ больше не применяется с приходом ES6+
     const self = this;
@@ -172,11 +182,11 @@ class Block<Props extends {}> {
     }) as unknown as Props;
   }
 
-  private _createDocumentElement(tagName: string) {
+  _createDocumentElement(tagName: string) {
     return document.createElement(tagName);
   }
 
-  private _removeEvents() {
+  _removeEvents() {
     const { events, selector }:
       { events: Record<string, () => void>, selector: string } = (this.props as any);
 
@@ -190,18 +200,18 @@ class Block<Props extends {}> {
     }
 
     Object.entries(events).forEach(([event, listener]) => {
-      element?.removeEventListener(event, listener);
+      this._element!.removeEventListener(event, listener);
     });
   }
 
-  private _addEvents() {
+  _addEvents() {
     const { events, selector }:
       { events: Record<string, () => void>, selector: string } = this.props as any;
 
     if (!events) {
       return;
     }
-
+    
     let element = this._element;
     if (selector && element) {
       element = element.querySelector(selector) as HTMLElement;
@@ -212,7 +222,7 @@ class Block<Props extends {}> {
     });
   }
 
-  private _compile(): DocumentFragment {
+  _compile(): DocumentFragment {
     const fragment = document.createElement('template');
 
     /**
@@ -239,15 +249,23 @@ class Block<Props extends {}> {
         return;
       }
 
+      const stubChilds = stub.childNodes.length ? stub.childNodes : [];
+
       /**
        * Заменяем заглушку на component._element
        */
-      stub.replaceWith(component.getContent());
-    });
+      const content = component.getContent();
+      stub.replaceWith(content);
 
-    /**
-     * Возвращаем фрагмент
-     */
+      /**
+       * Ищем элемент layout-а, куда вставлять детей
+       */
+      const layoutContent = content.querySelector('[data-layout="1"]');
+
+      if (layoutContent && stubChilds.length) {
+        layoutContent.append(...stubChilds);
+      }
+    });
     return fragment.content;
   }
 

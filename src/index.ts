@@ -4,18 +4,18 @@ import {
   Input,
   Field,
 } from 'components';
-import { registerComponent, Store, Router  } from 'core';
+import { registerComponent, Store, Router } from 'core';
 import './style.css';
 import { Screens } from 'core/screens';
-import { initApp } from './services/initApp';
-import { defaultState } from './store';
 import { LoginPage } from 'pages/login';
 import { RegPage } from 'pages/registration';
 import { userProfile } from 'pages/userProfile';
-import { ChatsPage } from './modules/chats';
-import Error  from 'pages/errors/error'
+import Error from 'pages/errors/error';
 import Avatar from 'components/avatar/avatar';
-
+import { ChatsPage } from 'modules/chats';
+import { defaultState } from 'store';
+import { initApp } from 'services/initApp';
+import { Dropdown } from 'components/dropdown';
 
 function registerComponents() {
   registerComponent(Button, 'Button');
@@ -23,6 +23,7 @@ function registerComponents() {
   registerComponent(Input, 'Input');
   registerComponent(Field, 'Field');
   registerComponent(Avatar, 'Avatar');
+  registerComponent(Dropdown, 'Dropdown');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -40,11 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
     .use(Screens.RegPage, RegPage)
     .use(Screens.ProfilePage, userProfile)
     .use(Screens.ChatsPage, ChatsPage)
-    .use(Screens.Error, Error)
+    .use(Screens.Error, Error);
 
-    store.on('changed', (prevState, nextState) => {
-      if (!prevState.appIsInited && nextState.appIsInited) {
-        router.start();
-      }
-    });
+  store.on('changed', (prevState, nextState) => {
+    if (!prevState.appIsInited && nextState.appIsInited) {
+      router.start();
+    }
+  });
 });

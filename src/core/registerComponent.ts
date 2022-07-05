@@ -1,5 +1,5 @@
 import * as Handlebars from 'handlebars';
-import { BlockConstructable } from './Block';
+import { BlockConstructable } from './block';
 
 export default function registerComponent<Props extends {}>(
   Component: BlockConstructable<Props>,

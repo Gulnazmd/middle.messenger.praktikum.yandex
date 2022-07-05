@@ -1,10 +1,9 @@
-import { Block } from 'core';
+import { Block, Router, Dispatch } from 'core';
 import Validate from 'core/validation';
 import 'pages/main.css';
-import { Router, Dispatch} from 'core';
 import { Screens } from 'core/screens';
-import { withStore, withRouter } from '../../utils';
-import { loginService } from '../../services/auth';
+import { withStore, withRouter } from 'utils';
+import { loginService } from 'services/auth';
 
 interface ILoginProps {
   router: Router;
@@ -13,8 +12,7 @@ interface ILoginProps {
   formError?: () => string | null;
 }
 
-
-class LoginPage extends Block<ILoginProps>{
+class LoginPage extends Block<ILoginProps> {
   protected getStateFromProps() {
     this.state = {
       values: {
@@ -27,7 +25,7 @@ class LoginPage extends Block<ILoginProps>{
       },
 
       goSignUp: () => {
-        this.props.router.go(Screens.RegPage)
+        this.props.router.go(Screens.RegPage);
       },
 
       onSubmit: () => {
@@ -39,7 +37,6 @@ class LoginPage extends Block<ILoginProps>{
       },
 
       handleErrors: (values: { [key: string]: number }, errors: { [key: string]: number }) => {
-
         const nextState = {
           ...this.state,
         };
@@ -108,7 +105,6 @@ class LoginPage extends Block<ILoginProps>{
     return isValid;
   }
 
-
   render() {
     const { errors, values } = this.state;
 
@@ -156,7 +152,7 @@ function mapStateToProps(state: AppState) {
   return {
     isLoading: state?.isLoading,
     loginFormError: state.loginFormError,
-    user: state.user
+    user: state.user,
   };
 }
 

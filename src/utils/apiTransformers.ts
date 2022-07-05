@@ -1,21 +1,19 @@
-import { UserDTO } from '../api/types/types';
-import { ChatDTO } from '../api/types/chatsTypes';
-import { MessageDTO } from '../api/types/messageTypes'
+import { UserDTO } from 'api/types/types';
+import { ChatDTO } from 'api/types/chatsTypes';
+import { MessageDTO } from 'api/types/messageTypes';
 
 const AVATAR_BASE_URL = 'https://ya-praktikum.tech/api/v2/resources';
 
-export const transformUser = (data: UserDTO): User => {
-  return {
-    id: data.id,
-    login: data.login,
-    firstName: data.first_name,
-    secondName: data.second_name,
-    phone: data.phone,
-    email: data.email,
-    displayName: data.display_name,
-    avatar: data.avatar ? `${AVATAR_BASE_URL}${data.avatar}` : '',
-  };
-};
+export const transformUser = (data: UserDTO): User => ({
+  id: data.id,
+  login: data.login,
+  firstName: data.first_name,
+  secondName: data.second_name,
+  phone: data.phone,
+  email: data.email,
+  displayName: data.display_name,
+  avatar: data.avatar ? `${AVATAR_BASE_URL}${data.avatar}` : '',
+});
 export const transformChats = (data: ChatDTO[] = []): Chat[] => data.map((chat) => ({
   id: chat.id,
   title: chat.title,
