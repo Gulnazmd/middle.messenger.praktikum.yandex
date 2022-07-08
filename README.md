@@ -5,4 +5,4 @@
 
 ## [Макеты](https://www.figma.com/file/stvahlrJtohhz9TNIdejFj/Messenger)
 ## [Ссылка на Netlify](https://deploy-preview-2--cute-selkie-6c98b2.netlify.app/)
-## [Ссылка на pull request](https://github.com/Gulnazmd/middle.messenger.praktikum.yandex/pull/2)
+## [Ссылка на pull request](https://github.com/Gulnazmd/middle.messenger.praktikum.yandex/pull/3)
