@@ -18,7 +18,7 @@ interface IProfilePageProps {
   router: Router;
   user: Nullable<User>,
   store: Store<AppState>,
-  isPasswordWindowOpen: boolean
+  isPasswordWindowClosed: boolean
   onLogout?: () => void,
   userLogin?: () => string | undefined,
   userName?: () => string | undefined,
@@ -27,6 +27,13 @@ interface IProfilePageProps {
 }
 
 class userProfile extends Block<IProfilePageProps> {
+
+  constructor(props: IProfilePageProps) {
+    super({
+      ...props,
+    })
+  }
+
   componentDidMount(): void {
     const { user } = this.props;
 
@@ -92,7 +99,8 @@ class userProfile extends Block<IProfilePageProps> {
       onAvatarChange: this.handleAvatarChange.bind(this),
       changePassword: (title: string) => this.props.dispatch(changePassword, { title }),
       isPasswordWindowOpen: false,
-      onChangePassword: this.onChangePassword.bind(this),
+      onChangePasswordWindowClose: this.onChangePasswordWindow.bind(this, false),
+      onChangePasswordWindowOpen: this.onChangePasswordWindow.bind(this, true)
     };
   }
 
@@ -137,10 +145,10 @@ class userProfile extends Block<IProfilePageProps> {
     this.props.dispatch(changeAvatar, formData);
   }
 
-  onChangePassword() {
+  onChangePasswordWindow(isOpen: boolean) {
     this.setState({
       ...this.state,
-      isPasswordWindowOpen: true,
+      isPasswordWindowOpen: isOpen,
     });
   }
 
@@ -161,14 +169,14 @@ class userProfile extends Block<IProfilePageProps> {
   }
 
   render() {
-    const { errors, values, isPasswordWindowOpen } = this.state;
+    const { errors, values } = this.state;
     const avatarImg = this.props.user?.avatar ?? '';
     return `
       <div>
         <form action="" method="post" class="form">
           <div class="title form__title">Profile settings</div>
-          {{#if ${isPasswordWindowOpen}}}
-            {{{ ChangePassword changePassword=changePassword onPasswordSubmit=onPasswordSubmit}}}
+          {{#if isPasswordWindowOpen}}
+              {{{ ChangePassword changePassword=changePassword onPasswordSubmit=onPasswordSubmit close=onChangePasswordWindowClose}}}
           {{/if}}
           {{{Avatar imageUrl="${avatarImg}" onChange=onAvatarChange}}}
           <p class="name form__name">${values.firstName}</p>
@@ -238,14 +246,14 @@ class userProfile extends Block<IProfilePageProps> {
             onFocus=onFocus
             onBlur=onBlur
           }}}
-          {{{Button
+          {{{ Button
             text="Save"
             onClick=onSubmit
           }}} </br>
-          {{{Button text="Back to chats" onClick=handleBackToChats }}}
+          {{{ Button text="Back to chats" onClick=handleBackToChats }}}
           <div>
-            {{{Link text="Change password" onClick=onChangePassword }}}</br>
-            {{{Link text="Exit" onClick=onExit}}}
+            {{{ Link text="Change password" onClick=onChangePasswordWindowOpen }}}</br>
+            {{{ Link text="Exit" onClick=onExit }}}
           </div>
       </form>
     </div>

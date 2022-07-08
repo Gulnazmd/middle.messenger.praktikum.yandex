@@ -34,7 +34,7 @@ class AddChat extends Block<IAddChatProps> {
           <h2 class="title modal__title">Create chat</h2>
             {{{ Input ref="name" placeholder="Name" }}}
             {{{ Button text="Create new chat" type="submit" onClick=onCreateChatClick }}}
-            {{{ Button text="Close" onClick=close}}}
+            {{{ Button text="Close" onClick=close }}}
         </div>
       </div>
     `;

@@ -11,8 +11,8 @@ interface IChangePasswordProps {
 class ChangePassword extends Block<IChangePasswordProps> {
   protected getStateFromProps() {
     this.state = {
-      close: this.props?.close(),
       onPasswordSubmit: this.props?.onPasswordSubmit,
+      close: this.props?.close()
     };
   }
 
