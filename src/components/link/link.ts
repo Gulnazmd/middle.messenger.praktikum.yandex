@@ -4,7 +4,7 @@ import './link.css';
 
 export interface ILinkPropsWithEvents extends Omit<ILinkProps, 'onClick'> {
   events: {
-    click: (e: Event) => {},
+    click: (e: Event) => void,
   }
 }
 
@@ -24,7 +24,7 @@ class Link extends Block<ILinkPropsWithEvents> {
     });
   }
 
-  render() {
+  protected render(): string {
     return `
       <a class="link" href="{{to}}">{{text}}</a>
     `;

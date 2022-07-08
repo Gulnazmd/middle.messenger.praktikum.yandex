@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { nanoid } from 'nanoid';
 import * as Handlebars from 'handlebars';
 import EventBus from './eventBus';
@@ -211,7 +212,7 @@ class Block<Props extends {}> {
     if (!events) {
       return;
     }
-    
+
     let element = this._element;
     if (selector && element) {
       element = element.querySelector(selector) as HTMLElement;
@@ -270,7 +271,7 @@ class Block<Props extends {}> {
   }
 
   show() {
-    this.getContent().style.display = 'block';
+    this.getContent().style.display = 'flex';
   }
 
   hide() {

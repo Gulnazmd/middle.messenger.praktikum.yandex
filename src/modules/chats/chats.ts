@@ -2,11 +2,13 @@ import Block from 'core/block';
 import './chats.css';
 import { Dispatch, registerComponent, Router } from 'core';
 import {
-  addUserToChat, deleteChat, deleteUserFromChat, getChats, getChatUsers,
+  addUserToChat, deleteChat, deleteUserFromChat, getChats, getChatUsers, searchUser,
 } from 'services/chats';
 import { createConnection } from 'services/sockets';
 import { withRouter, withStore } from 'utils';
 import { IDropdownItem } from 'components/dropdown/components/dropdownItem';
+import { AddChat } from 'components/addChat';
+import { AddUser } from 'components/addUser';
 import { ChatForm } from './components/chatForm';
 import { ChatList } from './components/chatList';
 import { MessageEditor } from './components/message';
@@ -14,6 +16,8 @@ import { MessageEditor } from './components/message';
 registerComponent(MessageEditor, 'MessageEditor');
 registerComponent(ChatList, 'ChatList');
 registerComponent(ChatForm, 'ChatForm');
+registerComponent(AddChat, 'AddChat');
+registerComponent(AddUser, 'AddUser');
 
 interface IChatsProps {
   chats: Chat[],
@@ -30,15 +34,14 @@ class ChatsPage extends Block<IChatsProps> {
     super({
       ...props,
     });
-
     const chatMenu = [
       {
         title: 'Add user',
-        onClick: () => this.onAddUser(true),
+        onClick: () => this.onAddUserWindow(true),
       },
       {
         title: 'Delete user',
-        onClick: () => this.onDeleteUser(true),
+        onClick: () => this.onDeleteUserWindow(true),
       },
       {
         title: 'Delete chat',
@@ -76,13 +79,37 @@ class ChatsPage extends Block<IChatsProps> {
 
   protected getStateFromProps() {
     this.state = {
+      showAddUser: false,
+      showDeleteUser: false,
       activeChat: null,
       onChatClick: this.handleChatClick.bind(this),
-      onAddUser: this.onAddUser.bind(true, false),
-      onDeleteUser: this.onDeleteUser.bind(true, false),
+      onAddUserOpen: this.onAddUserWindow.bind(this, true),
+      onAddUserClose: this.onAddUserWindow.bind(this, false),
+      onDeleteUserOpen: this.onDeleteUserWindow.bind(this, true),
+      onDeleteUserClose: this.onDeleteUserWindow.bind(this, false),
       addUser: this.handleAddUser.bind(this),
       deleteUser: this.handleDeleteUser.bind(this),
+      searchUser: (login: string) => {
+        this.props.dispatch(searchUser, { login, chatId: this.state.activeChat.id });
+      },
     };
+  }
+
+  onAddUserWindow(isOpen: boolean) {
+    this.setState({
+      ...this.state,
+      showAddUser: isOpen,
+    });
+    this.props.dispatch({
+      searchResult: [],
+    });
+  }
+
+  onDeleteUserWindow(isOpen: boolean) {
+    this.setState({
+      ...this.state,
+      showDeleteUser: isOpen,
+    });
   }
 
   handleAddUser(id: number) {
@@ -90,24 +117,7 @@ class ChatsPage extends Block<IChatsProps> {
       users: [id],
       chatId: this.state.activeChat.id,
     });
-    this.onAddUser(false);
-  }
-
-  onAddUser(isOpen: boolean) {
-    this.setState({
-      ...this.state,
-      showAddUserWindow: isOpen,
-    });
-    this.props.dispatch({
-      searchResult: [],
-    });
-  }
-
-  onDeleteUser(isOpen: boolean) {
-    this.setState({
-      ...this.state,
-      showDeleteUserWindow: isOpen,
-    });
+    this.onAddUserWindow(false);
   }
 
   onDeleteChat() {
@@ -128,7 +138,7 @@ class ChatsPage extends Block<IChatsProps> {
 
     this.setState({
       ...this.state,
-      showDeleteUserWindow: false,
+      showDeleteUser: false,
     });
   }
 
@@ -136,10 +146,16 @@ class ChatsPage extends Block<IChatsProps> {
     const { activeChat } = this.state;
     return `
   <div class="chats">
-      {{{ChatList chats=chats onChatClick=onChatClick activeChat=activeChat}}}
-    <span class="span chats__span"></span>
-    <div class="emptyDiv chats__emptyDiv">
+  {{{ChatList chats=chats onChatClick=onChatClick activeChat=activeChat}}}</br>
+  <span class="span chats__span"></span>
+  <div class="emptyDiv chats__emptyDiv">
     {{#if activeChat}}
+    {{#if showAddUser }}
+          {{{ AddUser close=onAddUserClose searchUser=searchUser searchResult=searchResult addUser=addUser }}}
+    {{/if}}
+    {{#if showDeleteUser }}
+          {{{ DeleteUser close=onDeleteUserClose users=chatUsers deleteUser=deleteUser }}}
+    {{/if}}
       <div class="profileSettings chats__profileSettings">
         <img src="${activeChat?.avatar}" class="photo chats__photo"></img>
         <p class="name chats__name">${activeChat?.title}</p>

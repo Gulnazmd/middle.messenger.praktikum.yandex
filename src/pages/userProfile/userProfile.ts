@@ -4,18 +4,25 @@ import Validate from 'core/validation';
 import { Dispatch, Store } from 'core/store';
 import Router from 'core/router';
 import { Screens } from 'core/screens';
-import { withRouter, withStore } from '../../utils';
-import { getUser, changeUserProfile, changeAvatar } from '../../services/profile';
-import { logout } from '../../services/auth';
+import { withRouter, withStore } from 'utils';
+import {
+  getUser, changeUserProfile, changeAvatar, changePassword,
+} from 'services/profile';
+import { logout } from 'services/auth';
+import { registerComponent } from 'core';
+import ChangePassword from 'components/changePassword/changePassword';
+
+registerComponent(ChangePassword, 'ChangePassword');
 
 interface IProfilePageProps {
   router: Router;
   user: Nullable<User>,
-  store: Store<AppState>;
-  onLogout?: () => void;
-  userLogin?: () => string | undefined;
-  userName?: () => string | undefined;
-  screenTitle?: () => string | undefined;
+  store: Store<AppState>,
+  isPasswordWindowOpen: boolean
+  onLogout?: () => void,
+  userLogin?: () => string | undefined,
+  userName?: () => string | undefined,
+  screenTitle?: () => string | undefined,
   dispatch: Dispatch<AppState>
 }
 
@@ -58,8 +65,8 @@ class userProfile extends Block<IProfilePageProps> {
         e.preventDefault();
       },
 
-      onChangePassword: () => {
-        this.props.router.go(Screens.Password);
+      handleBackToChats: () => {
+        this.props.router.go(Screens.ChatsPage);
       },
 
       handleErrors: (values: {[key: string]: number}, errors: {[key: string]: number}) => {
@@ -72,10 +79,20 @@ class userProfile extends Block<IProfilePageProps> {
 
         this.setState(nextState);
       },
+      onPasswordSubmit: () => {
+        const data = {
+          oldPassword: 'test123123esQfs',
+          newPassword: 'test123123esQfs1~',
+        };
+        this.props.dispatch(changePassword, data);
+      },
       onChange: this.onChange.bind(this),
       onFocus: this.onFocus.bind(this),
       onBlur: this.onBlur.bind(this),
       onAvatarChange: this.handleAvatarChange.bind(this),
+      changePassword: (title: string) => this.props.dispatch(changePassword, { title }),
+      isPasswordWindowOpen: false,
+      onChangePassword: this.onChangePassword.bind(this),
     };
   }
 
@@ -120,6 +137,13 @@ class userProfile extends Block<IProfilePageProps> {
     this.props.dispatch(changeAvatar, formData);
   }
 
+  onChangePassword() {
+    this.setState({
+      ...this.state,
+      isPasswordWindowOpen: true,
+    });
+  }
+
   formValid() {
     let isValid = true;
     const newValues = { ...this.state.values };
@@ -137,12 +161,15 @@ class userProfile extends Block<IProfilePageProps> {
   }
 
   render() {
-    const { errors, values } = this.state;
+    const { errors, values, isPasswordWindowOpen } = this.state;
     const avatarImg = this.props.user?.avatar ?? '';
     return `
       <div>
         <form action="" method="post" class="form">
           <div class="title form__title">Profile settings</div>
+          {{#if ${isPasswordWindowOpen}}}
+            {{{ ChangePassword changePassword=changePassword onPasswordSubmit=onPasswordSubmit}}}
+          {{/if}}
           {{{Avatar imageUrl="${avatarImg}" onChange=onAvatarChange}}}
           <p class="name form__name">${values.firstName}</p>
           {{{Field
@@ -215,8 +242,9 @@ class userProfile extends Block<IProfilePageProps> {
             text="Save"
             onClick=onSubmit
           }}} </br>
+          {{{Button text="Back to chats" onClick=handleBackToChats }}}
           <div>
-            {{{Link text="Change password" onClick=onChangePassword}}}</br>
+            {{{Link text="Change password" onClick=onChangePassword }}}</br>
             {{{Link text="Exit" onClick=onExit}}}
           </div>
       </form>

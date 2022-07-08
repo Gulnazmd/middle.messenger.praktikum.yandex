@@ -27,7 +27,7 @@
     }
     &__list {
       width: 180px;
-      height: 81%;
+      height: 78%;
     }
     &__prfl {
       color: var(--color-lilac);
@@ -125,6 +125,11 @@
     }
     &__emptyDiv {
       background-color: var(--color-blue);
+    }
+    &__footer {
+      margin: -7px;
+      display: flex;
+      justify-content: flex-end;
     }
 }
 .right{

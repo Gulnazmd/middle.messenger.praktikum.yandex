@@ -4,7 +4,7 @@ import './button.css';
 
 interface IButtonPropsWithEvents extends Omit<IButtonProps, 'onClick'> {
   events: {
-    click: () => void,
+    click: (e: Event) => void,
   }
 }
 
@@ -33,7 +33,7 @@ class Button extends Block<IButtonPropsWithEvents> {
 
   protected render(): string {
     return `
-        <button class="button" type="button">{{text}}</button>
+        <button class="button" type="button" id={{id}}>{{text}}</button>
     `;
   }
 }

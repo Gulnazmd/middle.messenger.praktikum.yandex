@@ -1,4 +1,4 @@
-import Block from 'core/Block';
+import Block from 'core/block';
 import './dropdown.css';
 import { registerComponent } from 'core';
 import { DropdownMenu } from './components';
@@ -20,14 +20,14 @@ class Dropdown extends Block<IDropdownPropsWithEvents> {
   protected getStateFromProps() {
     this.state = {
       isOpen: false,
-      toggleDropdown: null, // this.handleToggleDropdown.bind(this, true),
+      toggleDropdown: this.handleToggleDropdown.bind(this, true),
     };
   }
 
   handleToggleDropdown(isOpen: boolean) {
     const callback = (e: Event) => {
       const { target } = e;
-      const isDropdownMenu = (target as HTMLElement).classList.contains('dropdownMenu');
+      const isDropdownMenu = (target as HTMLElement).id === 'dropdownButton';
       if (!isDropdownMenu) {
         this.handleToggleDropdown(false);
       }
@@ -49,7 +49,7 @@ class Dropdown extends Block<IDropdownPropsWithEvents> {
 
     return `
       <div class="dropdown">
-      {{{Button onClick=toggleDropdown text="⋮"}}}
+      {{{Button onClick=toggleDropdown text="⋮" id="dropdownButton"}}}
         {{#if ${isOpen}}}
           {{{ DropdownMenu items=items }}}
         {{/if}}
