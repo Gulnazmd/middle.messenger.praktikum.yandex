@@ -2,17 +2,27 @@
   "name": "messenger",
   "source": "src/index.html",
   "scripts": {
-    "start": "parcel src/index.html --no-source-maps  -p 3000 && node server.js",
-    "build": "parcel build src/index.html --no-optimize ",
+    "start": "parcel src/index.html -p 3000 && node server.js",
+    "build": "parcel build src/index.html --no-cache --public-url ./",
     "lint": "eslint . --fix --ext .js,.ts",
-    "clear": "rm -r node_modules"
+    "clear": "rm -r node_modules",
+    "test": "./node_modules/.bin/mocha"
   },
   "alias": {
     "core": "./src/core",
     "pages": "./src/pages",
-    "components": "./src/components"
+    "components": "./src/components",
+    "services": "./src/services",
+    "store": "./src/store",
+    "utils": "./src/utils",
+    "api": "./src/api",
+    "modules": "./src/modules",
+    "images": "./src/images"
   },
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.6.0",
+    "@types/chai": "^4.3.1",
+    "@types/mocha": "^9.1.1",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",
@@ -20,6 +30,7 @@
     "autoprefixer": "^10.4.7",
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
+    "chai": "^4.3.6",
     "cross-env": "^7.0.3",
     "crypto-browserify": "^3.12.0",
     "eslint": "8.16.0",
@@ -28,6 +39,7 @@
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-prettier": "4.0.0",
     "events": "3.3.0",
+    "mocha": "^10.0.0",
     "path-browserify": "^1.0.1",
     "postcss": "^8.4.14",
     "postcss-custom-properties": "^12.1.7",
@@ -42,7 +54,9 @@
     "ts-node": "^10.8.0",
     "typescript": "^4.7.2",
     "url": "^0.11.0",
-    "util": "^0.12.4"
+    "util": "^0.12.4",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
   },
   "dependencies": {
     "dotenv": "^10.0.0",

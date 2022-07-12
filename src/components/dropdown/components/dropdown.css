@@ -1,0 +1,24 @@
+@import "../../../style.css";
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdownMenu  {
+      position: absolute;
+      top: 32px;
+      right: 0;
+      min-width: 160px;
+      background-color:var(--color-white);
+      box-shadow: 0 8px 48px -16px rgba(--color-grey);
+      list-style-type: none;
+}
+.dropdownItem {
+      padding: 16px;
+      font-size: 12px;
+      font-weight: normal;
+      height: auto;
+      cursor: pointer;
+}
+.dropdownItem:not(:last-child) {
+  border-bottom: 1px solid grey;
+}

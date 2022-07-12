@@ -1,39 +1,25 @@
 import Block from 'core/block';
 import '../main.css';
 import Validate from 'core/validation';
+import { Dispatch, Router } from 'core';
+import { Screens } from 'core/screens';
+import { signup } from 'services/auth';
+import { withRouter, withStore } from 'utils';
 
-export class RegPage extends Block {
-  constructor() {
-    const defaultValues = {
-      values: {
-        first_name: '',
-        second_name: '',
-        login: '',
-        email: '',
-        password: '',
-        password2: '',
-        phone: '',
-      },
-      errors: {
-        first_name: '',
-        second_name: '',
-        login: '',
-        email: '',
-        password: '',
-        password2: '',
-        phone: '',
-      },
-    };
-    super({
-      ...defaultValues,
-    });
-  }
+interface IRegPageProps {
+  router: Router,
+  isLoading: boolean,
+  signupFormError: string,
+  formError?: () => string | null,
+  dispatch: Dispatch<AppState>
+}
 
+class RegPage extends Block<IRegPageProps> {
   protected getStateFromProps() {
     this.state = {
       values: {
-        first_name: '',
-        second_name: '',
+        firstName: '',
+        secondName: '',
         login: '',
         email: '',
         password: '',
@@ -41,22 +27,37 @@ export class RegPage extends Block {
         phone: '',
       },
       errors: {
-        first_name: '',
-        second_name: '',
+        firstName: '',
+        secondName: '',
         login: '',
         email: '',
         password: '',
         password2: '',
         phone: '',
       },
+
+      onSignIn: () => {
+        this.props.router.go(Screens.LOGIN);
+      },
+
+      onSubmit: () => {
+        if (this.formValid()) {
+          console.log('submit', this.state.values);
+          const regData = this.state.values;
+          this.props.dispatch(signup, regData);
+        }
+      },
       handleErrors: (values: { [key: string]: number }, errors: { [key: string]: number }) => {
         const nextState = {
-          errors,
-          values,
+          ...this.state,
         };
+
+        nextState.errors = errors;
+        nextState.values = values;
+
         this.setState(nextState);
       },
-      onSubmit: this.onSubmit.bind(this),
+
       onFocus: this.onFocus.bind(this),
       onBlur: this.onBlur.bind(this),
     };
@@ -91,19 +92,11 @@ export class RegPage extends Block {
     }
   }
 
-  onSubmit(e: Event) {
-    e.preventDefault();
-    if (this.formValid()) {
-      console.log('submit', this.state.values);
-      window.location.href = '/chats';
-    }
-  }
-
   formValid() {
     let isValid = true;
-    const newValues = { ...this.props.values };
-    const newErrors = { ...this.props.errors };
-    Object.keys(this.props.values).forEach((key) => {
+    const newValues = { ...this.state.values };
+    const newErrors = { ...this.state.errors };
+    Object.keys(this.state.values).forEach((key) => {
       newValues[key] = (this.refs[key].querySelector('input') as HTMLInputElement).value;
       const message = Validate(newValues[key], key);
       if (message) {
@@ -121,13 +114,13 @@ export class RegPage extends Block {
     return `
       <div>
         <form action="" method="post" class="form">
-          <div class="title form__title">Sign In</div>
+          <div class="title form__title">Registration</div>
           {{{Field
             label= 'First name'
-            value="${values.first_name}"
-            error="${errors.first_name}"
-            ref="first_name"
-            id="first_name"
+            value="${values.firstName}"
+            error="${errors.firstName}"
+            ref="firstName"
+            id="firstName"
             type="text"
             placeholder="firstname"
             onFocus=onFocus
@@ -135,10 +128,10 @@ export class RegPage extends Block {
           }}}
           {{{Field
             label= 'Second name'
-            value="${values.second_name}"
-            error="${errors.second_name}"
-            ref="second_name"
-            id="second_name"
+            value="${values.secondName}"
+            error="${errors.secondName}"
+            ref="secondName"
+            id="secondName"
             type="text"
             placeholder="secondname"
             onFocus=onFocus
@@ -204,9 +197,23 @@ export class RegPage extends Block {
             onClick=onSubmit
           }}} </br>
           <small>You have an account?</small>
-          {{{Link text="Sign In" to="/"}}}
+          {{{Link text="Sign In" onClick=onSignIn}}}
       </form>
     </div>
         `;
   }
 }
+function mapStateToProps(state: AppState) {
+  return {
+    isLoading: state.isLoading,
+    signupFormError: state.signupFormError,
+    user: state.user,
+  };
+}
+
+export default withRouter<IRegPageProps>(
+  withStore<IRegPageProps>(
+    RegPage,
+    mapStateToProps,
+  ),
+);

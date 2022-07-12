@@ -1,14 +1,15 @@
 :root {
-  --color-light-blue: #009DAE;
-  --color-orange: #F8A488;
-  --color-purple: #C9A2FA;
+  --color-light-blue: #009dae;
+  --color-orange: #f8a488;
+  --color-purple: #c9a2fa;
   --color-dark-purple: #a368eb;
-  --color-lilac: #9BA3C0;
+  --color-lilac: #9ba3c0;
   --color-white: #fff;
   --color-grey: #c9c9c9;
   --color-dark-grey: #212529;
-  --color-turquoise: #89E8EE;
-  --color-red: #D82148;
+  --color-turquoise: #89e8ee;
+  --color-red: #d82148;
+  --color-blue: aliceblue;
 }
 body {
   flex-direction: column;
@@ -32,36 +33,35 @@ h3 {
   height: 100vh;
   justify-content: center;
   display: flex;
-    &__form {
-      background-color: var(--color-white);
-      border-radius: 5px;
-      width: 550px;
-      margin-top: 50px;
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-      padding: 15px;
-      height: 80%;
+  &__form {
+    background-color: var(--color-white);
+    border-radius: 5px;
+    width: 550px;
+    margin-top: 50px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    height: 80%;
+  }
+  &__link {
+    background-color: var(--color-purple);
+    cursor: pointer;
+    margin: 5px 0;
+    width: 50%;
+    padding: 10px;
+    font-weight: bold;
+    border: 1px solid var(--color-purple);
+    text-decoration: none;
+    color: var(--color-white);
+    font-size: 22px;
+    display: flex;
+    justify-content: space-around;
+    &:hover {
+      background-color: var(--color-dark-purple);
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     }
-    &__link {
-      background-color:  var(--color-purple);
-      cursor: pointer;
-      margin: 5px 0;
-      width: 50%;
-      padding: 10px;
-      font-weight: bold;
-      border: 1px solid var(--color-purple);
-      text-decoration: none;
-      color: var(--color-white);
-      font-size: 22px;
-      display: flex;
-      justify-content: space-around;
-      &:hover {
-        background-color:  var(--color-dark-purple);
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-      }
-    }
-
+  }
 }
 .circle {
   background-color: var(--color-turquoise);

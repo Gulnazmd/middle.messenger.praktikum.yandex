@@ -1,77 +1,103 @@
-enum METHODS {
+export enum Methods {
   GET = 'GET',
-  PUT = 'PUT',
   POST = 'POST',
-  DELETE = 'DELETE',
+  PUT = 'PUT',
+  PATCH = 'PATCH',
+  DELETE = 'DELETE'
 }
-
 function queryStringify(data = {}) {
   return Object.entries(data).map(([key, value]) => `${key}=${value}`).join('&');
 }
-
 type Options = {
-  headers?: Record<string, string>;
-  data?: Document | XMLHttpRequestBodyInit;
-  timeout?: number;
-  method?: string;
-}
+  method: Methods;
+  data?: any;
+  retries?: number,
+  isFile?: boolean,
+};
 
-export default class HTTPTransport {
-  get = (url: string, options: Options = {}) => {
-    const query = queryStringify(options.data);
-    const urlWithParams = query ? `${url}?${query}` : url;
+type OptionsWithoutMethod = Omit<Options, 'method'>;
 
-    return this.request(urlWithParams, { ...options, method: METHODS.GET }, options.timeout);
-  };
+class HTTPTransport {
+  baseURL: string;
 
-  put = (url: string, options: Options = {}) => this.request(
-    url,
-    { ...options, method: METHODS.PUT },
-    options.timeout,
-  );
+  constructor(baseURL: string) {
+    this.baseURL = baseURL;
+  }
 
-  post = (url: string, options: Options = {}) => this.request(
-    url,
-    { ...options, method: METHODS.POST },
-    options.timeout,
-  );
+  get(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+    return this.request(url, { ...options, method: Methods.GET });
+  }
 
-  delete = (url: string, options: Options = {}) => this.request(
-    url,
-    { ...options, method: METHODS.DELETE },
-    options.timeout,
-  );
+  put(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+    return this.request(url, { ...options, method: Methods.PUT });
+  }
 
-  request = (url: string, options: Options, timeout = 5000) => {
-    const { method, data, headers } = options;
-    return new Promise((resolve, reject) => {
+  post(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+    return this.request(url, { ...options, method: Methods.POST });
+  }
+
+  delete(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+    return this.request(url, { ...options, method: Methods.DELETE });
+  }
+
+  async request(url: string, options: Options = { method: Methods.GET }, timeout = 5000):
+    Promise<XMLHttpRequest> {
+    let targetUrl = `${this.baseURL}${url}`;
+
+    return new Promise<XMLHttpRequest>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
+      const { method, data, isFile = false } = options;
 
-      if (method) {
-        xhr.open(method, url, true);
+      if (data && method === Methods.GET) {
+        targetUrl += `?${queryStringify(data)}`;
       }
 
-      xhr.timeout = timeout;
-
-      if (headers) {
-        Object.entries(headers).forEach(([key, value]) => {
-          xhr.setRequestHeader(key, value);
-        });
-      }
-
-      xhr.onload = () => {
+      const handleLoad = () => {
         resolve(xhr);
       };
 
-      xhr.onabort = reject;
-      xhr.onerror = reject;
-      xhr.ontimeout = reject;
+      const handleError: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null = (err) => {
+        reject(err);
+      };
 
-      if (method === METHODS.GET || !data) {
+      xhr.open(method, targetUrl, true);
+      if (!isFile) {
+        xhr.setRequestHeader('content-type', 'application/json');
+      }
+
+      xhr.setRequestHeader('accept', 'application/json');
+      xhr.responseType = 'json';
+
+      xhr.withCredentials = true;
+      xhr.timeout = timeout;
+      xhr.onload = handleLoad;
+      xhr.onabort = handleError;
+      xhr.onerror = handleError;
+      xhr.ontimeout = handleError;
+
+      if (method === Methods.GET || !data) {
         xhr.send();
       } else {
-        xhr.send(data);
+        xhr.send(isFile ? data : JSON.stringify(data));
       }
     });
-  };
+  }
+
+  fetchWithRetry(url: string, options: Options): Promise<XMLHttpRequest> {
+    const { retries = 1 } = options;
+
+    function onError() {
+      const retriesLeft = retries - 1;
+
+      if (retriesLeft < 1) {
+        throw new Error('Exceeded the number of attempts');
+      }
+
+      return this.fetchWithRetry(url, { ...options, retries: retriesLeft });
+    }
+
+    return this.request(url, options).catch(onError);
+  }
 }
+
+export default HTTPTransport;

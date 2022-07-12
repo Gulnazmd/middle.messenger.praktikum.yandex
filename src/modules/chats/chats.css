@@ -13,81 +13,137 @@
   background-color: var(--color-white);
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    &__header {
-      padding: 10px;
-      padding: 10px;
-      width: 150px;
-    }
-    &__messages {
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
-    &__list {
-      width: 180px;
-      height: 81%;
-    }
-    &__prfl {
-      color: var(--color-lilac);
-      margin-left: 80px;
-      margin-bottom: -10px;
-      margin-top: 2px;
-    }
-    &__span {
-      width: 2px;
-      height: 470px;
-      background-color: var(--color-grey);
-      display: flex;
-      margin-left: 30px;
-    }
-    &__span-2 {
-      width: 440px;
-      height: 2px;
-      background-color: var(--color-grey);
-      display: flex;
-      margin: 5px;
-    }
-    &__form {
-      width: 300px;
-      height: 100px;
-      background-color: var(--color-grey);
-    }
-    &__message-container {
-      background-color: var(--color-turquoise);
-      width: 420px;
-      height: 68%;
-      padding: 10px;
-      margin-left: 5px;
-    }
-    &__profileSettings {
-      width: 420px;
-      height: 20px;
-      margin-left: 5px;
-      padding: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      align-content: center;
-      justify-content: space-between;
-      align-items: center;
-    }
-    &__photo {
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      background-color: var(--color-grey);
-      margin-bottom: 5px;
-    }
-    &__name {
-      margin-left: 70px;
-      position: absolute;
-      color: var(--color-lilac);
-    }
-    &__settingButton {
-      color: var(--color-lilac);
-      cursor: pointer;
-      border: none;
-      padding: 7px;
-      border-radius: 5px;
-    }
+  &__header {
+    padding: 10px;
+    padding: 10px;
+    width: 150px;
+  }
+  &__messages {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: -20px;
+  }
+  &__list {
+    width: 180px;
+    height: 78%;
+  }
+  &__prfl {
+    color: var(--color-lilac);
+    margin-left: 5px;
+    margin-bottom: -10px;
+    margin-top: 2px;
+  }
+  &__span {
+    width: 2px;
+    height: 470px;
+    background-color: var(--color-grey);
+    display: flex;
+    margin-left: 30px;
+  }
+  &__span-2 {
+    width: 440px;
+    height: 2px;
+    background-color: var(--color-grey);
+    display: flex;
+    margin: 5px;
+    margin-top: 10px;
+  }
+  &__span-3 {
+    width: 170px;
+    height: 2px;
+    background-color: var(--color-grey);
+    display: flex;
+    margin: 5px;
+    margin-top: 10px;
+  }
+  &__form {
+    width: 300px;
+    height: 100px;
+    background-color: var(--color-grey);
+  }
+  &__message-container {
+    background-color: var(--color-turquoise);
+    width: 420px;
+    height: 68%;
+    padding: 10px;
+    margin-left: 5px;
+  }
+  &__profileSettings {
+    width: 420px;
+    height: 20px;
+    margin-left: 5px;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__photo {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    background-color: transparent;
+    margin-top: 10px;
+  }
+  &__name {
+    margin-left: 70px;
+    position: absolute;
+    color: var(--color-lilac);
+  }
+  &__settingButton {
+    color: var(--color-lilac);
+    cursor: pointer;
+    border: none;
+    padding: 7px;
+    border-radius: 5px;
+  }
+  &__empty {
+    width: 450px;
+  }
+  &__empty-title {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 200px;
+  }
+  &__names {
+    list-style-type: none;
+    display: inline;
+  }
+  &__list-item {
+    color: var(--color-grey);
+    cursor: pointer;
+    margin-top: 5px;
+  }
+  &__list-item_active {
+    background-color: var(--color-blue);
+  }
+  &__userName {
+    margin-top: -10px;
+  }
+  &__emptyDiv {
+    background-color: var(--color-blue);
+  }
+  &__footer {
+    margin: -7px;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+.right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: flex-end;
+  font-family: cursive;
+  color: rgb(47, 48, 49);
+}
+.left {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  flex: 1;
 }

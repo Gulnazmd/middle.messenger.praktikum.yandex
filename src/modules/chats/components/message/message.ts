@@ -1,19 +1,24 @@
 import Block from 'core/block';
 import '../../chats.css';
+import { Dispatch, Router } from 'core';
 import Validate from 'core/validation';
+import { sendMessage } from 'services/sockets';
+import { withRouter, withStore } from 'utils';
 
-export class Message extends Block {
-  constructor() {
-    const defaults = {
-      values: {
-        message: '',
-      },
-      errors: {
-        message: '',
-      },
-    };
+interface IMessageProps {
+  values: {};
+  chats: Chat[],
+  searchResult: User[],
+  dispatch: Dispatch<AppState>
+  router: Router,
+  messages: Message[],
+  user: Nullable<User>,
+}
+
+export class MessageEditor extends Block<IMessageProps> {
+  constructor(props: IMessageProps) {
     super({
-      ...defaults,
+      ...props,
     });
   }
 
@@ -32,21 +37,14 @@ export class Message extends Block {
         };
         this.setState(nextState);
       },
-      onMessage: this.onMessage.bind(this),
+      onMessage: this.onMessageSend.bind(this),
     };
-  }
-
-  onMessage(e: Event) {
-    e.preventDefault();
-    if (this.formValid()) {
-      console.log('submit', this.state.values);
-    }
   }
 
   formValid() {
     let isValid = true;
-    const newValues = { ...this.props.values };
-    const newErrors = { ...this.props.errors };
+    const newValues = { ...this.state.values };
+    const newErrors = { ...this.state.errors };
     Object.keys(this.props.values).forEach((key) => {
       newValues[key] = (this.refs[key].querySelector('input') as HTMLInputElement).value;
       const messages = Validate(newValues[key], key);
@@ -57,6 +55,16 @@ export class Message extends Block {
     });
     this.state.handleErrors(newValues, newErrors);
     return isValid;
+  }
+
+  onMessageSend() {
+    const inputElement = document.querySelector('#message') as HTMLInputElement;
+    if (inputElement && inputElement.value !== '') {
+      this.props.dispatch(sendMessage, {
+        message: inputElement.value,
+      });
+      inputElement.value = '';
+    }
   }
 
   protected render(): string {
@@ -81,3 +89,19 @@ export class Message extends Block {
     `;
   }
 }
+function mapStateToProps(state: AppState) {
+  return {
+    chats: state.chats,
+    searchResult: state.searchResult,
+    chatUsers: state.chatUsers,
+    messages: state.messages,
+    user: state.user,
+  };
+}
+
+export default withRouter<IMessageProps>(
+  withStore<IMessageProps>(
+    MessageEditor,
+    mapStateToProps,
+  ),
+);

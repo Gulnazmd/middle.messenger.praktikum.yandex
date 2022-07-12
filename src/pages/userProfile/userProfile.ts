@@ -1,58 +1,109 @@
-import Block from "core/block";
-import "./userProfile.css";
-import "../main.css";
+import Block from 'core/block';
+import '../main.css';
 import Validate from 'core/validation';
+import { Dispatch, Store } from 'core/store';
+import Router from 'core/router';
+import { Screens } from 'core/screens';
+import { withRouter, withStore } from 'utils';
+import {
+  getUser, changeUserProfile, changeAvatar, changePassword,
+} from 'services/profile';
+import { logout } from 'services/auth';
+import { registerComponent } from 'core';
+import ChangePassword from 'components/changePassword/changePassword';
 
-export class userProfile extends Block {
-  constructor() {
-    const defaultValues = {
-      values: {
-        first_name: '',
-        second_name: '',
-        login: '',
-        email: '',
-        phone: '',
-      },
-      errors: {
-        first_name: '',
-        second_name: '',
-        login: '',
-        email: '',
-        phone: '',
-      },
-    };
+registerComponent(ChangePassword, 'ChangePassword');
+
+interface IProfilePageProps {
+  router: Router;
+  user: Nullable<User>,
+  store: Store<AppState>,
+  isPasswordWindowClosed: boolean
+  onLogout?: () => void,
+  userLogin?: () => string | undefined,
+  userName?: () => string | undefined,
+  screenTitle?: () => string | undefined,
+  dispatch: Dispatch<AppState>
+}
+
+class userProfile extends Block<IProfilePageProps> {
+
+  constructor(props: IProfilePageProps) {
     super({
-      ...defaultValues,
-    });
+      ...props,
+    })
   }
-  protected getStateFromProps() {
+
+  componentDidMount(): void {
+    const { user } = this.props;
+
+    if (!user) {
+      this.props.dispatch(getUser);
+    }
+  }
+
+  protected getStateFromProps(props: IProfilePageProps) {
     this.state = {
       values: {
-        first_name: '',
-        second_name: '',
-        login: '',
-        email: '',
-        phone: '',
+        firstName: props.user?.firstName,
+        secondName: props.user?.secondName,
+        displayName: props.user?.displayName,
+        login: props.user?.login,
+        email: props.user?.email,
+        phone: props.user?.phone,
       },
       errors: {
-        first_name: '',
-        second_name: '',
+        firstName: '',
+        secondName: '',
+        displayName: '',
         login: '',
         email: '',
         phone: '',
       },
+      onSubmit: () => {
+        if (this.formValid()) {
+          console.log('submit', this.state.values);
+          const profileData = this.state.values;
+          this.props.dispatch(changeUserProfile, profileData);
+        }
+      },
+      onExit: (e: MouseEvent) => {
+        e.preventDefault();
+        this.props.dispatch(logout);
+      },
+
+      handleBackToChats: () => {
+        this.props.router.go(Screens.CHATSPAGE);
+      },
+
       handleErrors: (values: {[key: string]: number}, errors: {[key: string]: number}) => {
         const nextState = {
-          errors,
-          values,
+          ...this.state,
         };
+
+        nextState.errors = errors;
+        nextState.values = values;
+
         this.setState(nextState);
+      },
+      onPasswordSubmit: () => {
+        const data = {
+          oldPassword: 'test123123esQfs',
+          newPassword: 'test123123esQfs1~',
+        };
+        this.props.dispatch(changePassword, data);
       },
       onChange: this.onChange.bind(this),
       onFocus: this.onFocus.bind(this),
       onBlur: this.onBlur.bind(this),
+      onAvatarChange: this.handleAvatarChange.bind(this),
+      changePassword: (title: string) => this.props.dispatch(changePassword, { title }),
+      isPasswordWindowOpen: false,
+      onChangePasswordWindowClose: this.onChangePasswordWindow.bind(this, false),
+      onChangePasswordWindowOpen: this.onChangePasswordWindow.bind(this, true)
     };
   }
+
   onFocus(e: Event) {
     if (e.target) {
       const element = e.target as HTMLInputElement;
@@ -89,11 +140,23 @@ export class userProfile extends Block {
     }
   }
 
+  handleAvatarChange() {
+    const formData = new FormData(document.querySelector('#avatar__file-upload') as HTMLFormElement);
+    this.props.dispatch(changeAvatar, formData);
+  }
+
+  onChangePasswordWindow(isOpen: boolean) {
+    this.setState({
+      ...this.state,
+      isPasswordWindowOpen: isOpen,
+    });
+  }
+
   formValid() {
     let isValid = true;
-    const newValues = { ...this.props.values };
-    const newErrors = { ...this.props.errors };
-    Object.keys(this.props.values).forEach((key) => {
+    const newValues = { ...this.state.values };
+    const newErrors = { ...this.state.errors };
+    Object.keys(this.state.values).forEach((key) => {
       newValues[key] = (this.refs[key].querySelector('input') as HTMLInputElement).value;
       const message = Validate(newValues[key], key);
       if (message) {
@@ -104,19 +167,25 @@ export class userProfile extends Block {
     this.state.handleErrors(newValues, newErrors);
     return isValid;
   }
+
   render() {
     const { errors, values } = this.state;
-
+    const avatarImg = this.props.user?.avatar ?? '';
     return `
       <div>
         <form action="" method="post" class="form">
           <div class="title form__title">Profile settings</div>
+          {{#if isPasswordWindowOpen}}
+              {{{ ChangePassword changePassword=changePassword onPasswordSubmit=onPasswordSubmit close=onChangePasswordWindowClose}}}
+          {{/if}}
+          {{{Avatar imageUrl="${avatarImg}" onChange=onAvatarChange}}}
+          <p class="name form__name">${values.firstName}</p>
           {{{Field
             label= 'First name'
-            value="${values.first_name}"
-            error="${errors.first_name}"
-            ref="first_name"
-            id="first_name"
+            value="${values.firstName}"
+            error="${errors.firstName}"
+            ref="firstName"
+            id="firstName"
             type="text"
             placeholder="firstname"
             onFocus=onFocus
@@ -124,12 +193,23 @@ export class userProfile extends Block {
           }}}
           {{{Field
             label= 'Second name'
-            value="${values.second_name}"
-            error="${errors.second_name}"
-            ref="second_name"
-            id="second_name"
+            value="${values.secondName}"
+            error="${errors.secondName}"
+            ref="secondName"
+            id="secondName"
             type="text"
             placeholder="secondname"
+            onFocus=onFocus
+            onBlur=onBlur
+          }}}
+          {{{Field
+            label= 'Display name'
+            value="${values.displayName}"
+            error="${errors.displayName}"
+            ref="displayName"
+            id="displayName"
+            type="text"
+            placeholder="displayName"
             onFocus=onFocus
             onBlur=onBlur
           }}}
@@ -166,15 +246,30 @@ export class userProfile extends Block {
             onFocus=onFocus
             onBlur=onBlur
           }}}
-          {{{Button
+          {{{ Button
             text="Save"
-            onClick=onChange
+            onClick=onSubmit
           }}} </br>
-          {{{Link text="Change password" to="/"}}}
+          {{{ Button text="Back to chats" onClick=handleBackToChats }}}
+          <div>
+            {{{ Link text="Change password" onClick=onChangePasswordWindowOpen }}}</br>
+            {{{ Link text="Exit" onClick=onExit }}}
+          </div>
       </form>
     </div>
         `;
   }
-
-
 }
+
+function mapStateToProps(state: AppState) {
+  return {
+    user: state.user,
+  };
+}
+
+export default withRouter<IProfilePageProps>(
+  withStore<IProfilePageProps>(
+    userProfile,
+    mapStateToProps,
+  ),
+);

@@ -1,1 +1,1 @@
-export { Field as default } from './field';
+export { default as Field } from './field';
