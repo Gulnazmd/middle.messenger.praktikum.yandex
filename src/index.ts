@@ -37,11 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
   store.dispatch(initApp);
 
   router
-    .use(Screens.Login, LoginPage)
-    .use(Screens.RegPage, RegPage)
-    .use(Screens.ProfilePage, userProfile)
-    .use(Screens.ChatsPage, ChatsPage)
-    .use(Screens.Error, Error);
+    .use(Screens.LOGIN, LoginPage)
+    .use(Screens.REGPAGE, RegPage)
+    .use(Screens.PROFILEPAGE, userProfile)
+    .use(Screens.CHATSPAGE, ChatsPage)
+    .use(Screens.ERROR, Error);
 
   store.on('changed', (prevState, nextState) => {
     if (!prevState.appIsInited && nextState.appIsInited) {

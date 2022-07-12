@@ -42,15 +42,15 @@ class userProfile extends Block<IProfilePageProps> {
     }
   }
 
-  protected getStateFromProps(_props: IProfilePageProps) {
+  protected getStateFromProps(props: IProfilePageProps) {
     this.state = {
       values: {
-        firstName: _props.user?.firstName,
-        secondName: _props.user?.secondName,
-        displayName: _props.user?.displayName,
-        login: _props.user?.login,
-        email: _props.user?.email,
-        phone: _props.user?.phone,
+        firstName: props.user?.firstName,
+        secondName: props.user?.secondName,
+        displayName: props.user?.displayName,
+        login: props.user?.login,
+        email: props.user?.email,
+        phone: props.user?.phone,
       },
       errors: {
         firstName: '',
@@ -68,12 +68,12 @@ class userProfile extends Block<IProfilePageProps> {
         }
       },
       onExit: (e: MouseEvent) => {
-        this.props.dispatch(logout);
         e.preventDefault();
+        this.props.dispatch(logout);
       },
 
       handleBackToChats: () => {
-        this.props.router.go(Screens.ChatsPage);
+        this.props.router.go(Screens.CHATSPAGE);
       },
 
       handleErrors: (values: {[key: string]: number}, errors: {[key: string]: number}) => {

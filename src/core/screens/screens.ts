@@ -1,10 +1,10 @@
 enum Screens {
-  RegPage = '/registration',
-  Login = '/',
-  ProfilePage = '/profile',
-  ChatsPage = '/chats',
-  Error = '/error',
-  Password = '/password'
+  REGPAGE = '/registration',
+  LOGIN = '/',
+  PROFILEPAGE = '/profile',
+  CHATSPAGE = '/chats',
+  ERROR = '/error',
+  PASSWORD = '/password'
 }
 
 export default Screens;

@@ -48,7 +48,7 @@ class Block<Props extends {}> {
     eventBus.emit(Block.EVENTS.INIT, this.props);
   }
 
-  _checkInDom() {
+  private _checkInDom() {
     const elementInDOM = document.body.contains(this._element);
 
     if (elementInDOM) {
@@ -59,7 +59,7 @@ class Block<Props extends {}> {
     this.eventBus().emit(Block.EVENTS.FLOW_CWU, this.props);
   }
 
-  _registerEvents(eventBus: EventBus<Events>) {
+  private _registerEvents(eventBus: EventBus<Events>) {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -67,7 +67,7 @@ class Block<Props extends {}> {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  _createResources() {
+  private _createResources() {
     this._element = this._createDocumentElement('div');
   }
 
@@ -80,7 +80,7 @@ class Block<Props extends {}> {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER, this.props);
   }
 
-  _componentDidMount(props: Props) {
+  private _componentDidMount(props: Props) {
     this._checkInDom();
     this.componentDidMount(props);
   }
@@ -89,7 +89,7 @@ class Block<Props extends {}> {
 
   }
 
-  _componentDidUpdate(oldProps: Props, newProps: Props) {
+  private _componentDidUpdate(oldProps: Props, newProps: Props) {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (!response) {
       return;
@@ -128,7 +128,7 @@ class Block<Props extends {}> {
     return this._element;
   }
 
-  _render() {
+  private _render() {
     const fragment = this._compile();
 
     this._removeEvents();
@@ -159,7 +159,7 @@ class Block<Props extends {}> {
     return this.element!;
   }
 
-  _makePropsProxy(props: any): any {
+  private _makePropsProxy(props: any): any {
     // Можно и так передать this
     // Такой способ больше не применяется с приходом ES6+
     const self = this;
@@ -183,11 +183,11 @@ class Block<Props extends {}> {
     }) as unknown as Props;
   }
 
-  _createDocumentElement(tagName: string) {
+  private _createDocumentElement(tagName: string) {
     return document.createElement(tagName);
   }
 
-  _removeEvents() {
+  private _removeEvents() {
     const { events, selector }:
       { events: Record<string, () => void>, selector: string } = (this.props as any);
 
@@ -205,7 +205,7 @@ class Block<Props extends {}> {
     });
   }
 
-  _addEvents() {
+  private _addEvents() {
     const { events, selector }:
       { events: Record<string, () => void>, selector: string } = this.props as any;
 
@@ -223,7 +223,7 @@ class Block<Props extends {}> {
     });
   }
 
-  _compile(): DocumentFragment {
+  private _compile(): DocumentFragment {
     const fragment = document.createElement('template');
 
     /**

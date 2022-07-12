@@ -37,7 +37,7 @@ class RegPage extends Block<IRegPageProps> {
       },
 
       onSignIn: () => {
-        this.props.router.go(Screens.Login);
+        this.props.router.go(Screens.LOGIN);
       },
 
       onSubmit: () => {

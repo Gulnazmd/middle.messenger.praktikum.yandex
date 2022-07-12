@@ -1,10 +1,6 @@
 import Block from 'core/block';
 import './avatar.css';
-
-interface IAvatarProps {
-  imageUrl: string,
-  placeholder: string,
-}
+import IAvatarProps from './types/props'
 
 class Avatar extends Block<IAvatarProps> {
   constructor(props: IAvatarProps) {
@@ -29,9 +25,9 @@ class Avatar extends Block<IAvatarProps> {
         }}}
         <div class='avatar__image-wrap'>
           {{#if imageUrl}}
-            <img class='avatar__image' src={{imageUrl}} />
+            <img class='avatar__image' src={{imageUrl}} alt="" />
           {{else}}
-            <img class='avatar__image avatar__image-placeholder' src={{imageUrl}} />
+            <img class='avatar__image avatar__image-placeholder' src={{imageUrl}} alt="" />
           {{/if}}
         </div>
       </form>

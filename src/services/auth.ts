@@ -31,7 +31,7 @@ export const loginService = async (
 
   dispatch({ user: transformUser(responseUser) });
 
-  window.router.go(Screens.ChatsPage);
+  window.router.go(Screens.CHATSPAGE);
 };
 
 export const signup = async (
@@ -53,13 +53,13 @@ export const signup = async (
   type SignupFormKeys = keyof (typeof mapFieldToApi);
   type SignupAPIKeys = keyof SignupPayload;
 
-  const data: SignupPayload = {} as SignupPayload;
+  const signupPayload: SignupPayload = {} as SignupPayload;
 
   Object.keys(mapFieldToApi).forEach((key: SignupFormKeys) => {
-    data[mapFieldToApi[key] as SignupAPIKeys] = action[key];
+    signupPayload[mapFieldToApi[key] as SignupAPIKeys] = action[key];
   });
 
-  const response = await authAPI.signup(data);
+  const response = await authAPI.signup(signupPayload);
 
   if (apiError(response)) {
     dispatch({ isLoading: false, signupFormError: response.reason });
@@ -77,7 +77,7 @@ export const signup = async (
 
   dispatch({ user: transformUser(responseUser) });
 
-  window.router.go(Screens.ProfilePage);
+  window.router.go(Screens.PROFILEPAGE);
 };
 
 export const logout = async (dispatch: Dispatch<AppState>) => {
@@ -85,9 +85,9 @@ export const logout = async (dispatch: Dispatch<AppState>) => {
 
   const currentRoute = window.router.getRoute(window.location.pathname);
 
-  if (currentRoute?.match(Screens.Login) || currentRoute?.match(Screens.RegPage)) {
+  if (currentRoute?.match(Screens.LOGIN) || currentRoute?.match(Screens.REGPAGE)) {
     return;
   }
   dispatch({ user: null });
-  window.router.go(Screens.Login);
+  window.router.go(Screens.LOGIN);
 };

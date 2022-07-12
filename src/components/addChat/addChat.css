@@ -9,23 +9,22 @@
   position: fixed;
 }
 .modal {
-min-width: 400px;
-padding: 40px 24px;
-box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
-z-index: $zindex-modal;
-background-color: var(--color-white);
-position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-border-radius: 4px;
-display: flex;
-align-items: center;
-justify-content: center;
+  min-width: 400px;
+  padding: 40px 24px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  z-index: $zindex-modal;
+  background-color: var(--color-white);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-&__title {
-  font-size: 24px;
-  font-weight: normal;
+  &__title {
+    font-size: 24px;
+    font-weight: normal;
+  }
 }
-}
-

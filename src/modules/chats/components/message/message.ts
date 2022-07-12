@@ -6,6 +6,7 @@ import { sendMessage } from 'services/sockets';
 import { withRouter, withStore } from 'utils';
 
 interface IMessageProps {
+  values: {};
   chats: Chat[],
   searchResult: User[],
   dispatch: Dispatch<AppState>
@@ -44,7 +45,7 @@ export class MessageEditor extends Block<IMessageProps> {
     let isValid = true;
     const newValues = { ...this.state.values };
     const newErrors = { ...this.state.errors };
-    Object.keys(this.state.values).forEach((key) => {
+    Object.keys(this.props.values).forEach((key) => {
       newValues[key] = (this.refs[key].querySelector('input') as HTMLInputElement).value;
       const messages = Validate(newValues[key], key);
       if (messages) {

@@ -1,9 +1,9 @@
 @import "../../style.css";
 .dropdown {
-  position: relative;
-  display: inline-block;
+      position: relative;
+      display: inline-block;
 }
-.dropdownMenu  {
+.dropdownMenu {
       position: absolute;
       top: 32px;
       right: 0;

@@ -25,7 +25,7 @@ class LoginPage extends Block<ILoginProps> {
       },
 
       goSignUp: () => {
-        this.props.router.go(Screens.RegPage);
+        this.props.router.go(Screens.REGPAGE);
       },
 
       onSubmit: () => {
