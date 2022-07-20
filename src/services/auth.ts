@@ -1,9 +1,9 @@
 import Screens from 'core/screens/screens';
-import type { Dispatch } from 'core';
+import type { Dispatch } from '../core';
 import { SignupFormData } from 'components/authForm/types/formData';
 import { apiError } from 'utils/apiError';
 import { transformUser } from 'utils/apiTransformers';
-import authAPI from '../api/auth';
+import authAPI from 'api/auth';
 import { LoginPayload, SignupPayload } from './types/auth';
 
 export const loginService = async (

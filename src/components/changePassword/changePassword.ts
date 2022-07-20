@@ -1,4 +1,4 @@
-import { Block, Dispatch } from 'core';
+import { Block, Dispatch } from '../../core';
 import './changePassword.css';
 
 interface IChangePasswordProps {

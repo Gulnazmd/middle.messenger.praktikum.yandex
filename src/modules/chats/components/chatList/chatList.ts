@@ -5,7 +5,7 @@ import { Dispatch } from 'core/store';
 import { createChat, searchUser } from 'services/chats';
 import { withRouter, withStore } from '../../../../utils';
 import '../../chats.css';
-import noIcon from 'images/no-icon.png';
+import noIcon from '../../../../images/no-icon.png';
 
 interface IChatProps {
   id: number,

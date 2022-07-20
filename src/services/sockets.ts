@@ -1,7 +1,8 @@
-import type { Dispatch } from 'core';
-import chatsAPI from 'api/chats';
-import { apiError } from 'utils/apiError';
-import { transformMessages, transformMessage } from 'utils/apiTransformers';
+//@ts-nocheck
+import type { Dispatch } from '../core';
+import chatsAPI from '../api/chats';
+import { apiError } from '../utils/apiError';
+import { transformMessages, transformMessage } from '../utils/apiTransformers';
 import {
   CreateConnectionPayload,
   SendMessagePayload,

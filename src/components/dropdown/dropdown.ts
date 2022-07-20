@@ -1,6 +1,6 @@
 import Block from 'core/block';
 import './dropdown.css';
-import { registerComponent } from 'core';
+import { registerComponent } from '../../core';
 import { DropdownMenu } from './components';
 import IDropdownProps from './types/dropdownProps';
 import { DropdownItem } from './components/dropdownItem';

@@ -1,9 +1,9 @@
 import Block from 'core/block';
 import '../../chats.css';
-import { Dispatch, Router } from 'core';
+import { Dispatch, Router } from '../../../../core';
 import Validate from 'core/validation';
 import { sendMessage } from 'services/sockets';
-import { withRouter, withStore } from 'utils';
+import { withRouter, withStore } from '../../../../utils';
 
 interface IMessageProps {
   values: {};

@@ -1,4 +1,5 @@
 /* eslint-disable */
+const path = require('path')
 require('dotenv').config()
 const express = require('express');
 

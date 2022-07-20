@@ -1,4 +1,4 @@
-import { BlockConstructable } from 'core';
+import { BlockConstructable } from '../core';
 
 type WithUserProps = { user: User | null };
 

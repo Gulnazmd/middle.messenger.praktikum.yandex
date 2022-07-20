@@ -4,13 +4,13 @@ import Validate from 'core/validation';
 import { Dispatch, Store } from 'core/store';
 import Router from 'core/router';
 import { Screens } from 'core/screens';
-import { withRouter, withStore } from 'utils';
+import { withRouter, withStore } from '../../utils';
 import {
   getUser, changeUserProfile, changeAvatar, changePassword,
-} from 'services/profile';
-import { logout } from 'services/auth';
-import { registerComponent } from 'core';
-import ChangePassword from 'components/changePassword/changePassword';
+} from '../../services/profile';
+import { logout } from '../../services/auth';
+import { registerComponent } from '../../core';
+import ChangePassword from '../../components/changePassword/changePassword';
 
 registerComponent(ChangePassword, 'ChangePassword');
 

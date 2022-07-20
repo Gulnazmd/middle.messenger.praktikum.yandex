@@ -1,4 +1,4 @@
-import type { Dispatch } from 'core';
+import type { Dispatch } from '../core';
 import { UserProfileFormData, UserPasswordChangeFormData } from 'components/profileForm/types/profileFormProps';
 import { apiError } from 'utils/apiError';
 import authAPI from 'api/auth';
