@@ -1,9 +1,9 @@
-import type { Dispatch } from '../core';
 import { UserProfileFormData, UserPasswordChangeFormData } from 'components/profileForm/types/profileFormProps';
 import { apiError } from 'utils/apiError';
 import authAPI from 'api/auth';
 import { transformUser } from 'utils/apiTransformers';
 import userAPI from 'api/user';
+import type { Dispatch } from '../core';
 import { ChangeUserProfilePayload, ChangeUserPasswordPayload } from './types/user';
 import { logout } from './auth';
 

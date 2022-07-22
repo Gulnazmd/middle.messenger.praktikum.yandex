@@ -1,6 +1,6 @@
 import Block from '../../core/block';
 import './avatar.css';
-import IAvatarProps from './types/props'
+import IAvatarProps from './types/props';
 
 class Avatar extends Block<IAvatarProps> {
   constructor(props: IAvatarProps) {

@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { nanoid } from 'nanoid';
 import * as Handlebars from 'handlebars';

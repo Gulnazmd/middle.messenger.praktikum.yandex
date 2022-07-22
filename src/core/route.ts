@@ -1,5 +1,5 @@
-import renderDOM from '../core/renderDOM';
-import Block from '../core/block';
+import renderDOM from './renderDOM';
+import Block from './block';
 
 interface BlockConstructable<Props> {
   new(props: any): Block<Props>;

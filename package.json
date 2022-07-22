@@ -83,5 +83,10 @@
     "nanoid": "^4.0.0",
     "path": "^0.12.7",
     "uuid": "^8.3.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   }
 }

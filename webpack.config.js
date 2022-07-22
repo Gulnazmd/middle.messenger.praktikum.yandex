@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -18,7 +20,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
-      filename: 'index.html'
+      filename: 'index.html',
     }),
     new CleanWebpackPlugin(),
     new webpack.DefinePlugin({

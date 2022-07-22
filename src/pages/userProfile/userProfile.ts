@@ -27,11 +27,10 @@ interface IProfilePageProps {
 }
 
 class userProfile extends Block<IProfilePageProps> {
-
   constructor(props: IProfilePageProps) {
     super({
       ...props,
-    })
+    });
   }
 
   componentDidMount(): void {
@@ -100,7 +99,7 @@ class userProfile extends Block<IProfilePageProps> {
       changePassword: (title: string) => this.props.dispatch(changePassword, { title }),
       isPasswordWindowOpen: false,
       onChangePasswordWindowClose: this.onChangePasswordWindow.bind(this, false),
-      onChangePasswordWindowOpen: this.onChangePasswordWindow.bind(this, true)
+      onChangePasswordWindowOpen: this.onChangePasswordWindow.bind(this, true),
     };
   }
 

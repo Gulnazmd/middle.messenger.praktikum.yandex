@@ -1,3 +1,4 @@
-const register = require('@babel/register').default
+/* eslint-disable */
+const register = require('@babel/register').default;
 
-register({ extensions: ['.ts', '.tsx', '.js', '.jsx'] })
+register({ extensions: ['.ts', '.tsx', '.js', '.jsx'] });
