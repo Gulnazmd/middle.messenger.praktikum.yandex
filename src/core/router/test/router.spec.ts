@@ -1,10 +1,10 @@
 /* eslint-disable */
 import { expect } from 'chai';
 import 'jsdom-global/register';
-import { JSDOM } from 'jsdom';
-import Router from '../router';
-import { LoginPage } from '../../../pages/login';
-import { Screens } from '../../screens';
+//import { JSDOM } from 'jsdom';
+//import Router from '../router';
+//import { LoginPage } from '../../../pages/login';
+//mport { Screens } from '../../screens';
 
 describe('Router', () => {
   /*

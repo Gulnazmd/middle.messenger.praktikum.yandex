@@ -1,4 +1,4 @@
-import Block from 'core/block';
+import Block from '../../core/block';
 import './field.css';
 import { IfieldProps } from './types';
 

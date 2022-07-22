@@ -1,4 +1,4 @@
-import Block from 'core/block';
+import Block from '../../../core/block';
 import './dropdown.css';
 import { IDropdownItemProps } from './dropdownItem/dropdownItem';
 

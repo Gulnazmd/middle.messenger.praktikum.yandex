@@ -5,7 +5,6 @@ import { Dispatch } from '../../../../core/store';
 import { createChat, searchUser } from '../../../../services/chats';
 import { withRouter, withStore } from '../../../../utils';
 import '../../chats.css';
-import noIcon from '../../../../images/no-icon.png';
 
 interface IChatProps {
   id: number,
@@ -89,7 +88,7 @@ class ChatList extends Block<IChatsListPropsWithEvents> {
             class="list-item chats__list-item ${chat.id === this.props.activeChat?.id ? 'list-item chats__list-item_active' : ''}"
             ${chat.id}
             data-id=${chat.id}>
-            <img src="${chat.avatar}" width="32" height="32" alt="${noIcon}">
+            <img src="${chat.avatar}" width="32" height="32">
             <span class="userName chats__userName">${chat.title}</span>
             <span class="span-3 chats__span-3"></span>
           </li>

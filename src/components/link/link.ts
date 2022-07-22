@@ -1,4 +1,4 @@
-import Block from 'core/block';
+import Block from '../../core/block';
 import { ILinkProps } from './types';
 import './link.css';
 
