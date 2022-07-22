@@ -1,4 +1,4 @@
-import Block from 'core/block';
+import Block from '../../../../core/block';
 import '../../chats.css';
 import { IChatFormProps } from './types';
 

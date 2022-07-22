@@ -1,9 +1,9 @@
-import Block from 'core/block';
+import Block from '../../core/block';
 import '../main.css';
-import Validate from 'core/validation';
-import { Dispatch, Store } from 'core/store';
-import Router from 'core/router';
-import { Screens } from 'core/screens';
+import Validate from '../../core/validation';
+import { Dispatch, Store } from '../../core/store';
+import Router from '../../core/router/router';
+import { Screens } from '../../core/screens';
 import { withRouter, withStore } from '../../utils';
 import {
   getUser, changeUserProfile, changeAvatar, changePassword,

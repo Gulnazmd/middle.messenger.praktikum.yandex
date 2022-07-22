@@ -1,8 +1,8 @@
-import Block from 'core/block';
-import Router from 'core/router';
-import { Screens } from 'core/screens';
-import { Dispatch } from 'core/store';
-import { createChat, searchUser } from 'services/chats';
+import Block from '../../../../core/block';
+import Router from '../../../../core/router/router';
+import { Screens } from '../../../../core/screens';
+import { Dispatch } from '../../../../core/store';
+import { createChat, searchUser } from '../../../../services/chats';
 import { withRouter, withStore } from '../../../../utils';
 import '../../chats.css';
 import noIcon from '../../../../images/no-icon.png';

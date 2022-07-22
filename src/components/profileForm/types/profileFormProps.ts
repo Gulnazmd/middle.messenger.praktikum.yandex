@@ -1,4 +1,4 @@
-import { InputType } from 'components/input/types';
+import { InputType } from '../../../components/input/types';
 
 type InputVariants = 'login';
 
