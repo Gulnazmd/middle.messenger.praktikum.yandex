@@ -1,16 +1,16 @@
-import Block from 'core/block';
+import Block from '../../core/block';
 import '../main.css';
-import Validate from 'core/validation';
-import { Dispatch, Store } from 'core/store';
-import Router from 'core/router';
-import { Screens } from 'core/screens';
-import { withRouter, withStore } from 'utils';
+import Validate from '../../core/validation';
+import { Dispatch, Store } from '../../core/store';
+import Router from '../../core/router/router';
+import { Screens } from '../../core/screens';
+import { withRouter, withStore } from '../../utils';
 import {
   getUser, changeUserProfile, changeAvatar, changePassword,
-} from 'services/profile';
-import { logout } from 'services/auth';
-import { registerComponent } from 'core';
-import ChangePassword from 'components/changePassword/changePassword';
+} from '../../services/profile';
+import { logout } from '../../services/auth';
+import { registerComponent } from '../../core';
+import ChangePassword from '../../components/changePassword/changePassword';
 
 registerComponent(ChangePassword, 'ChangePassword');
 
@@ -27,11 +27,10 @@ interface IProfilePageProps {
 }
 
 class userProfile extends Block<IProfilePageProps> {
-
   constructor(props: IProfilePageProps) {
     super({
       ...props,
-    })
+    });
   }
 
   componentDidMount(): void {
@@ -100,7 +99,7 @@ class userProfile extends Block<IProfilePageProps> {
       changePassword: (title: string) => this.props.dispatch(changePassword, { title }),
       isPasswordWindowOpen: false,
       onChangePasswordWindowClose: this.onChangePasswordWindow.bind(this, false),
-      onChangePasswordWindowOpen: this.onChangePasswordWindow.bind(this, true)
+      onChangePasswordWindowOpen: this.onChangePasswordWindow.bind(this, true),
     };
   }
 

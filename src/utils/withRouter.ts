@@ -1,4 +1,4 @@
-import { BlockConstructable, Router } from 'core';
+import { BlockConstructable, Router } from '../core';
 
 type WithRouterProps = { router: Router };
 

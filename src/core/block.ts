@@ -1,4 +1,5 @@
 /* eslint-disable */
+// @ts-nocheck
 import { nanoid } from 'nanoid';
 import * as Handlebars from 'handlebars';
 import EventBus from './eventBus';

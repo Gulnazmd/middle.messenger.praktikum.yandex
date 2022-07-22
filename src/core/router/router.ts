@@ -1,5 +1,5 @@
-import Block from './block';
-import Route from './route';
+import Block from '../block';
+import Route from '../route';
 
 interface BlockConstructable<Props extends {}> {
   new(props: any): Block<Props>;
@@ -12,7 +12,7 @@ class Router {
 
   private _pathnames: string[];
 
-  private _currentRoute: Route | null;
+  private _currentRoute: Nullable<Route>;
 
   routes: Route[];
 

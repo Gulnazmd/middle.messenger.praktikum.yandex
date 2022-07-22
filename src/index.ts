@@ -1,21 +1,21 @@
-import { Button } from 'components/button';
 import {
+  Button,
   Link,
   Input,
   Field,
-} from 'components';
-import { registerComponent, Store, Router } from 'core';
+} from './components';
+import { registerComponent, Store, Router } from './core';
 import './style.css';
-import { Screens } from 'core/screens';
-import { LoginPage } from 'pages/login';
-import { RegPage } from 'pages/registration';
-import { userProfile } from 'pages/userProfile';
-import Error from 'pages/errors/error';
-import Avatar from 'components/avatar/avatar';
-import { ChatsPage } from 'modules/chats';
-import { defaultState } from 'store';
-import { initApp } from 'services/initApp';
-import { Dropdown } from 'components/dropdown';
+import { Screens } from './core/screens';
+import { LoginPage } from './pages/login';
+import { RegPage } from './pages/registration';
+import { userProfile } from './pages/userProfile';
+import Error from './pages/errors/error';
+import Avatar from './components/avatar/avatar';
+import { ChatsPage } from './modules/chats';
+import { defaultState } from './store';
+import { initApp } from './services/initApp';
+import { Dropdown } from './components/dropdown';
 
 function registerComponents() {
   registerComponent(Button, 'Button');

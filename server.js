@@ -1,15 +1,16 @@
 /* eslint-disable */
-require('dotenv').config()
 const express = require('express');
+const path = require('path');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.use(express.static('./'));
+app.use(express.static(`${__dirname}/dist/`));
 
-app.get('/*', (req, res) => {
-  res.sendFile('dist/index.html');
+app.listen(PORT, () => {
+  console.log(`Example app started on http://localhost:${PORT}/`);
 });
 
-app.listen(process.env.PORT || 3000, function () {
-  console.log(`Example app listening on port ${process.env.PORT}!`);
+app.get('*', (request, response) => {
+  response.sendFile(path.resolve(`${__dirname}/dist/index.html`));
 });
