@@ -2,7 +2,7 @@
   "compilerOptions": {
   "baseUrl": "src",
   "outDir": "dist",
-  "target": "es2016",
+  "target": "es2021",
   "declaration": false,
   "module": "commonjs",
   "strictNullChecks": true,
@@ -11,6 +11,7 @@
   "noUnusedLocals": true,
   "noUnusedParameters": true,
   "esModuleInterop": true,
-  "forceConsistentCasingInFileNames": false
+  "forceConsistentCasingInFileNames": false,
+  "typeRoots": ["./node_modules/@types", "./src/types"]
  }
 }
