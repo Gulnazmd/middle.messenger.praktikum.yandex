@@ -1,6 +1,9 @@
-import { UserDTO } from 'api/types/types';
-import { ChatDTO } from 'api/types/chatsTypes';
-import { MessageDTO } from 'api/types/messageTypes';
+import { UserDTO } from '../api/types/types';
+import { ChatDTO } from '../api/types/chatsTypes';
+import { MessageDTO } from '../api/types/messageTypes';
+import { Message } from '../types/message';
+import { User } from '../types/user';
+import { Chat } from '../types/chat';
 
 const AVATAR_BASE_URL = 'https://ya-praktikum.tech/api/v2/resources';
 

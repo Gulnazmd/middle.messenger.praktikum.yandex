@@ -1,4 +1,5 @@
 import { Block, Dispatch } from '../../core';
+import { AppState } from '../../types/appState';
 import './changePassword.css';
 
 interface IChangePasswordProps {

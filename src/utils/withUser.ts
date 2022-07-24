@@ -1,11 +1,13 @@
 import { BlockConstructable } from '../core';
+import { User } from '../types/user';
+import { AppState } from '../types/appState';
 
 type WithUserProps = { user: User | null };
 
 export function withUser<P extends WithUserProps>(WrappedBlock: BlockConstructable<P>) {
   return class extends WrappedBlock {
     constructor(props: P) {
-      super({ ...props, user: window.store.getState().user });
+      super({ ...props, user: (<any>window).store.getState().user });
     }
 
     __onChangeUserCallback = (prevState: AppState, nextState: AppState) => {
@@ -16,12 +18,12 @@ export function withUser<P extends WithUserProps>(WrappedBlock: BlockConstructab
 
     componentDidMount(props: P) {
       super.componentDidMount(props);
-      window.store.on('changed', this.__onChangeUserCallback);
+      (<any>window).store.on('changed', this.__onChangeUserCallback);
     }
 
     componentWillUnmount() {
       super.componentWillUnmount();
-      window.store.off('changed', this.__onChangeUserCallback);
+      (<any>window).store.off('changed', this.__onChangeUserCallback);
     }
   };
 }

@@ -1,3 +1,5 @@
+import { AppState } from 'types/appState';
+import { User } from 'types/user';
 import Block from '../../core/block';
 import '../main.css';
 import Validate from '../../core/validation';
@@ -16,7 +18,7 @@ registerComponent(ChangePassword, 'ChangePassword');
 
 interface IProfilePageProps {
   router: Router;
-  user: Nullable<User>,
+  user: User | null,
   store: Store<AppState>,
   isPasswordWindowClosed: boolean
   onLogout?: () => void,

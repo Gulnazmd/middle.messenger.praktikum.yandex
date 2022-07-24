@@ -1,14 +1,18 @@
-
 {
   "exclude": [
-    "./node_modules/",
-    "./dist/",
-    "./test/"
+    "node_modules/",
+    "dist/",
+    "src/tests/"
   ],
   "extension": [
-    ".ts"
+    "ts"
   ],
-  "spec": "src/**/*.spec.ts",
-  "require": "babel-register.js"
-
+  "package":"package.json",
+  "require": [
+    "babel-register.js",
+    "jsdom-global/register",
+    "ts-node/register",
+    "tsconfig-paths/register"
+  ],
+  "spec": "src/**/*.spec.ts"
 }

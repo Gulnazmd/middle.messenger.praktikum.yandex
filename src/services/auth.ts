@@ -1,10 +1,11 @@
-import Screens from 'core/screens/screens';
-import { SignupFormData } from 'components/authForm/types/formData';
-import { apiError } from 'utils/apiError';
-import { transformUser } from 'utils/apiTransformers';
-import authAPI from 'api/auth';
+import Screens from '../core/screens/screens';
+import { SignupFormData } from '../components/authForm/types/formData';
+import { apiError } from '../utils/apiError';
+import { transformUser } from '../utils/apiTransformers';
+import authAPI from '../api/auth';
 import type { Dispatch } from '../core';
 import { LoginPayload, SignupPayload } from './types/auth';
+import { AppState } from '../types/appState';
 
 export const loginService = async (
   dispatch: Dispatch<AppState>,
@@ -31,7 +32,7 @@ export const loginService = async (
 
   dispatch({ user: transformUser(responseUser) });
 
-  window.router.go(Screens.CHATSPAGE);
+  (<any>window).router.go(Screens.CHATSPAGE);
 };
 
 export const signup = async (
@@ -77,17 +78,17 @@ export const signup = async (
 
   dispatch({ user: transformUser(responseUser) });
 
-  window.router.go(Screens.PROFILEPAGE);
+  (<any>window).router.go(Screens.PROFILEPAGE);
 };
 
 export const logout = async (dispatch: Dispatch<AppState>) => {
   await authAPI.logout();
 
-  const currentRoute = window.router.getRoute(window.location.pathname);
+  const currentRoute = (<any>window).router.getRoute(window.location.pathname);
 
   if (currentRoute?.match(Screens.LOGIN) || currentRoute?.match(Screens.REGPAGE)) {
     return;
   }
   dispatch({ user: null });
-  window.router.go(Screens.LOGIN);
+  (<any>window).router.go(Screens.LOGIN);
 };

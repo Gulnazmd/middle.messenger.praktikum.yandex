@@ -5,6 +5,9 @@ import { Dispatch } from '../../../../core/store';
 import { createChat, searchUser } from '../../../../services/chats';
 import { withRouter, withStore } from '../../../../utils';
 import '../../chats.css';
+import { User } from '../../../../types/user';
+import { AppState } from '../../../../types/appState';
+import { Message } from '../../../../types/message';
 
 interface IChatProps {
   id: number,
@@ -19,7 +22,7 @@ interface IChatsListProps {
   dispatch: Dispatch<AppState>
   router: Router,
   messages: Message[],
-  user: Nullable<User>,
+  user: User | null,
   unreadCount: number
 }
 

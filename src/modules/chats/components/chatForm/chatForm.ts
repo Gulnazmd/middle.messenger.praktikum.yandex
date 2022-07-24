@@ -1,6 +1,7 @@
 import Block from '../../../../core/block';
 import '../../chats.css';
 import { IChatFormProps } from './types';
+import { Message } from '../../../../types/message';
 
 class ChatForm extends Block<IChatFormProps> {
   getChat() {

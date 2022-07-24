@@ -1,16 +1,20 @@
-import Block from 'core/block';
+import Block from '../../core/block';
 import './chats.css';
 import {
   addUserToChat, deleteChat, deleteUserFromChat, getChats, getChatUsers, searchUser,
-} from 'services/chats';
-import { createConnection } from 'services/sockets';
-import { IDropdownItem } from 'components/dropdown/components/dropdownItem';
-import { AddChat } from 'components/addChat';
-import { AddUser } from 'components/addUser';
+} from '../../services/chats';
+import { createConnection } from '../../services/sockets';
+import { IDropdownItem } from '../../components/dropdown/components/dropdownItem';
+import { AddChat } from '../../components/addChat';
+import { AddUser } from '../../components/addUser';
 import { withRouter, withStore } from '../../utils';
 import { Dispatch, registerComponent, Router } from '../../core';
 import { ChatForm } from './components/chatForm';
 import { ChatList } from './components/chatList';
+import { AppState } from '../../types/appState';
+import { Message } from '../../types/message';
+import { Chat } from '../../types/chat';
+import { User } from '../../types/user';
 import { MessageEditor } from './components/message';
 
 registerComponent(MessageEditor, 'MessageEditor');
@@ -25,7 +29,7 @@ interface IChatsProps {
   dispatch: Dispatch<AppState>
   router: Router,
   messages: Message[],
-  user: Nullable<User>,
+  user: User | null,
   chatMenu: IDropdownItem[],
 }
 

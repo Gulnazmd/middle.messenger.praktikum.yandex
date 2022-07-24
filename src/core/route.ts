@@ -14,7 +14,7 @@ export default class Route {
 
   private _blockClass: BlockConstructable<{}>;
 
-  private _block: Nullable<Block<{}>>;
+  private _block: Block<{}> | null;
 
   private _props: IProps;
 

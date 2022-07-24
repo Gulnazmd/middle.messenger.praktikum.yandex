@@ -1,8 +1,9 @@
-import { UserDTO } from 'api/types/types';
-import { transformUser } from 'utils/apiTransformers';
-import authAPI from 'api/auth';
-import { apiError } from 'utils/apiError';
+import { UserDTO } from '../api/types/userTypes';
+import { transformUser } from '../utils/apiTransformers';
+import authAPI from '../api/auth';
+import { apiError } from '../utils/apiError';
 import type { Dispatch } from '../core';
+import type { AppState } from '../types/appState';
 
 export async function initApp(dispatch: Dispatch<AppState>) {
   try {

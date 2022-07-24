@@ -1,5 +1,5 @@
 export default function Validate(value: string, name: string): string {
-  const errors = [];
+  const errors: string[] = [];
   switch (name) {
     case 'first_name':
     case 'second_name':

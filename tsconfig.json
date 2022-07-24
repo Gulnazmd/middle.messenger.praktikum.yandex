@@ -1,17 +1,31 @@
 {
   "compilerOptions": {
-  "baseUrl": "src",
-  "outDir": "dist",
-  "target": "es2021",
-  "declaration": false,
-  "module": "commonjs",
-  "strictNullChecks": true,
-  "sourceMap": true,
-  "noImplicitAny": true,
-  "noUnusedLocals": true,
-  "noUnusedParameters": true,
-  "esModuleInterop": true,
-  "forceConsistentCasingInFileNames": false,
-  "typeRoots": ["./node_modules/@types", "./src/types"]
- }
+    "baseUrl": "src",
+    "outDir": "dist",
+    "target": "es2017",
+    "declaration": false,
+    "module": "esnext",
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": false,
+    "typeRoots": ["./node_modules/@types", "src/types"],
+    "moduleResolution": "node"
+  },
+  "ts-node": {
+    "transpileOnly": true,
+    "compiler": "typescript",
+    "compilerOptions": {
+      "module": "commonjs"
+    },
+    "files": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "files": ["src/types/global.d.ts"],
+  "allowSyntheticDefaultImports": true
 }

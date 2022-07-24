@@ -1,6 +1,9 @@
+import { Message } from '../../../../../types/message';
+import { User } from '../../../../../types/user';
+
 interface IChatFormProps {
   messages: Message[],
-  user: Nullable<User>,
+  user: User | null,
   onClick?: () => void;
 }
 

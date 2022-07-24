@@ -4,7 +4,7 @@ import {
   Input,
   Field,
 } from './components';
-import { registerComponent, Store, Router } from './core';
+import { registerComponent, Router, Store } from './core';
 import './style.css';
 import { Screens } from './core/screens';
 import { LoginPage } from './pages/login';
@@ -16,6 +16,7 @@ import { ChatsPage } from './modules/chats';
 import { defaultState } from './store';
 import { initApp } from './services/initApp';
 import { Dropdown } from './components/dropdown';
+import { AppState } from './types/appState';
 
 function registerComponents() {
   registerComponent(Button, 'Button');
@@ -31,8 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const store = new Store<AppState>(defaultState);
   const router = new Router('#content');
-  window.router = router;
-  window.store = store;
+  (<any>window).router = router;
+  (<any>window).store = store;
 
   store.dispatch(initApp);
 
