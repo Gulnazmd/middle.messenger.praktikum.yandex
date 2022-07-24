@@ -7,7 +7,7 @@
     "dev": "webpack serve --stats-error-details",
     "serve": "webpack serve --mode=development --progress",
     "clear": "rm -r dist/*",
-    "test": "env TS_NODE_PROJECT=\"tsconfig.testing.json\" mocha --require ts-node/register --require jsdom-global/register 'src/tests/*.spec.ts'",
+    "test": "mocha",
     "prepare": "husky install",
     "start": "npm run build && node server.js -p 3000"
   },

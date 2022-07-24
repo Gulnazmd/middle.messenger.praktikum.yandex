@@ -1,14 +1,14 @@
 /* eslint-disable */
 import { assert } from 'chai';
 import 'jsdom-global/register';
-import Router from '../core/router';
+import Router from '../../router';
 /*
-import { Store } from '../core/store'
-import { defaultState } from '../store/index'
-import { AppState } from '../types/appState'
-import { initApp } from '../services/initApp';
-import { Screens } from '../core/screens';
-import { LoginPage } from '../pages/login';
+import { Store } from '../../../core/store'
+import { defaultState } from '../../../store/index'
+import { AppState } from '../../../types/appState'
+import { initApp } from '../../../services/initApp';
+import { Screens } from '../../../core/screens';
+import { LoginPage } from '../../../pages/login';
 */
 describe('Router', () => {
   it('router is created', () => {
