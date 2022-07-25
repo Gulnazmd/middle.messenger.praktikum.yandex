@@ -66,6 +66,7 @@ class userProfile extends Block<IProfilePageProps> {
           console.log('submit', this.state.values);
           const profileData = this.state.values;
           this.props.dispatch(changeUserProfile, profileData);
+          alert('Success');
         }
       },
       onExit: (e: MouseEvent) => {

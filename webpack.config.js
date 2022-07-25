@@ -12,6 +12,11 @@ module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: 'production',
   entry: './index.ts',
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: ASSET_PATH,
