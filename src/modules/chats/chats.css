@@ -28,6 +28,8 @@
   &__list {
     width: 180px;
     height: 78%;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
   &__prfl {
     color: var(--color-lilac);

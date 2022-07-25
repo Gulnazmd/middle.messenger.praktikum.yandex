@@ -3,20 +3,20 @@ import {
   Link,
   Input,
   Field,
-} from './components';
-import { registerComponent, Router, Store } from './core';
+} from 'components';
+import { registerComponent, Router, Store } from 'core';
 import './style.css';
-import { Screens } from './core/screens';
-import { LoginPage } from './pages/login';
-import { RegPage } from './pages/registration';
-import { userProfile } from './pages/userProfile';
-import Error from './pages/errors/error';
-import Avatar from './components/avatar/avatar';
-import { ChatsPage } from './modules/chats';
-import { defaultState } from './store';
+import { Screens } from 'core/screens';
+import { LoginPage } from 'pages/login';
+import { RegPage } from 'pages/registration';
+import { userProfile } from 'pages/userProfile';
+import Error from 'pages/errors/error';
+import Avatar from 'components/avatar/avatar';
+import { Dropdown } from 'components/dropdown';
+import { AppState } from 'types/appState';
 import { initApp } from './services/initApp';
-import { Dropdown } from './components/dropdown';
-import { AppState } from './types/appState';
+import { defaultState } from './store';
+import { ChatsPage } from './modules/chats';
 
 function registerComponents() {
   registerComponent(Button, 'Button');

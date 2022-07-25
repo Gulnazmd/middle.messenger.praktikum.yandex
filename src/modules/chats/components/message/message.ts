@@ -1,13 +1,13 @@
-import Block from '../../../../core/block';
+import Block from 'core/block';
 import '../../chats.css';
-import { Dispatch, Router } from '../../../../core';
-import Validate from '../../../../core/validation';
-import { sendMessage } from '../../../../services/sockets';
+import { Dispatch, Router } from 'core';
+import Validate from 'core/validation';
+import { AppState } from 'types/appState';
+import { Message } from 'types/message';
+import { User } from 'types/user';
+import { Chat } from 'types/chat';
 import { withRouter, withStore } from '../../../../utils';
-import { AppState } from '../../../../types/appState';
-import { Message } from '../../../../types/message';
-import { User } from '../../../../types/user';
-import { Chat } from '../../../../types/chat';
+import { sendMessage } from '../../../../services/sockets';
 
 interface IMessageProps {
   values: {};

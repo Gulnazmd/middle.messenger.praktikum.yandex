@@ -1,5 +1,5 @@
-import { Block } from '../../core';
-import { User } from '../../types/user';
+import { Block } from 'core';
+import { User } from 'types/user';
 import './deleteUser.css';
 
 interface IDeleteUserProps {

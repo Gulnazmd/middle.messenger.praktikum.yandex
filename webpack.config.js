@@ -33,7 +33,16 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js', '.json'],
     alias: {
-      handlebars: 'handlebars/dist/handlebars.min.js'
+      handlebars: 'handlebars/dist/handlebars.min.js',
+      components: path.resolve(__dirname, 'src/components'),
+      core: path.resolve(__dirname, 'src/core'),
+      pages: path.resolve(__dirname, 'src/pages'),
+      types: path.resolve(__dirname, 'src/types'),
+      utils: path.resolve(__dirname, 'src/utils'),
+      modules: path.resolve(__dirname, 'src/modules'),
+      store: path.resolve(__dirname, 'src/store'),
+      services: path.resolve(__dirname, 'src/services'),
+      api: path.resolve(__dirname, 'src/api'),
     },
   },
   devServer: {

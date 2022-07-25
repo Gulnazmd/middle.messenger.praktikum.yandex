@@ -1,10 +1,10 @@
+import type { Dispatch } from 'core';
+import { AppState } from 'types/appState';
 import { apiError } from '../utils/apiError';
 import { transformChats, transformUser } from '../utils/apiTransformers';
 import chatsAPI from '../api/chats';
 import userAPI from '../api/user';
-import type { Dispatch } from '../core';
 import { logout } from './auth';
-import { AppState } from '../types/appState';
 
 export const getChats = async (
   dispatch: Dispatch<AppState>,

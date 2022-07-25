@@ -1,11 +1,11 @@
-import Screens from '../core/screens/screens';
-import { SignupFormData } from '../components/authForm/types/formData';
+import Screens from 'core/screens/screens';
+import { SignupFormData } from 'components/authForm/types/formData';
+import type { Dispatch } from 'core';
+import { AppState } from 'types/appState';
 import { apiError } from '../utils/apiError';
 import { transformUser } from '../utils/apiTransformers';
 import authAPI from '../api/auth';
-import type { Dispatch } from '../core';
 import { LoginPayload, SignupPayload } from './types/auth';
-import { AppState } from '../types/appState';
 
 export const loginService = async (
   dispatch: Dispatch<AppState>,

@@ -1,4 +1,4 @@
-import Block from '../../core/block';
+import Block from 'core/block';
 import './avatar.css';
 import IAvatarProps from './types/props';
 

@@ -1,10 +1,10 @@
-import { Block, Router, Dispatch } from '../../core';
-import Validate from '../../core/validation';
+import { Block, Router, Dispatch } from 'core';
+import Validate from 'core/validation';
 import '../main.css';
-import { Screens } from '../../core/screens';
+import { Screens } from 'core/screens';
+import { AppState } from 'types/appState';
 import { withStore, withRouter } from '../../utils';
 import { loginService } from '../../services/auth';
-import { AppState } from '../../types/appState';
 
 interface ILoginProps {
   router: Router;

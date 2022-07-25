@@ -1,5 +1,5 @@
-import { BlockConstructable, Dispatch } from '../core';
-import { AppState } from '../types/appState';
+import { BlockConstructable, Dispatch } from 'core';
+import { AppState } from 'types/appState';
 
 interface PropsWithDispatch {
   dispatch: Dispatch<AppState>

@@ -1,4 +1,4 @@
-import Block from '../../core/block';
+import Block from 'core/block';
 import { IInputProps } from './types';
 
 interface IInputPropsWithEvents extends Omit<IInputProps, 'onBlur' | 'onFocus' | 'onChange'> {

@@ -1,13 +1,13 @@
-import Block from '../../../../core/block';
-import Router from '../../../../core/router/router';
-import { Screens } from '../../../../core/screens';
-import { Dispatch } from '../../../../core/store';
+import Block from 'core/block';
+import Router from 'core/router/router';
+import { Screens } from 'core/screens';
+import { Dispatch } from 'core/store';
+import { User } from 'types/user';
+import { AppState } from 'types/appState';
+import { Message } from 'types/message';
 import { createChat, searchUser } from '../../../../services/chats';
 import { withRouter, withStore } from '../../../../utils';
 import '../../chats.css';
-import { User } from '../../../../types/user';
-import { AppState } from '../../../../types/appState';
-import { Message } from '../../../../types/message';
 
 interface IChatProps {
   id: number,

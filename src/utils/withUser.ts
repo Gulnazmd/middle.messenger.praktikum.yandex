@@ -1,6 +1,6 @@
-import { BlockConstructable } from '../core';
-import { User } from '../types/user';
-import { AppState } from '../types/appState';
+import { BlockConstructable } from 'core';
+import { User } from 'types/user';
+import { AppState } from 'types/appState';
 
 type WithUserProps = { user: User | null };
 

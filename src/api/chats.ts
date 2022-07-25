@@ -1,4 +1,4 @@
-import HTTP from '../core/fetch';
+import HTTP from 'core/fetch';
 import {
   CreateChatRequest,
   CreateChatResponseData,

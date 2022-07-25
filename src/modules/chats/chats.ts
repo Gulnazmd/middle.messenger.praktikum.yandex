@@ -1,14 +1,14 @@
-import Block from '../../core/block';
+import Block from 'core/block';
 import './chats.css';
+import { IDropdownItem } from 'components/dropdown/components/dropdownItem';
+import { AddChat } from 'components/addChat';
+import { AddUser } from 'components/addUser';
+import { Dispatch, registerComponent, Router } from 'core';
+import { withRouter, withStore } from '../../utils';
+import { createConnection } from '../../services/sockets';
 import {
   addUserToChat, deleteChat, deleteUserFromChat, getChats, getChatUsers, searchUser,
 } from '../../services/chats';
-import { createConnection } from '../../services/sockets';
-import { IDropdownItem } from '../../components/dropdown/components/dropdownItem';
-import { AddChat } from '../../components/addChat';
-import { AddUser } from '../../components/addUser';
-import { withRouter, withStore } from '../../utils';
-import { Dispatch, registerComponent, Router } from '../../core';
 import { ChatForm } from './components/chatForm';
 import { ChatList } from './components/chatList';
 import { AppState } from '../../types/appState';

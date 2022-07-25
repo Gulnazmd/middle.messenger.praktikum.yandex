@@ -1,18 +1,18 @@
 import { AppState } from 'types/appState';
 import { User } from 'types/user';
-import Block from '../../core/block';
+import Block from 'core/block';
 import '../main.css';
-import Validate from '../../core/validation';
-import { Dispatch, Store } from '../../core/store';
-import Router from '../../core/router/router';
-import { Screens } from '../../core/screens';
+import Validate from 'core/validation';
+import { Dispatch, Store } from 'core/store';
+import Router from 'core/router/router';
+import { Screens } from 'core/screens';
+import { registerComponent } from 'core';
+import ChangePassword from 'components/changePassword/changePassword';
 import { withRouter, withStore } from '../../utils';
 import {
   getUser, changeUserProfile, changeAvatar, changePassword,
 } from '../../services/profile';
 import { logout } from '../../services/auth';
-import { registerComponent } from '../../core';
-import ChangePassword from '../../components/changePassword/changePassword';
 
 registerComponent(ChangePassword, 'ChangePassword');
 
