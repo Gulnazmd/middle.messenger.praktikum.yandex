@@ -10,7 +10,7 @@ const ASSET_PATH = process.env.ASSET_PATH || '/';
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
-  mode: 'development',
+  mode: 'production',
   entry: './index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -72,9 +72,9 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(png|jpe?g|gif|jp2|webp)$/,
-        type: 'asset/resource',
-      },
+        test: /\.png/,
+        type: 'asset/resource'
+      }
     ],
   },
 };
