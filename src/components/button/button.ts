@@ -14,7 +14,7 @@ class Button extends Block<IButtonPropsWithEvents> {
       onClick, className, id, label, type, dataId, text,
     } = props;
 
-    const classNames = [];
+    const classNames: string[] = [];
     if (className) {
       classNames.push(className);
     }

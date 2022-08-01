@@ -1,5 +1,6 @@
 import { Block } from 'core';
 import './addUser.css';
+import { User } from '../../types/user';
 
 interface IAddUserProps {
   close: () => void,

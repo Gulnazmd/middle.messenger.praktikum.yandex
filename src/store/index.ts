@@ -1,3 +1,5 @@
+import { AppState } from 'types/appState';
+
 export const defaultState: AppState = {
   isLoading: false,
   loginFormError: '',

@@ -1,4 +1,17 @@
 {
-  "extension": ["ts"],
-  "spec": "test/**/*.spec.ts"
+  "exclude": [
+    "node_modules/",
+    "dist/"
+  ],
+  "extension": [
+    "ts"
+  ],
+  "package":"package.json",
+  "require": [
+    "babel-register.js",
+    "jsdom-global/register",
+    "ts-node/register",
+    "tsconfig-paths/register"
+  ],
+  "spec": "src/**/*.spec.ts"
 }

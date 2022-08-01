@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "es2017",
+    "module": "esnext",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "lib": [
+      "es2017",
+      "dom"
+    ]
+  },
+  "include": ["src/**/*.spec.ts"],
+}

@@ -1,10 +1,10 @@
-import { Button } from 'components/button';
 import {
+  Button,
   Link,
   Input,
   Field,
 } from 'components';
-import { registerComponent, Store, Router } from 'core';
+import { registerComponent, Router, Store } from 'core';
 import './style.css';
 import { Screens } from 'core/screens';
 import { LoginPage } from 'pages/login';
@@ -12,10 +12,11 @@ import { RegPage } from 'pages/registration';
 import { userProfile } from 'pages/userProfile';
 import Error from 'pages/errors/error';
 import Avatar from 'components/avatar/avatar';
-import { ChatsPage } from 'modules/chats';
-import { defaultState } from 'store';
-import { initApp } from 'services/initApp';
 import { Dropdown } from 'components/dropdown';
+import { AppState } from 'types/appState';
+import { initApp } from './services/initApp';
+import { defaultState } from './store';
+import { ChatsPage } from './modules/chats';
 
 function registerComponents() {
   registerComponent(Button, 'Button');
@@ -31,8 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const store = new Store<AppState>(defaultState);
   const router = new Router('#content');
-  window.router = router;
-  window.store = store;
+  (<any>window).router = router;
+  (<any>window).store = store;
 
   store.dispatch(initApp);
 

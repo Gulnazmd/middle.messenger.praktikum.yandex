@@ -1,4 +1,4 @@
-import 'pages/main.css';
+import '../main.css';
 import Block from 'core/block';
 
 class Error extends Block<{}> {

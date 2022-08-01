@@ -1,6 +1,10 @@
-import { UserDTO } from 'api/types/types';
-import { ChatDTO } from 'api/types/chatsTypes';
-import { MessageDTO } from 'api/types/messageTypes';
+import { Message } from 'types/message';
+import { User } from 'types/user';
+import { Chat } from 'types/chat';
+import { UserDTO } from '../api/types/types';
+import { ChatDTO } from '../api/types/chatsTypes';
+import { MessageDTO } from '../api/types/messageTypes';
+import noIcon from '../images/noIcon.png';
 
 const AVATAR_BASE_URL = 'https://ya-praktikum.tech/api/v2/resources';
 
@@ -17,7 +21,7 @@ export const transformUser = (data: UserDTO): User => ({
 export const transformChats = (data: ChatDTO[] = []): Chat[] => data.map((chat) => ({
   id: chat.id,
   title: chat.title,
-  avatar: chat.avatar ? `${AVATAR_BASE_URL}${chat.avatar}` : '',
+  avatar: chat.avatar ? `${AVATAR_BASE_URL}${chat.avatar}` : `${noIcon}`,
   unreadCount: chat.unread_count,
 }));
 

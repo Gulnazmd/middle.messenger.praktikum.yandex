@@ -1,9 +1,10 @@
 import { Block, Router, Dispatch } from 'core';
 import Validate from 'core/validation';
-import 'pages/main.css';
+import '../main.css';
 import { Screens } from 'core/screens';
-import { withStore, withRouter } from 'utils';
-import { loginService } from 'services/auth';
+import { AppState } from 'types/appState';
+import { withStore, withRouter } from '../../utils';
+import { loginService } from '../../services/auth';
 
 interface ILoginProps {
   router: Router;
@@ -53,7 +54,7 @@ class LoginPage extends Block<ILoginProps> {
   }
 
   componentDidMount() {
-    if (window.store.getState().user) {
+    if ((<any>window).store.getState().user) {
       this.props.router.go('/chats');
     }
   }

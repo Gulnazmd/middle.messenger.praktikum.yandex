@@ -1,10 +1,11 @@
 import Block from 'core/block';
 import '../main.css';
 import Validate from 'core/validation';
-import { Dispatch, Router } from 'core';
 import { Screens } from 'core/screens';
-import { signup } from 'services/auth';
-import { withRouter, withStore } from 'utils';
+import { Dispatch, Router } from 'core';
+import { AppState } from 'types/appState';
+import { signup } from '../../services/auth';
+import { withRouter, withStore } from '../../utils';
 
 interface IRegPageProps {
   router: Router,

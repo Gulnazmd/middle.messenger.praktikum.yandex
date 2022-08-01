@@ -1,4 +1,5 @@
 import { BlockConstructable, Dispatch } from 'core';
+import { AppState } from 'types/appState';
 
 interface PropsWithDispatch {
   dispatch: Dispatch<AppState>
@@ -12,27 +13,27 @@ export function withStore<P extends PropsWithDispatch>(
     constructor(props: P) {
       super({
         ...props,
-        ...mapStateToProps(window.store.getState()),
-        dispatch: window.store.dispatch.bind(window.store),
+        ...mapStateToProps((<any>window).store.getState()),
+        dispatch: (<any>window).store.dispatch.bind((<any>window).store),
       });
     }
 
     __onChangeStoreCallback = () => {
       this.setProps({
         ...this.props,
-        ...mapStateToProps(window.store.getState()),
-        dispatch: window.store.dispatch.bind(window.store),
+        ...mapStateToProps((<any>window).store.getState()),
+        dispatch: (<any>window).store.dispatch.bind((<any>window).store),
       });
     };
 
     componentDidMount(props: P) {
       super.componentDidMount(props);
-      window.store.on('changed', this.__onChangeStoreCallback);
+      (<any>window).store.on('changed', this.__onChangeStoreCallback);
     }
 
     componentWillUnmount() {
       super.componentWillUnmount();
-      window.store.off('changed', this.__onChangeStoreCallback);
+      (<any>window).store.off('changed', this.__onChangeStoreCallback);
     }
   };
 }

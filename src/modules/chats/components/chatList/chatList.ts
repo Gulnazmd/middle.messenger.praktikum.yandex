@@ -1,11 +1,13 @@
 import Block from 'core/block';
-import Router from 'core/router';
+import Router from 'core/router/router';
 import { Screens } from 'core/screens';
 import { Dispatch } from 'core/store';
-import { createChat, searchUser } from 'services/chats';
+import { User } from 'types/user';
+import { AppState } from 'types/appState';
+import { Message } from 'types/message';
+import { createChat, searchUser } from '../../../../services/chats';
 import { withRouter, withStore } from '../../../../utils';
 import '../../chats.css';
-import noIcon from 'images/no-icon.png';
 
 interface IChatProps {
   id: number,
@@ -20,7 +22,7 @@ interface IChatsListProps {
   dispatch: Dispatch<AppState>
   router: Router,
   messages: Message[],
-  user: Nullable<User>,
+  user: User | null,
   unreadCount: number
 }
 
@@ -89,7 +91,7 @@ class ChatList extends Block<IChatsListPropsWithEvents> {
             class="list-item chats__list-item ${chat.id === this.props.activeChat?.id ? 'list-item chats__list-item_active' : ''}"
             ${chat.id}
             data-id=${chat.id}>
-            <img src="${chat.avatar}" width="32" height="32" alt="${noIcon}">
+            <img src="${chat.avatar}" width="32" height="32">
             <span class="userName chats__userName">${chat.title}</span>
             <span class="span-3 chats__span-3"></span>
           </li>

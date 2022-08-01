@@ -2,8 +2,12 @@ import Block from 'core/block';
 import '../../chats.css';
 import { Dispatch, Router } from 'core';
 import Validate from 'core/validation';
-import { sendMessage } from 'services/sockets';
-import { withRouter, withStore } from 'utils';
+import { AppState } from 'types/appState';
+import { Message } from 'types/message';
+import { User } from 'types/user';
+import { Chat } from 'types/chat';
+import { withRouter, withStore } from '../../../../utils';
+import { sendMessage } from '../../../../services/sockets';
 
 interface IMessageProps {
   values: {};
@@ -12,7 +16,7 @@ interface IMessageProps {
   dispatch: Dispatch<AppState>
   router: Router,
   messages: Message[],
-  user: Nullable<User>,
+  user: User | null,
 }
 
 export class MessageEditor extends Block<IMessageProps> {
